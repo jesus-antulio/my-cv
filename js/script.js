@@ -4,6 +4,9 @@ const ctx = canvas?.getContext("2d");
 const themeToggle = document.querySelector("#themeToggle");
 const menuToggle = document.querySelector("#menuToggle");
 const navLinks = document.querySelector("#navLinks");
+const secondaryExperienceOpen = document.querySelector("#secondaryExperienceOpen");
+const secondaryExperienceClose = document.querySelector("#secondaryExperienceClose");
+const secondaryExperienceModal = document.querySelector("#secondaryExperienceModal");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const systemDark = window.matchMedia("(prefers-color-scheme: dark)");
 
@@ -59,6 +62,26 @@ function closeMenu() {
 function toggleMenu() {
   const isOpen = navLinks?.classList.toggle("is-open");
   menuToggle?.setAttribute("aria-expanded", String(Boolean(isOpen)));
+}
+
+function openSecondaryExperience() {
+  if (!secondaryExperienceModal) return;
+
+  if (typeof secondaryExperienceModal.showModal === "function") {
+    secondaryExperienceModal.showModal();
+  } else {
+    secondaryExperienceModal.setAttribute("open", "");
+  }
+
+  document.body.style.overflow = "hidden";
+}
+
+function closeSecondaryExperience() {
+  if (!secondaryExperienceModal?.open) return;
+
+  secondaryExperienceModal.close();
+  document.body.style.overflow = "";
+  secondaryExperienceOpen?.focus();
 }
 
 function readCanvasColors() {
@@ -213,6 +236,17 @@ menuToggle?.addEventListener("click", toggleMenu);
 
 navLinks?.querySelectorAll("a").forEach((link) => {
   link.addEventListener("click", closeMenu);
+});
+
+secondaryExperienceOpen?.addEventListener("click", openSecondaryExperience);
+secondaryExperienceClose?.addEventListener("click", closeSecondaryExperience);
+
+secondaryExperienceModal?.addEventListener("click", (event) => {
+  if (event.target === secondaryExperienceModal) closeSecondaryExperience();
+});
+
+secondaryExperienceModal?.addEventListener("close", () => {
+  document.body.style.overflow = "";
 });
 
 document.addEventListener("keydown", (event) => {

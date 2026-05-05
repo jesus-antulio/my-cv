@@ -11,15 +11,15 @@
     <meta name="keywords" content="frontend developer, Angular, Ionic, Astro, JavaScript, TypeScript, web development" />
     <meta name="theme-color" content="#f6f3ec" />
     <meta name="color-scheme" content="light dark" />
-    <meta property="og:title" content="Jesús Jiménez | Frontend Developer" />
+    <meta property="og:title" content="Jesús A. Jiménez | Frontend Developer" />
     <meta property="og:description" content="Portafolio profesional y CV personal de Jesús Antulio Jiménez Delgado: desarrollador frontend especializado en Angular, Ionic y Astro." />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_ES" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Jesús Jiménez | Frontend Developer" />
+    <meta name="twitter:title" content="Jesús A. Jiménez | Frontend Developer" />
     <meta name="twitter:description" content="Portafolio profesional y CV personal de Jesús Antulio Jiménez Delgado: desarrollador frontend especializado en Angular, Ionic y Astro." />
-    <title>Jesús Jiménez | Frontend Developer</title>
-    <link rel="icon" href="assets/favicon/favicon.ico" type="image/x-icon" />
+    <title>Jesús A. Jiménez | Frontend Developer</title>
+    <!-- <link rel="icon" href="assets/favicon/favicon.ico" type="image/x-icon" /> -->
     <link rel="canonical" href="https://jesus-antulio.com.mx" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -51,9 +51,9 @@
     <header class="site-header">
       <nav class="nav-shell" aria-label="Navegación principal">
         <a href="#inicio" class="brand" aria-label="Ir al inicio">
-          <span class="brand-mark">JJ</span>
+          <span class="brand-mark">JA</span>
           <span>
-            <strong>Jesús Jiménez</strong>
+            <strong>Jesús A. Jiménez</strong>
             <small>Frontend Developer</small>
           </span>
         </a>
@@ -87,10 +87,12 @@
         <div class="hero-grid">
           <div class="hero-copy">
             <p class="kicker">Desarrollador Frontend | Ingeniería en Sistemas Inteligentes</p>
-            <h1>Interfaces modernas para productos web que necesitan sentirse vivos.</h1>
+            <h1>
+              Experto en Desarrollo Web
+            </h1>
             <p class="hero-lead">
               Soy Jesús Antulio Jiménez Delgado, desarrollador Front-End en San Luis Potosí. Construyo aplicaciones
-              dinámicas, responsivas y mantenibles con Angular, Ionic, Astro y TypeScript.
+              dinámicas, responsivas y mantenibles principalmente con Angular, Ionic. 
             </p>
 
             <div class="hero-actions">
@@ -132,8 +134,8 @@
                   <span>JA</span>
                 </div>
                 <div>
-                  <p>Jesús Antulio</p>
-                  <h2>Angular, Ionic y experiencias web de alto cuidado.</h2>
+                  <p>Jesús Antulio Jiménez Delgado</p>
+                  <h2>Angular, Ionic y experiencias web.</h2>
                 </div>
               </div>
               <div class="stack-cloud">
@@ -262,13 +264,59 @@
               <p>Videojuegos educativos con JavaScript y jQuery, participando en conceptualización, diseño gráfico y desarrollo funcional.</p>
             </article>
             <article class="timeline-item">
-              <span>2018 - 2023</span>
+              <span>LICENCIATURA | 2018 - 2023</span>
               <h3>Ingeniería en Sistemas Inteligentes | UASLP</h3>
               <p>Formación profesional en la Facultad de Ingeniería, San Luis Potosí, México.</p>
             </article>
+            <div class="secondary-experience-cta">
+              <p>
+                Además de estos roles técnicos, he sumado experiencia complementaria en atención a clientes, gestión de archivos y procesos administrativos que enriquecen mi perspectiva y habilidades para colaborar en equipos.
+              </p>
+              <button class="button button-secondary" type="button" id="secondaryExperienceOpen">
+                <i data-lucide="layers-3"></i>
+                Ver experiencia complementaria
+              </button>
+            </div>
           </div>
         </div>
       </section>
+
+      <dialog class="experience-modal" id="secondaryExperienceModal" aria-labelledby="secondaryExperienceTitle">
+        <div class="modal-panel">
+          <div class="modal-header">
+            <div>
+              <p class="eyebrow">Experiencia complementaria</p>
+              <h2 id="secondaryExperienceTitle">Roles que suman contexto.</h2>
+            </div>
+            <button class="icon-button" type="button" id="secondaryExperienceClose" aria-label="Cerrar experiencia complementaria">
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+
+          <div class="secondary-experience-list">
+            <article class="secondary-experience-item">
+              <span>Valuador de seguros</span>
+              <h3>Atención a asegurados en taller</h3>
+              <p>
+                Primer contacto con el cliente al llevar su unidad para la valuación de daños, seguimiento del proceso de reparación y entrega final del vehículo.
+              </p>
+              <div class="tag-row">
+                <span>Inventarios</span><span>Bitacoras</span><span>Cotizaciones</span>
+              </div>
+            </article>
+            <article class="secondary-experience-item">
+              <span>Archivista</span>
+              <h3>Clasificación y archivo de documentos</h3>
+              <p>
+                Organización de documentos físicos, clasificación, digitalización y gestión de archivos para facilitar su consulta y resguardo. Asi como validar que se siguiera la normatividad de ley de prevencion de lavado de dinero
+              </p>
+              <div class="tag-row">
+                <span>Colaboración</span><span>Organización</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </dialog>
 
       <section id="habilidades" class="section-band skills-section">
         <div class="section-stack">
