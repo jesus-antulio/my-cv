@@ -3,11 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Jesús Antulio Jiménez Delgado" />
     <meta
       name="description"
       content="Portafolio profesional y CV personal de Jesús Antulio Jiménez Delgado: desarrollador frontend especializado en Angular, Ionic y Astro."
     />
+    <meta name="keywords" content="frontend developer, Angular, Ionic, Astro, JavaScript, TypeScript, web development" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="color-scheme" content="light" />
+    <meta property="og:title" content="Jesús Jiménez | Portafolio & CV" />
+    <meta property="og:description" content="Portafolio profesional y CV personal de Jesús Antulio Jiménez Delgado: desarrollador frontend especializado en Angular, Ionic y Astro." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Jesús Jiménez | Portafolio & CV" />
+    <meta name="twitter:description" content="Portafolio profesional y CV personal de Jesús Antulio Jiménez Delgado: desarrollador frontend especializado en Angular, Ionic y Astro." />
     <title>Jesús Jiménez | Portafolio & CV</title>
+    <link rel="icon" href="assets/favicon/favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="https://jesus-antulio.com.mx" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -39,6 +52,8 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   </head>
   <body class="bg-cloud text-ink antialiased">
     <header class="sticky top-0 z-50 border-b border-slate-200/80 bg-cloud/90 backdrop-blur">
@@ -98,7 +113,7 @@
                 Ver experiencia
               </a>
               <a
-                href="cv-jesus-jimenez.pdf"
+                href="assets/docs/cv-jesus-jimenez.pdf"
                 download
                 class="inline-flex items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-5 py-3 font-extrabold text-ink transition hover:-translate-y-0.5 hover:border-lime-400 hover:text-lime-700"
               >
@@ -108,16 +123,16 @@
             </div>
 
             <div class="mt-10 grid max-w-xl grid-cols-3 gap-3">
-              <div class="metric-tile border-coral/40 bg-white">
-                <span class="text-3xl font-extrabold">2+</span>
+              <div class="metric-tile border-coral/40 bg-white" >
+                <span class="text-3xl font-extrabold counter" data-target="2" data-suffix="+">0</span>
                 <span class="text-sm text-slate-600">Años frontend</span>
               </div>
-              <div class="metric-tile border-aqua/40 bg-white">
-                <span class="text-3xl font-extrabold">3</span>
+              <div class="metric-tile border-aqua/40 bg-white" >
+                <span class="text-3xl font-extrabold counter" data-target="3">0</span>
                 <span class="text-sm text-slate-600">Roles técnicos</span>
               </div>
-              <div class="metric-tile border-limepop/60 bg-white">
-                <span class="text-3xl font-extrabold">8</span>
+              <div class="metric-tile border-limepop/60 bg-white" >
+                <span class="text-3xl font-extrabold counter" data-target="8">0</span>
                 <span class="text-sm text-slate-600">Tecnologías</span>
               </div>
             </div>
@@ -320,7 +335,7 @@
               <i data-lucide="map-pin" class="h-5 w-5"></i>
               San Luis Potosí, México
             </a>
-            <a class="contact-link" href="cv-jesus-jimenez.pdf" download>
+            <a class="contact-link" href="assets/docs/cv-jesus-jimenez.pdf" download>
               <i data-lucide="download" class="h-5 w-5"></i>
               Descargar CV
             </a>
@@ -330,10 +345,11 @@
     </main>
 
     <footer class="bg-slate-950 px-5 py-7 text-center text-sm text-slate-400">
-      <p>© 2026 Jesús Antulio Jiménez Delgado. Hecho con Tailwind CSS.</p>
+      <p>© 2026 Jesús Antulio Jiménez Delgado.</p>
     </footer>
 
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/aos.js"></script>
   </body>
 </html>
