@@ -9,334 +9,363 @@
       content="Portafolio profesional y CV personal de Jesús Antulio Jiménez Delgado: desarrollador frontend especializado en Angular, Ionic y Astro."
     />
     <meta name="keywords" content="frontend developer, Angular, Ionic, Astro, JavaScript, TypeScript, web development" />
-    <meta name="theme-color" content="#0f172a" />
-    <meta name="color-scheme" content="light" />
-    <meta property="og:title" content="Jesús Jiménez | Portafolio & CV" />
+    <meta name="theme-color" content="#f6f3ec" />
+    <meta name="color-scheme" content="light dark" />
+    <meta property="og:title" content="Jesús A. Jiménez | Frontend Developer" />
     <meta property="og:description" content="Portafolio profesional y CV personal de Jesús Antulio Jiménez Delgado: desarrollador frontend especializado en Angular, Ionic y Astro." />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_ES" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Jesús Jiménez | Portafolio & CV" />
+    <meta name="twitter:title" content="Jesús A. Jiménez | Frontend Developer" />
     <meta name="twitter:description" content="Portafolio profesional y CV personal de Jesús Antulio Jiménez Delgado: desarrollador frontend especializado en Angular, Ionic y Astro." />
-    <title>Jesús Jiménez | Portafolio & CV</title>
-    <link rel="icon" href="assets/favicon/favicon.ico" type="image/x-icon" />
+    <title>Jesús A. Jiménez | Frontend Developer</title>
+    <!-- <link rel="icon" href="assets/favicon/favicon.ico" type="image/x-icon" /> -->
     <link rel="canonical" href="https://jesus-antulio.com.mx" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              ink: "#0f172a",
-              night: "#111827",
-              cloud: "#f8fafc",
-              aqua: "#06b6d4",
-              coral: "#fb7185",
-              limepop: "#a3e635",
-              violetpop: "#8b5cf6",
-            },
-            fontFamily: {
-              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
-            },
-            boxShadow: {
-              glow: "0 20px 60px rgba(6, 182, 212, 0.18)",
-            },
-          },
-        },
-      };
-    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
+    <script>
+      (() => {
+        let storedTheme = null;
+
+        try {
+          storedTheme = localStorage.getItem("theme");
+        } catch {
+          storedTheme = null;
+        }
+
+        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        const theme = storedTheme === "light" || storedTheme === "dark" ? storedTheme : systemTheme;
+
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#0b0d10" : "#f6f3ec");
+      })();
+    </script>
     <link rel="stylesheet" href="styles.css" />
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   </head>
-  <body class="bg-cloud text-ink antialiased">
-    <header class="sticky top-0 z-50 border-b border-slate-200/80 bg-cloud/90 backdrop-blur">
-      <nav class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-        <a href="#inicio" class="flex items-center gap-3 font-extrabold tracking-tight">
-          <span class="grid h-10 w-10 place-items-center rounded-md bg-ink text-sm text-white">JJ</span>
-          <span>Jesús Jiménez</span>
+  <body>
+    <header class="site-header">
+      <nav class="nav-shell" aria-label="Navegación principal">
+        <a href="#inicio" class="brand" aria-label="Ir al inicio">
+          <span class="brand-mark">JA</span>
+          <span>
+            <strong>Jesús A. Jiménez</strong>
+            <small>Frontend Developer</small>
+          </span>
         </a>
 
-        <div class="hidden items-center gap-6 text-sm font-semibold text-slate-600 md:flex">
-          <a class="nav-link" href="#perfil">Perfil</a>
-          <a class="nav-link" href="#proyectos">Proyectos</a>
-          <a class="nav-link" href="#experiencia">Experiencia</a>
-          <a class="nav-link" href="#habilidades">Habilidades</a>
-          <a class="nav-link" href="#contacto">Contacto</a>
+        <div class="nav-links" id="navLinks">
+          <a href="#perfil">Perfil</a>
+          <a href="#proyectos">Proyectos</a>
+          <a href="#experiencia">Experiencia</a>
+          <a href="#habilidades">Habilidades</a>
+          <a href="#contacto">Contacto</a>
         </div>
 
-        <a
-          href="mailto:jesus_antulio@protonmail.com"
-          class="inline-flex items-center gap-2 rounded-md bg-ink px-4 py-2 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-slate-800"
-        >
-          <i data-lucide="send" class="h-4 w-4"></i>
-          Hablemos
-        </a>
+        <div class="nav-actions">
+          <button class="icon-button" type="button" id="themeToggle" aria-label="Cambiar tema" aria-pressed="false">
+            <i data-lucide="sun" class="theme-icon theme-icon-light"></i>
+            <i data-lucide="moon" class="theme-icon theme-icon-dark"></i>
+          </button>
+          <button class="icon-button menu-toggle" type="button" id="menuToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+            <i data-lucide="menu"></i>
+          </button>
+          <a class="button button-primary nav-cta" href="mailto:jesus_antulio@protonmail.com">
+            <i data-lucide="send"></i>
+            Hablemos
+          </a>
+        </div>
       </nav>
     </header>
 
     <main>
-      <section id="inicio" class="hero-band overflow-hidden">
-        <div class="mx-auto grid min-h-[calc(100vh-73px)] max-w-6xl items-center gap-12 px-5 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:py-20">
-          <div class="max-w-3xl">
-            <p class="mb-5 inline-flex rounded-md border border-aqua/25 bg-aqua/10 px-3 py-1 text-sm font-bold text-cyan-700">
-              Desarrollador Frontend | Ing. Sistemas Inteligentes
-            </p>
-            <h1 class="text-5xl font-extrabold leading-[1.02] tracking-normal text-ink sm:text-6xl lg:text-7xl">
-              Desarrollo aplicaciones web modernas con Angular.
+      <section id="inicio" class="hero-section">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="kicker">Desarrollador Frontend | Ingeniería en Sistemas Inteligentes</p>
+            <h1>
+              Experto en Desarrollo Web
             </h1>
-            <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-650">
-              Soy Jesús Antulio Jiménez Delgado, desarrollador Front-End en San Luis Potosí. Creo interfaces
-              dinámicas, responsivas y orientadas a la experiencia de usuario, integrando APIs, formularios
-              reactivos y arquitecturas modulares para productos web y multiplataforma.
+            <p class="hero-lead">
+              Soy Jesús Antulio Jiménez Delgado, desarrollador Front-End en San Luis Potosí. Construyo aplicaciones
+              dinámicas, responsivas y mantenibles principalmente con Angular, Ionic. 
             </p>
 
-            <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a
-                href="#proyectos"
-                class="inline-flex items-center justify-center gap-2 rounded-md bg-coral px-5 py-3 font-extrabold text-white shadow-lg shadow-rose-200 transition hover:-translate-y-0.5 hover:bg-rose-500"
-              >
-                <i data-lucide="sparkles" class="h-5 w-5"></i>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#proyectos">
+                <i data-lucide="sparkles"></i>
                 Ver proyectos
               </a>
-              <a
-                href="#experiencia"
-                class="inline-flex items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-5 py-3 font-extrabold text-ink transition hover:-translate-y-0.5 hover:border-aqua hover:text-cyan-700"
-              >
-                <i data-lucide="file-user" class="h-5 w-5"></i>
-                Ver experiencia
-              </a>
-              <a
-                href="assets/docs/cv-jesus-jimenez.pdf"
-                download
-                class="inline-flex items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-5 py-3 font-extrabold text-ink transition hover:-translate-y-0.5 hover:border-lime-400 hover:text-lime-700"
-              >
-                <i data-lucide="download" class="h-5 w-5"></i>
+              <a class="button button-secondary" href="assets/docs/cv-jesus-jimenez.pdf" download>
+                <i data-lucide="download"></i>
                 Descargar CV
               </a>
             </div>
 
-            <div class="mt-10 grid max-w-xl grid-cols-3 gap-3">
-              <div class="metric-tile border-coral/40 bg-white" >
-                <span class="text-3xl font-extrabold counter" data-target="2" data-suffix="+">0</span>
-                <span class="text-sm text-slate-600">Años frontend</span>
-              </div>
-              <div class="metric-tile border-aqua/40 bg-white" >
-                <span class="text-3xl font-extrabold counter" data-target="3">0</span>
-                <span class="text-sm text-slate-600">Roles técnicos</span>
-              </div>
-              <div class="metric-tile border-limepop/60 bg-white" >
-                <span class="text-3xl font-extrabold counter" data-target="8">0</span>
-                <span class="text-sm text-slate-600">Tecnologías</span>
-              </div>
+            <div class="metric-grid" aria-label="Resumen profesional">
+              <article class="metric-card">
+                <strong class="counter" data-target="2" data-suffix="+">0</strong>
+                <span>Años creando frontend</span>
+              </article>
+              <article class="metric-card">
+                <strong class="counter" data-target="3">0</strong>
+                <span>Roles técnicos</span>
+              </article>
+              <article class="metric-card">
+                <strong class="counter" data-target="8">0</strong>
+                <span>Tecnologías clave</span>
+              </article>
             </div>
           </div>
 
-          <div class="relative min-h-[460px]">
-            <canvas id="skillCanvas" class="absolute inset-0 h-full w-full" aria-hidden="true"></canvas>
-            <div class="relative z-10 ml-auto flex min-h-[460px] max-w-md flex-col justify-between rounded-lg border border-slate-200 bg-white/88 p-6 shadow-glow backdrop-blur">
-              <div class="flex items-start justify-between">
+          <div class="hero-visual" aria-label="Resumen de stack">
+            <canvas id="skillCanvas" aria-hidden="true"></canvas>
+            <article class="profile-panel">
+              <div class="panel-topline">
+                <span>Portfolio 2026</span>
+                <strong>Disponible</strong>
+              </div>
+              <div class="identity-lockup">
+                <div class="avatar-orbit">
+                  <span>JA</span>
+                </div>
                 <div>
-                  <p class="text-sm font-bold uppercase tracking-[0.22em] text-slate-500">Portfolio 2026</p>
-                  <h2 class="mt-3 text-3xl font-extrabold">Jesús Jiménez</h2>
-                </div>
-                <span class="rounded-md bg-limepop px-3 py-1 text-sm font-extrabold text-ink">Disponible</span>
-              </div>
-              <div class="space-y-3">
-                <p class="text-sm font-bold text-slate-500">Stack principal</p>
-                <div class="flex flex-wrap gap-2">
-                  <span class="skill-pill bg-aqua text-white">Angular</span>
-                  <span class="skill-pill bg-ink text-white">Tailwind</span>
-                  <span class="skill-pill bg-coral text-white">Ionic</span>
-                  <span class="skill-pill bg-violetpop text-white">TypeScript</span>
-                  <span class="skill-pill bg-limepop text-ink">Astro</span>
+                  <p>Jesús Antulio Jiménez Delgado</p>
+                  <h2>Angular, Ionic y experiencias web.</h2>
                 </div>
               </div>
-              <div class="grid grid-cols-2 gap-3">
-                <a class="social-button" href="mailto:jesus_antulio@protonmail.com">
-                  <i data-lucide="mail" class="h-5 w-5"></i>
+              <div class="stack-cloud">
+                <span>Angular</span>
+                <span>TypeScript</span>
+                <span>Ionic</span>
+                <span>Astro</span>
+                <span>Tailwind</span>
+                <span>APIs</span>
+              </div>
+              <div class="panel-links">
+                <a href="mailto:jesus_antulio@protonmail.com">
+                  <i data-lucide="mail"></i>
                   Correo
                 </a>
-                <a class="social-button" href="tel:+524448288334">
-                  <i data-lucide="phone" class="h-5 w-5"></i>
+                <a href="tel:+524448288334">
+                  <i data-lucide="phone"></i>
                   Teléfono
                 </a>
               </div>
-            </div>
+            </article>
           </div>
         </div>
       </section>
 
-      <section id="perfil" class="section-band bg-white">
-        <div class="mx-auto grid max-w-6xl gap-10 px-5 lg:grid-cols-[0.85fr_1.15fr]">
-          <div>
+      <section id="perfil" class="section-band">
+        <div class="section-grid">
+          <div class="section-heading">
             <p class="eyebrow">Perfil</p>
-            <h2 class="section-title">Frontend enfocado en interfaces dinámicas y mantenibles.</h2>
+            <h2>Frontend con criterio visual, arquitectura modular y foco en producto.</h2>
           </div>
-          <div class="grid gap-5 md:grid-cols-2">
-            <article class="info-card border-aqua/40">
-              <i data-lucide="layout-dashboard" class="card-icon text-cyan-600"></i>
+          <div class="feature-grid">
+            <article class="feature-card">
+              <i data-lucide="layout-dashboard"></i>
               <h3>Aplicaciones Angular</h3>
-              <p>Construcción de interfaces dinámicas y eficientes con componentes reutilizables y arquitectura modular.</p>
+              <p>Interfaces dinámicas con componentes reutilizables, formularios reactivos y flujos claros.</p>
             </article>
-            <article class="info-card border-coral/40">
-              <i data-lucide="rocket" class="card-icon text-rose-500"></i>
+            <article class="feature-card">
+              <i data-lucide="plug-zap"></i>
               <h3>Integración con APIs</h3>
-              <p>Experiencia conectando servicios, manejando formularios reactivos y resolviendo flujos reales de producto.</p>
+              <p>Conexión de servicios, manejo de datos y estados de interfaz listos para escenarios reales.</p>
             </article>
-            <article class="info-card border-limepop/70">
-              <i data-lucide="accessibility" class="card-icon text-lime-600"></i>
+            <article class="feature-card">
+              <i data-lucide="smartphone"></i>
               <h3>Web y móvil</h3>
-              <p>Conocimientos en Ionic y Capacitor para desarrollar experiencias multiplataforma con enfoque práctico.</p>
+              <p>Experiencias multiplataforma con Ionic y Capacitor sin perder consistencia visual.</p>
             </article>
-            <article class="info-card border-violetpop/40">
-              <i data-lucide="blocks" class="card-icon text-violet-600"></i>
+            <article class="feature-card">
+              <i data-lucide="gauge"></i>
               <h3>Rendimiento web</h3>
-              <p>Creación de landings con Astro, cuidando tiempos de carga, claridad visual y despliegues más ligeros.</p>
+              <p>Landings y sitios con Astro, cuidando carga, claridad y una publicación más ligera.</p>
             </article>
           </div>
         </div>
       </section>
 
-      <section id="proyectos" class="section-band bg-slate-950 text-white">
-        <div class="mx-auto max-w-6xl px-5">
-          <div class="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+      <section id="proyectos" class="section-band work-section">
+        <div class="section-stack">
+          <div class="work-heading">
             <div>
-              <p class="eyebrow text-cyan-300">Proyectos</p>
-              <h2 class="section-title text-white">Trabajo seleccionado.</h2>
+              <p class="eyebrow">Proyectos</p>
+              <h2>Trabajo seleccionado con una lectura más editorial.</h2>
             </div>
-            <p class="max-w-xl text-slate-300">
-              Áreas de trabajo basadas en mi experiencia profesional, listas para ampliar con capturas o enlaces públicos.
+            <p>
+              Áreas basadas en experiencia profesional, preparadas para sumar capturas, métricas o enlaces públicos
+              cuando estén disponibles.
             </p>
           </div>
 
-          <div class="grid gap-5 md:grid-cols-3">
+          <div class="project-grid">
             <article class="project-card">
-              <div class="project-visual bg-[linear-gradient(135deg,#06b6d4,#8b5cf6)]">
-                <i data-lucide="monitor-smartphone" class="h-12 w-12"></i>
-              </div>
-              <div class="p-5">
-                <h3>Aplicaciones Web Angular</h3>
-                <p>Interfaces dinámicas con componentes reutilizables, arquitectura modular e integración de librerías.</p>
-                <div class="tag-row">
-                  <span>Angular</span><span>TypeScript</span><span>APIs</span>
-                </div>
+              <div class="project-number">01</div>
+              <i data-lucide="monitor-smartphone"></i>
+              <h3>Aplicaciones Web Angular</h3>
+              <p>Componentes reutilizables, arquitectura modular e integración de librerías para productos internos.</p>
+              <div class="tag-row">
+                <span>Angular</span><span>TypeScript</span><span>APIs</span>
               </div>
             </article>
             <article class="project-card">
-              <div class="project-visual bg-[linear-gradient(135deg,#fb7185,#facc15)]">
-                <i data-lucide="shopping-bag" class="h-12 w-12"></i>
-              </div>
-              <div class="p-5">
-                <h3>Apps Móviles Híbridas</h3>
-                <p>Desarrollo móvil con Ionic y Capacitor para crear experiencias multiplataforma fluidas.</p>
-                <div class="tag-row">
-                  <span>Ionic</span><span>Capacitor</span><span>UX</span>
-                </div>
+              <div class="project-number">02</div>
+              <i data-lucide="app-window"></i>
+              <h3>Apps móviles híbridas</h3>
+              <p>Desarrollo con Ionic y Capacitor para experiencias multiplataforma fluidas y fáciles de mantener.</p>
+              <div class="tag-row">
+                <span>Ionic</span><span>Capacitor</span><span>UX</span>
               </div>
             </article>
             <article class="project-card">
-              <div class="project-visual bg-[linear-gradient(135deg,#a3e635,#06b6d4)] text-ink">
-                <i data-lucide="calendar-check" class="h-12 w-12"></i>
-              </div>
-              <div class="p-5">
-                <h3>Videojuegos Educativos</h3>
-                <p>Herramientas interactivas para apoyar la enseñanza, con diseño gráfico y desarrollo funcional.</p>
-                <div class="tag-row">
-                  <span>JavaScript</span><span>jQuery</span><span>Educación</span>
-                </div>
+              <div class="project-number">03</div>
+              <i data-lucide="gamepad-2"></i>
+              <h3>Videojuegos educativos</h3>
+              <p>Herramientas interactivas para enseñanza, desde conceptualización hasta desarrollo funcional.</p>
+              <div class="tag-row">
+                <span>JavaScript</span><span>jQuery</span><span>Educación</span>
               </div>
             </article>
           </div>
         </div>
       </section>
 
-      <section id="experiencia" class="section-band bg-white">
-        <div class="mx-auto grid max-w-6xl gap-10 px-5 lg:grid-cols-[0.85fr_1.15fr]">
-          <div>
+      <section id="experiencia" class="section-band">
+        <div class="section-grid">
+          <div class="section-heading sticky-heading">
             <p class="eyebrow">CV</p>
-            <h2 class="section-title">Experiencia, educación y habilidades.</h2>
-            <a
-              href="#contacto"
-              class="mt-6 inline-flex items-center gap-2 rounded-md bg-ink px-5 py-3 font-extrabold text-white transition hover:-translate-y-0.5 hover:bg-slate-800"
-            >
-              <i data-lucide="mail" class="h-5 w-5"></i>
+            <h2>Experiencia, educación y evolución técnica.</h2>
+            <a class="button button-secondary" href="#contacto">
+              <i data-lucide="mail"></i>
               Contactar
             </a>
           </div>
-          <div class="space-y-5">
-            <article class="timeline-item border-aqua/50">
+          <div class="timeline">
+            <article class="timeline-item">
               <span>2024 - Presente</span>
               <h3>Desarrollador Frontend | FoxCode</h3>
-              <p>Desarrollo de aplicaciones web con Angular, interfaces dinámicas, componentes reutilizables, arquitectura modular, control de versiones, apps con Ionic y landings con Astro.</p>
+              <p>Aplicaciones web con Angular, interfaces dinámicas, componentes reutilizables, arquitectura modular, control de versiones, apps con Ionic y landings con Astro.</p>
             </article>
-            <article class="timeline-item border-coral/50">
+            <article class="timeline-item">
               <span>Ago 2022 - Jul 2023</span>
               <h3>Becario | Facultad de Ingeniería, UASLP</h3>
               <p>Mantenimiento preventivo y correctivo de equipos, instalación y actualización de software especializado, y soporte técnico a estudiantes del área civil.</p>
             </article>
-            <article class="timeline-item border-limepop/70">
+            <article class="timeline-item">
               <span>Jul 2022 - May 2023</span>
               <h3>Practicante | Coordinación de Tecnología Educativa, UASLP</h3>
-              <p>Desarrollo de videojuegos educativos con JavaScript y jQuery, participando en conceptualización, diseño gráfico y desarrollo funcional.</p>
+              <p>Videojuegos educativos con JavaScript y jQuery, participando en conceptualización, diseño gráfico y desarrollo funcional.</p>
             </article>
-            <article class="timeline-item border-violetpop/50">
-              <span>2018 - 2023</span>
+            <article class="timeline-item">
+              <span>LICENCIATURA | 2018 - 2023</span>
               <h3>Ingeniería en Sistemas Inteligentes | UASLP</h3>
               <p>Formación profesional en la Facultad de Ingeniería, San Luis Potosí, México.</p>
             </article>
+            <div class="secondary-experience-cta">
+              <p>
+                Además de estos roles técnicos, he sumado experiencia complementaria en atención a clientes, gestión de archivos y procesos administrativos que enriquecen mi perspectiva y habilidades para colaborar en equipos.
+              </p>
+              <button class="button button-secondary" type="button" id="secondaryExperienceOpen">
+                <i data-lucide="layers-3"></i>
+                Ver experiencia complementaria
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="habilidades" class="section-band bg-slate-50">
-        <div class="mx-auto max-w-6xl px-5">
-          <p class="eyebrow">Habilidades</p>
-          <h2 class="section-title">Herramientas que uso para construir productos digitales.</h2>
-          <div class="mt-9 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <div class="skill-block">HTML</div>
-            <div class="skill-block">CSS y SCSS</div>
-            <div class="skill-block">Angular</div>
-            <div class="skill-block">JavaScript y TypeScript</div>
-            <div class="skill-block">Ionic</div>
-            <div class="skill-block">Capacitor</div>
-            <div class="skill-block">GitLab y GitHub</div>
-            <div class="skill-block">Astro</div>
+      <dialog class="experience-modal" id="secondaryExperienceModal" aria-labelledby="secondaryExperienceTitle">
+        <div class="modal-panel">
+          <div class="modal-header">
+            <div>
+              <p class="eyebrow">Experiencia complementaria</p>
+              <h2 id="secondaryExperienceTitle">Roles que suman contexto.</h2>
+            </div>
+            <button class="icon-button" type="button" id="secondaryExperienceClose" aria-label="Cerrar experiencia complementaria">
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+
+          <div class="secondary-experience-list">
+            <article class="secondary-experience-item">
+              <span>Valuador de seguros</span>
+              <h3>Atención a asegurados en taller</h3>
+              <p>
+                Primer contacto con el cliente al llevar su unidad para la valuación de daños, seguimiento del proceso de reparación y entrega final del vehículo.
+              </p>
+              <div class="tag-row">
+                <span>Inventarios</span><span>Bitacoras</span><span>Cotizaciones</span>
+              </div>
+            </article>
+            <article class="secondary-experience-item">
+              <span>Archivista</span>
+              <h3>Clasificación y archivo de documentos</h3>
+              <p>
+                Organización de documentos físicos, clasificación, digitalización y gestión de archivos para facilitar su consulta y resguardo. Asi como validar que se siguiera la normatividad de ley de prevencion de lavado de dinero
+              </p>
+              <div class="tag-row">
+                <span>Colaboración</span><span>Organización</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </dialog>
+
+      <section id="habilidades" class="section-band skills-section">
+        <div class="section-stack">
+          <div class="section-heading">
+            <p class="eyebrow">Habilidades</p>
+            <h2>Herramientas para diseñar, construir y publicar interfaces.</h2>
+          </div>
+          <div class="skills-grid">
+            <span>HTML</span>
+            <span>CSS y SCSS</span>
+            <span>Angular</span>
+            <span>JavaScript</span>
+            <span>TypeScript</span>
+            <span>Ionic</span>
+            <span>Capacitor</span>
+            <span>GitLab</span>
+            <span>GitHub</span>
+            <span>Astro</span>
+            <span>Tailwind</span>
+            <span>UI responsive</span>
           </div>
         </div>
       </section>
 
-      <section id="contacto" class="section-band contact-band text-white">
-        <div class="mx-auto grid max-w-6xl gap-8 px-5 lg:grid-cols-[1fr_0.9fr] lg:items-center">
+      <section id="contacto" class="contact-section">
+        <div class="contact-grid">
           <div>
-            <p class="eyebrow text-limepop">Contacto</p>
-            <h2 class="section-title text-white">Convirtamos tu siguiente idea en algo publicable.</h2>
-            <p class="mt-5 max-w-2xl text-lg leading-8 text-slate-300">
+            <p class="eyebrow">Contacto</p>
+            <h2>Convirtamos tu siguiente idea en algo publicable.</h2>
+            <p>
               Estoy abierto a oportunidades y proyectos donde pueda aportar desarrollo frontend, integración web,
               soluciones multiplataforma y una experiencia de usuario clara.
             </p>
           </div>
-          <div class="grid gap-3 sm:grid-cols-2">
-            <a class="contact-link" href="mailto:jesus_antulio@protonmail.com">
-              <i data-lucide="mail" class="h-5 w-5"></i>
+          <div class="contact-links">
+            <a href="mailto:jesus_antulio@protonmail.com">
+              <i data-lucide="mail"></i>
               jesus_antulio@protonmail.com
             </a>
-            <a class="contact-link" href="tel:+524448288334">
-              <i data-lucide="phone" class="h-5 w-5"></i>
+            <a href="tel:+524448288334">
+              <i data-lucide="phone"></i>
               +52 444 828 8334
             </a>
-            <a class="contact-link" href="https://maps.google.com/?q=San%20Luis%20Potos%C3%AD%2C%20M%C3%A9xico" target="_blank" rel="noreferrer">
-              <i data-lucide="map-pin" class="h-5 w-5"></i>
+            <a href="https://maps.google.com/?q=San%20Luis%20Potos%C3%AD%2C%20M%C3%A9xico" target="_blank" rel="noreferrer">
+              <i data-lucide="map-pin"></i>
               San Luis Potosí, México
             </a>
-            <a class="contact-link" href="assets/docs/cv-jesus-jimenez.pdf" download>
-              <i data-lucide="download" class="h-5 w-5"></i>
+            <a href="assets/docs/cv-jesus-jimenez.pdf" download>
+              <i data-lucide="download"></i>
               Descargar CV
             </a>
           </div>
@@ -344,12 +373,11 @@
       </section>
     </main>
 
-    <footer class="bg-slate-950 px-5 py-7 text-center text-sm text-slate-400">
+    <footer class="site-footer">
       <p>© 2026 Jesús Antulio Jiménez Delgado.</p>
     </footer>
 
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="js/script.js"></script>
-    <script src="js/aos.js"></script>
   </body>
 </html>
