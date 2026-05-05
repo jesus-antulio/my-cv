@@ -11,12 +11,12 @@
     <meta name="keywords" content="frontend developer, Angular, Ionic, Astro, JavaScript, TypeScript, web development" />
     <meta name="theme-color" content="#f6f3ec" />
     <meta name="color-scheme" content="light dark" />
-    <meta property="og:title" content="Jesús Jiménez | Portafolio & CV" />
+    <meta property="og:title" content="Jesús Jiménez | Frontend Developer" />
     <meta property="og:description" content="Portafolio profesional y CV personal de Jesús Antulio Jiménez Delgado: desarrollador frontend especializado en Angular, Ionic y Astro." />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_ES" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Jesús Jiménez | Portafolio & CV" />
+    <meta name="twitter:title" content="Jesús Jiménez | Frontend Developer" />
     <meta name="twitter:description" content="Portafolio profesional y CV personal de Jesús Antulio Jiménez Delgado: desarrollador frontend especializado en Angular, Ionic y Astro." />
     <title>Jesús Jiménez | Frontend Developer</title>
     <link rel="icon" href="assets/favicon/favicon.ico" type="image/x-icon" />
@@ -27,6 +27,24 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
+    <script>
+      (() => {
+        let storedTheme = null;
+
+        try {
+          storedTheme = localStorage.getItem("theme");
+        } catch {
+          storedTheme = null;
+        }
+
+        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        const theme = storedTheme === "light" || storedTheme === "dark" ? storedTheme : systemTheme;
+
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#0b0d10" : "#f6f3ec");
+      })();
+    </script>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
