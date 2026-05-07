@@ -42,11 +42,11 @@ const projectData = {
       "Desarrollo de interfaces internas con componentes reutilizables, estructura modular y consumo de APIs para productos que necesitan crecer sin volverse difíciles de mantener.",
     images: [
       {
-        src: "assets/projects/angular-dashboard.svg",
+        src: "/assets/projects/angular-dashboard.svg",
         alt: "Dashboard web modular desarrollado con Angular",
       },
       {
-        src: "assets/projects/angular-components.svg",
+        src: "/assets/projects/angular-components.svg",
         alt: "Librería de componentes para productos Angular",
       },
     ],
@@ -64,18 +64,18 @@ const projectData = {
       "Experiencias multiplataforma creadas con Ionic y Capacitor, cuidando navegación, responsividad y mantenimiento desde una sola base de código.",
     images: [
       {
-        src: "assets/projects/ionic-mobile.svg",
+        src: "/assets/projects/ionic-mobile.svg",
         alt: "Interfaz móvil híbrida desarrollada con Ionic y Capacitor",
       },
       {
-        src: "assets/projects/ionic-flow.svg",
+        src: "/assets/projects/ionic-flow.svg",
         alt: "Flujo de pantallas para una app móvil híbrida",
       },
     ],
     details: [
       ["Rol", "Construcción frontend para vistas móviles y patrones de interacción."],
       ["Aporte", "Componentes adaptables, navegación entre pantallas y preparación para despliegue móvil."],
-      ["Resultado", "Interfaz unificada para web y movil con menor costo de mantenimiento."],
+      ["Resultado", "Interfaz unificada para web y móvil con menor costo de mantenimiento."],
     ],
     tags: ["Ionic", "Capacitor", "UX"],
   },
@@ -86,11 +86,11 @@ const projectData = {
       "Herramientas interactivas para aprendizaje, combinando lógica de juego, elementos visuales y dinámicas pensadas para reforzar contenidos educativos.",
     images: [
       {
-        src: "assets/projects/educational-game.svg",
+        src: "/assets/projects/educational-game.svg",
         alt: "Pantalla de videojuego educativo interactivo",
       },
       {
-        src: "assets/projects/educational-level.svg",
+        src: "/assets/projects/educational-level.svg",
         alt: "Nivel educativo con progreso y actividad interactiva",
       },
     ],

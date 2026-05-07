@@ -1,3 +1,7 @@
+---
+import "../styles/global.css";
+---
+
 <!doctype html>
 <html lang="es" class="scroll-smooth">
   <head>
@@ -19,7 +23,7 @@
     <meta name="twitter:title" content="Jesús A. Jiménez | Frontend Developer" />
     <meta name="twitter:description" content="Portafolio profesional y CV personal de Jesús Antulio Jiménez Delgado: desarrollador frontend especializado en Angular, Ionic y Astro." />
     <title>Jesús A. Jiménez | Frontend Developer</title>
-    <!-- <link rel="icon" href="assets/favicon/favicon.ico" type="image/x-icon" /> -->
+    <link rel="icon" href="/assets/favicon/favicon.ico" type="image/x-icon" />
     <link rel="canonical" href="https://jesus-antulio.com.mx" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,7 +31,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <script>
+    <script is:inline>
       (() => {
         let storedTheme = null;
 
@@ -45,7 +49,6 @@
         document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#0b0d10" : "#f6f3ec");
       })();
     </script>
-    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header class="site-header">
@@ -100,7 +103,7 @@
                 <i data-lucide="sparkles"></i>
                 Ver proyectos
               </a>
-              <a class="button button-secondary" href="assets/docs/cv-jesus-jimenez.pdf" download>
+              <a class="button button-secondary" href="/assets/docs/cv-jesus-jimenez.pdf" download>
                 <i data-lucide="download"></i>
                 Descargar CV
               </a>
@@ -210,7 +213,7 @@
               <div class="project-number">01</div>
               <div class="project-gallery" aria-label="Galería de Aplicaciones Web Angular">
                 <button class="project-image-trigger" type="button" aria-label="Abrir galería de Aplicaciones Web Angular">
-                  <img src="assets/projects/angular-dashboard.svg" alt="Dashboard web modular desarrollado con Angular" />
+                  <img src="/assets/projects/angular-dashboard.svg" alt="Dashboard web modular desarrollado con Angular" />
                 </button>
                 <button class="gallery-control gallery-control-prev" type="button" aria-label="Imagen anterior">
                   <i data-lucide="chevron-left"></i>
@@ -230,7 +233,7 @@
               <div class="project-number">02</div>
               <div class="project-gallery" aria-label="Galería de Apps móviles híbridas">
                 <button class="project-image-trigger" type="button" aria-label="Abrir galería de Apps móviles híbridas">
-                  <img src="assets/projects/ionic-mobile.svg" alt="Interfaz móvil híbrida desarrollada con Ionic y Capacitor" />
+                  <img src="/assets/projects/ionic-mobile.svg" alt="Interfaz móvil híbrida desarrollada con Ionic y Capacitor" />
                 </button>
                 <button class="gallery-control gallery-control-prev" type="button" aria-label="Imagen anterior">
                   <i data-lucide="chevron-left"></i>
@@ -250,7 +253,7 @@
               <div class="project-number">03</div>
               <div class="project-gallery" aria-label="Galería de Videojuegos educativos">
                 <button class="project-image-trigger" type="button" aria-label="Abrir galería de Videojuegos educativos">
-                  <img src="assets/projects/educational-game.svg" alt="Pantalla de videojuego educativo interactivo" />
+                  <img src="/assets/projects/educational-game.svg" alt="Pantalla de videojuego educativo interactivo" />
                 </button>
                 <button class="gallery-control gallery-control-prev" type="button" aria-label="Imagen anterior">
                   <i data-lucide="chevron-left"></i>
@@ -442,7 +445,7 @@
               <i data-lucide="map-pin"></i>
               San Luis Potosí, México
             </a>
-            <a href="assets/docs/cv-jesus-jimenez.pdf" download>
+            <a href="/assets/docs/cv-jesus-jimenez.pdf" download>
               <i data-lucide="download"></i>
               Descargar CV
             </a>
@@ -455,7 +458,7 @@
       <p>© 2026 Jesús Antulio Jiménez Delgado.</p>
     </footer>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="js/script.js"></script>
+    <script is:inline src="https://unpkg.com/lucide@latest"></script>
+    <script is:inline src="/js/script.js"></script>
   </body>
 </html>
