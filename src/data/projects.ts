@@ -141,6 +141,18 @@ export const projectData = {
       },
       {
         src: "/assets/projects/landings/landing-2.png",
+      },
+      {
+        src: "/assets/projects/landings/landing-3.png",
+      },
+      {
+        src: "/assets/projects/landings/landing-4.png",
+      },
+      {
+        src: "/assets/projects/landings/landing-5.png",
+      },
+      {
+        src: "/assets/projects/landings/landing-6.png",
       }
     ],
     details: [
