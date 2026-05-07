@@ -33,48 +33,59 @@ export const projectData = {
     ],
     tags: ["Angular", "TypeScript", "Bootstrap", "APIs"],
   },
-  ionic: {
+  crm_inmoapp: {
     eyebrow: "Proyecto 02",
-    title: "Apps móviles híbridas",
+    title: "Inmoapp",
     description:
-      "Experiencias multiplataforma creadas con Ionic y Capacitor, cuidando navegación, responsividad y mantenimiento desde una sola base de código.",
+      "CRM para las inmobiliarias, con el objetivo de digitalizar su inventario y facilitar el compartir información de una propiedad. El proyecto incluye un sistema de micrositios para mostrar propiedades, con atención a experiencia de usuario y rendimiento, y una interfaz móvil híbrida para acceso desde dispositivos móviles.",
     images: [
       {
-        src: "/assets/projects/ionic-mobile.svg",
-        alt: "Interfaz móvil híbrida desarrollada con Ionic y Capacitor",
+        src: "/assets/projects/inmoapp/inmoapp-crm-1.png",
       },
       {
-        src: "/assets/projects/ionic-flow.svg",
-        alt: "Flujo de pantallas para una app móvil híbrida",
+        src: "/assets/projects/inmoapp/inmoapp-crm-2.png",
+      },
+      {
+        src: "/assets/projects/inmoapp/inmoapp-crm-3.png",
+      },
+      {
+        src: "/assets/projects/inmoapp/inmoapp-crm-4.png",
+      },
+      {
+        src: "/assets/projects/inmoapp/inmoapp-micro-1.png",
+      },
+      {
+        src: "/assets/projects/inmoapp/inmoapp-micro-2.png",
+      },
+      {
+        src: "/assets/projects/inmoapp/inmoapp-micro-3.png",
+      },
+      {
+        src: "/assets/projects/inmoapp/inmoapp-micro-4.png",
       },
     ],
     details: [
-      ["Rol", "Construcción frontend para vistas móviles y patrones de interacción."],
-      ["Aporte", "Componentes adaptables, navegación entre pantallas y preparación para despliegue móvil."],
-      ["Resultado", "Interfaz unificada para web y móvil con menor costo de mantenimiento."],
+      ["Rol", "Construcción y adaptación del Frontend para el CRM y maquetacion de nuevas plantillas para los micrositios."],
+      ["Aporte", "Plantillas de micrositios neuvos, componentes reutilizables y restructuración del codigo anterior."],
+      ["Resultado", "Interfaz más moderna y consistente, con una base más sólida para futuras implementaciones y mejoras en la experiencia de usuario."],
     ],
-    tags: ["Ionic", "Capacitor", "UX"],
+    tags: ["Angular", "TypeScript", "UX/UI", 'IA'],
   },
-  games: {
+  recepcionistapp: {
     eyebrow: "Proyecto 03",
-    title: "Videojuegos educativos",
+    title: "Recepcionistapp",
     description:
-      "Herramientas interactivas para aprendizaje, combinando lógica de juego, elementos visuales y dinámicas pensadas para reforzar contenidos educativos.",
+      "Proyecto para digitalizar proceso de citas en distintos ambitos, asi como manejo de expedientes y seguimiento de casos. Incluye un sistema de micrositios para mostrar información relevante, con atención a experiencia de usuario y rendimiento, y una interfaz móvil híbrida para acceso desde dispositivos móviles.",
     images: [
       {
-        src: "/assets/projects/educational-game.svg",
-        alt: "Pantalla de videojuego educativo interactivo",
-      },
-      {
-        src: "/assets/projects/educational-level.svg",
-        alt: "Nivel educativo con progreso y actividad interactiva",
-      },
+        src: "/assets/projects/recepcionistapp/recepcionistapp-1.png",
+      }
     ],
     details: [
-      ["Rol", "Conceptualización, apoyo gráfico y desarrollo funcional con JavaScript."],
-      ["Aporte", "Mecánicas interactivas, pantallas de actividad y retroalimentación para usuarios."],
-      ["Resultado", "Actividades digitales más dinámicas para apoyar procesos de enseñanza."],
+      ["Rol", "Creación del proyecto inicial y desarrollo de la app movil híbrida con Ionic, incluyendo diseño de interfaz y experiencia de usuario."],
+      ["Aporte", "Desarrollo de la aplicación móvil híbrida, con enfoque en experiencia de usuario y rendimiento, utilizando Ionic y Angular para crear una interfaz intuitiva y eficiente."],
+      ["Resultado", "Aplicación móvil funcional para gestión de citas y expedientes, con una experiencia de usuario optimizada y un rendimiento sólido, facilitando la digitalización de procesos en distintos ámbitos."],
     ],
-    tags: ["JavaScript", "jQuery", "Educación"],
+    tags: ["Angular", "Ionic", "Tailwind", "UX/UI"],
   },
 };
