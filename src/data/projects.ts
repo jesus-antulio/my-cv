@@ -6,12 +6,24 @@ export const projectData = {
       "Proyecto enfocado en constructoras para administrar y publicitar proyectos inmobiliarios. Incluye un CRM para gestión de clientes y un sistema de micrositios para mostrar propiedades, con atención a experiencia de usuario y rendimiento.",
     images: [
       {
-        src: "/assets/projects/angular-dashboard.svg",
-        alt: "Dashboard web modular desarrollado con Angular",
+        src: "/assets/projects/4sales/4sales-crm-1.png",
+        alt: "Interfaz de CRM para gestión de clientes en el sector inmobiliario, desarrollado con Angular y TypeScript",
       },
       {
-        src: "/assets/projects/angular-components.svg",
-        alt: "Librería de componentes para productos Angular",
+        src: "/assets/projects/4sales/4sales-crm-2.png",
+        alt: "Pantalla de gestion de proyectos y macroproyectos en CRM para constructoras, con enfoque en experiencia de usuario y rendimiento",
+      },
+      {
+        src: "/assets/projects/4sales/4sales-crm-3.png",
+        alt: "Pantalla de administración de un proyecto, donde se gestionan los planos para enlazar pisos con inmuebles"
+      },
+      {
+        src: "/assets/projects/4sales/4sales-crm-4.png",
+        alt: "Pantalla de edición de plano para dibujar la distribución de pisos e inmuebles en CRM para constructoras, con enfoque en experiencia de usuario y rendimiento"
+      },
+      {
+        src: "/assets/projects/4sales/4sales-crm-5.png",
+        alt: "Pantalla de gestión de clientes en CRM para constructoras, con enfoque en experiencia de usuario",
       },
     ],
     details: [
