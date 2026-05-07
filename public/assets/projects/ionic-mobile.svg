@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">App Ionic</title>
+  <desc id="desc">Mockup de aplicacion movil hibrida con pantalla de actividad.</desc>
+  <rect width="1200" height="760" rx="48" fill="#eaf8f8"/>
+  <rect x="420" y="54" width="360" height="652" rx="58" fill="#151515"/>
+  <rect x="446" y="94" width="308" height="572" rx="38" fill="#fffaf0"/>
+  <rect x="552" y="72" width="96" height="10" rx="5" fill="#3a3a3a"/>
+  <rect x="486" y="142" width="170" height="20" rx="10" fill="#171717"/>
+  <rect x="486" y="198" width="228" height="124" rx="28" fill="#087f8c"/>
+  <circle cx="548" cy="260" r="32" fill="#fffaf0" opacity=".92"/>
+  <rect x="600" y="236" width="84" height="14" rx="7" fill="#fffaf0"/>
+  <rect x="600" y="270" width="62" height="14" rx="7" fill="#fffaf0" opacity=".65"/>
+  <rect x="486" y="358" width="228" height="78" rx="22" fill="#ffffff" stroke="#ddd5ca"/>
+  <rect x="486" y="462" width="228" height="78" rx="22" fill="#ffffff" stroke="#ddd5ca"/>
+  <rect x="486" y="566" width="228" height="40" rx="20" fill="#e04f39"/>
+  <path d="M276 210c44-72 96-84 158-42M924 522c-58 92-130 112-218 62" fill="none" stroke="#d5a021" stroke-width="22" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Componentes Angular</title>
+  <desc id="desc">Mockup de libreria de componentes con tarjetas, formularios y estados.</desc>
+  <rect width="1200" height="760" rx="48" fill="#fff7ea"/>
+  <rect x="78" y="86" width="1044" height="588" rx="40" fill="#11161c"/>
+  <rect x="134" y="140" width="270" height="92" rx="22" fill="#ff755f"/>
+  <rect x="442" y="140" width="270" height="92" rx="22" fill="#4cc9d7"/>
+  <rect x="750" y="140" width="270" height="92" rx="22" fill="#f0bf45"/>
+  <rect x="134" y="294" width="396" height="294" rx="28" fill="#fffaf0"/>
+  <rect x="588" y="294" width="432" height="294" rx="28" fill="#fffaf0"/>
+  <rect x="184" y="342" width="158" height="18" rx="9" fill="#171717"/>
+  <rect x="184" y="392" width="278" height="18" rx="9" fill="#d8d0c4"/>
+  <rect x="184" y="444" width="226" height="18" rx="9" fill="#d8d0c4"/>
+  <rect x="184" y="506" width="128" height="44" rx="22" fill="#087f8c"/>
+  <circle cx="680" cy="386" r="54" fill="#e04f39"/>
+  <rect x="768" y="350" width="174" height="18" rx="9" fill="#171717"/>
+  <rect x="768" y="400" width="204" height="18" rx="9" fill="#d8d0c4"/>
+  <rect x="650" y="500" width="318" height="16" rx="8" fill="#d8d0c4"/>
+  <rect x="650" y="538" width="248" height="16" rx="8" fill="#d8d0c4"/>
+</svg>

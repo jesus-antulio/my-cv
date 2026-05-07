@@ -1,3 +1,11 @@
+---
+import "../styles/global.css";
+import { projectData } from "../data/projects";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+---
+
 <!doctype html>
 <html lang="es" class="scroll-smooth">
   <head>
@@ -19,7 +27,7 @@
     <meta name="twitter:title" content="Jesús A. Jiménez | Frontend Developer" />
     <meta name="twitter:description" content="Portafolio profesional y CV personal de Jesús Antulio Jiménez Delgado: desarrollador frontend especializado en Angular, Ionic y Astro." />
     <title>Jesús A. Jiménez | Frontend Developer</title>
-    <!-- <link rel="icon" href="assets/favicon/favicon.ico" type="image/x-icon" /> -->
+    <link rel="icon" href="/assets/favicon/favicon.ico" type="image/x-icon" />
     <link rel="canonical" href="https://jesus-antulio.com.mx" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,7 +35,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <script>
+    <script is:inline>
       (() => {
         let storedTheme = null;
 
@@ -45,11 +53,13 @@
         document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#0b0d10" : "#f6f3ec");
       })();
     </script>
-    <link rel="stylesheet" href="styles.css" />
+    <script define:vars={{ projectData }} is:inline>
+      window.projectData = projectData;
+    </script>
   </head>
   <body>
     <header class="site-header">
-      <nav class="nav-shell" aria-label="Navegación principal">
+      <nav class="nav-shell" aria-label="Navegación principal" data-aos="fade-down">
         <a href="#inicio" class="brand" aria-label="Ir al inicio">
           <span class="brand-mark">JA</span>
           <span>
@@ -59,11 +69,11 @@
         </a>
 
         <div class="nav-links" id="navLinks">
-          <a href="#perfil">Perfil</a>
-          <a href="#proyectos">Proyectos</a>
-          <a href="#experiencia">Experiencia</a>
-          <a href="#habilidades">Habilidades</a>
-          <a href="#contacto">Contacto</a>
+          <a href="#perfil" data-aos="fade" data-aos-delay="100">Perfil</a>
+          <a href="#proyectos" data-aos="fade" data-aos-delay="200">Proyectos</a>
+          <a href="#experiencia" data-aos="fade" data-aos-delay="300">Experiencia</a>
+          <a href="#habilidades" data-aos="fade" data-aos-delay="400">Habilidades</a>
+          <a href="#contacto" data-aos="fade" data-aos-delay="500">Contacto</a>
         </div>
 
         <div class="nav-actions">
@@ -84,8 +94,8 @@
 
     <main>
       <section id="inicio" class="hero-section">
-        <div class="hero-grid">
-          <div class="hero-copy">
+        <div class="hero-grid" >
+          <div class="hero-copy" data-aos="fade-up">
             <p class="kicker">Desarrollador Frontend | Ingeniería en Sistemas Inteligentes</p>
             <h1>
               Experto en Desarrollo Web
@@ -100,7 +110,7 @@
                 <i data-lucide="sparkles"></i>
                 Ver proyectos
               </a>
-              <a class="button button-secondary" href="assets/docs/cv-jesus-jimenez.pdf" download>
+              <a class="button button-secondary" href="/assets/docs/cv-jesus-jimenez.pdf" download>
                 <i data-lucide="download"></i>
                 Descargar CV
               </a>
@@ -122,7 +132,7 @@
             </div>
           </div>
 
-          <div class="hero-visual" aria-label="Resumen de stack">
+          <div class="hero-visual" aria-label="Resumen de stack" data-aos="zoom-in">
             <canvas id="skillCanvas" aria-hidden="true"></canvas>
             <article class="profile-panel">
               <div class="panel-topline">
@@ -131,7 +141,7 @@
               </div>
               <div class="identity-lockup">
                 <div class="avatar-orbit">
-                  <span>JA</span>
+                  <img src="/assets/img/me.jpg" alt="Foto de perfil de Jesús Antulio Jiménez Delgado" />
                 </div>
                 <div>
                   <p>Jesús Antulio Jiménez Delgado</p>
@@ -163,30 +173,32 @@
 
       <section id="perfil" class="section-band">
         <div class="section-grid">
-          <div class="section-heading">
+          <div class="section-heading" data-aos="fade-right">
             <p class="eyebrow">Perfil</p>
-            <h2>Frontend con criterio visual, arquitectura modular y foco en producto.</h2>
+            <h2>
+              Desarrollo FrontEnd con Angular, Ionic y Astro.
+            </h2>
           </div>
           <div class="feature-grid">
-            <article class="feature-card">
+            <article class="feature-card" data-aos="zoom-in" data-aos-delay="100">
               <i data-lucide="layout-dashboard"></i>
               <h3>Aplicaciones Angular</h3>
               <p>Interfaces dinámicas con componentes reutilizables, formularios reactivos y flujos claros.</p>
             </article>
-            <article class="feature-card">
+            <article class="feature-card" data-aos="zoom-in" data-aos-delay="200">
               <i data-lucide="plug-zap"></i>
               <h3>Integración con APIs</h3>
               <p>Conexión de servicios, manejo de datos y estados de interfaz listos para escenarios reales.</p>
             </article>
-            <article class="feature-card">
+            <article class="feature-card" data-aos="zoom-in" data-aos-delay="300">
               <i data-lucide="smartphone"></i>
               <h3>Web y móvil</h3>
               <p>Experiencias multiplataforma con Ionic y Capacitor sin perder consistencia visual.</p>
             </article>
-            <article class="feature-card">
+            <article class="feature-card" data-aos="zoom-in" data-aos-delay="400">
               <i data-lucide="gauge"></i>
               <h3>Rendimiento web</h3>
-              <p>Landings y sitios con Astro, cuidando carga, claridad y una publicación más ligera.</p>
+              <p>Landings y sitios con Astro, cuidando carga, claridad y amigables con SEO.</p>
             </article>
           </div>
         </div>
@@ -194,52 +206,97 @@
 
       <section id="proyectos" class="section-band work-section">
         <div class="section-stack">
-          <div class="work-heading">
+          <div class="work-heading" data-aos="fade-up">
             <div>
               <p class="eyebrow">Proyectos</p>
               <h2>Trabajo seleccionado con una lectura más editorial.</h2>
             </div>
             <p>
-              Áreas basadas en experiencia profesional, preparadas para sumar capturas, métricas o enlaces públicos
-              cuando estén disponibles.
+              Estos proyectos reflejan mi enfoque en el desarrollo frontend, mostrando desde aplicaciones Angular hasta sitios con Astro, con atención a la experiencia de usuario, rendimiento y detalles técnicos.
             </p>
           </div>
 
-          <div class="project-grid">
-            <article class="project-card">
-              <div class="project-number">01</div>
-              <i data-lucide="monitor-smartphone"></i>
-              <h3>Aplicaciones Web Angular</h3>
-              <p>Componentes reutilizables, arquitectura modular e integración de librerías para productos internos.</p>
-              <div class="tag-row">
-                <span>Angular</span><span>TypeScript</span><span>APIs</span>
-              </div>
-            </article>
-            <article class="project-card">
-              <div class="project-number">02</div>
-              <i data-lucide="app-window"></i>
-              <h3>Apps móviles híbridas</h3>
-              <p>Desarrollo con Ionic y Capacitor para experiencias multiplataforma fluidas y fáciles de mantener.</p>
-              <div class="tag-row">
-                <span>Ionic</span><span>Capacitor</span><span>UX</span>
-              </div>
-            </article>
-            <article class="project-card">
-              <div class="project-number">03</div>
-              <i data-lucide="gamepad-2"></i>
-              <h3>Videojuegos educativos</h3>
-              <p>Herramientas interactivas para enseñanza, desde conceptualización hasta desarrollo funcional.</p>
-              <div class="tag-row">
-                <span>JavaScript</span><span>jQuery</span><span>Educación</span>
-              </div>
-            </article>
+          <div class="project-grid" aria-label="Proyectos destacados">
+            {
+              Object.entries(projectData).map(([key, project], index) => (
+                <article class="project-card" data-project-card={key} tabindex="0" aria-label={`Abrir detalles de ${project.title}`} data-aos="fade" data-aos-delay={index * 100}>
+                  <div class="project-number">{String(index + 1).padStart(2, "0")}</div>
+                  <div class="project-gallery" aria-label={`Galería de ${project.title}`}>
+                    <button class="project-image-trigger" type="button" aria-label={`Abrir galería de ${project.title}`}>
+                      <img src={project.images[0].src} alt={project.images[0].alt} />
+                    </button>
+                    <button class="gallery-control gallery-control-prev" type="button" aria-label="Imagen anterior">
+                      <i data-lucide="chevron-left"></i>
+                    </button>
+                    <button class="gallery-control gallery-control-next" type="button" aria-label="Imagen siguiente">
+                      <i data-lucide="chevron-right"></i>
+                    </button>
+                    <div class="gallery-dots" aria-hidden="true"></div>
+                  </div>
+                  <h3>{project.title}</h3>
+                  <p>
+                    {project.description.split(", ").slice(0, 2).join(", ")}.
+                  </p>
+                  <div class="tag-row">
+                    {project.tags.map((tag) => (
+                      <span>{tag}</span>
+                    ))}
+                  </div>
+                </article>
+              ))
+            }
           </div>
         </div>
       </section>
 
+      <dialog class="project-modal" id="projectModal" aria-labelledby="projectModalTitle" >
+        <div class="modal-panel project-modal-panel">
+          <div class="modal-header">
+            <div>
+              <p class="eyebrow" id="projectModalEyebrow">Proyecto</p>
+              <h2 id="projectModalTitle"></h2>
+            </div>
+            <button class="icon-button" type="button" id="projectModalClose" aria-label="Cerrar proyecto">
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+          <div class="project-modal-body">
+            <button class="modal-gallery-image" type="button" id="projectModalImageButton" aria-label="Abrir imagen en grande">
+              <img id="projectModalImage" src="" alt="" />
+            </button>
+            <div class="project-modal-copy">
+              <p id="projectModalDescription"></p>
+              <div class="project-detail-list" id="projectModalDetails"></div>
+              <div class="tag-row" id="projectModalTags"></div>
+            </div>
+          </div>
+        </div>
+      </dialog>
+
+      <dialog class="image-modal" id="imageModal" aria-labelledby="imageModalTitle">
+        <div class="image-modal-panel">
+          <div class="image-modal-header">
+            <h2 id="imageModalTitle"></h2>
+            <button class="icon-button" type="button" id="imageModalClose" aria-label="Cerrar galería">
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+          <div class="image-viewer">
+            <button class="image-nav" type="button" id="imagePrev" aria-label="Imagen anterior">
+              <i data-lucide="chevron-left"></i>
+            </button>
+            <img id="imageModalImage" src="" alt="" />
+            <button class="image-nav" type="button" id="imageNext" aria-label="Imagen siguiente">
+              <i data-lucide="chevron-right"></i>
+            </button>
+          </div>
+          <p class="image-counter" id="imageCounter"></p>
+        </div>
+      </dialog>
+
       <section id="experiencia" class="section-band">
-        <div class="section-grid">
-          <div class="section-heading sticky-heading">
+        <div class="section-grid" >
+          <div class="section-heading sticky-heading" data-aos="fade-right">
             <p class="eyebrow">CV</p>
             <h2>Experiencia, educación y evolución técnica.</h2>
             <a class="button button-secondary" href="#contacto">
@@ -248,27 +305,27 @@
             </a>
           </div>
           <div class="timeline">
-            <article class="timeline-item">
+            <article class="timeline-item" data-aos="fade" data-aos-delay="100">
               <span>2024 - Presente</span>
               <h3>Desarrollador Frontend | FoxCode</h3>
               <p>Aplicaciones web con Angular, interfaces dinámicas, componentes reutilizables, arquitectura modular, control de versiones, apps con Ionic y landings con Astro.</p>
             </article>
-            <article class="timeline-item">
+            <article class="timeline-item" data-aos="fade" data-aos-delay="200">
               <span>Ago 2022 - Jul 2023</span>
               <h3>Becario | Facultad de Ingeniería, UASLP</h3>
               <p>Mantenimiento preventivo y correctivo de equipos, instalación y actualización de software especializado, y soporte técnico a estudiantes del área civil.</p>
             </article>
-            <article class="timeline-item">
+            <article class="timeline-item" data-aos="fade" data-aos-delay="300">
               <span>Jul 2022 - May 2023</span>
               <h3>Practicante | Coordinación de Tecnología Educativa, UASLP</h3>
               <p>Videojuegos educativos con JavaScript y jQuery, participando en conceptualización, diseño gráfico y desarrollo funcional.</p>
             </article>
-            <article class="timeline-item">
+            <article class="timeline-item" data-aos="fade" data-aos-delay="400">
               <span>LICENCIATURA | 2018 - 2023</span>
               <h3>Ingeniería en Sistemas Inteligentes | UASLP</h3>
               <p>Formación profesional en la Facultad de Ingeniería, San Luis Potosí, México.</p>
             </article>
-            <div class="secondary-experience-cta">
+            <div class="secondary-experience-cta" data-aos="fade" data-aos-delay="500">
               <p>
                 Además de estos roles técnicos, he sumado experiencia complementaria en atención a clientes, gestión de archivos y procesos administrativos que enriquecen mi perspectiva y habilidades para colaborar en equipos.
               </p>
@@ -282,7 +339,7 @@
       </section>
 
       <dialog class="experience-modal" id="secondaryExperienceModal" aria-labelledby="secondaryExperienceTitle">
-        <div class="modal-panel">
+        <div class="modal-panel" >
           <div class="modal-header">
             <div>
               <p class="eyebrow">Experiencia complementaria</p>
@@ -314,57 +371,66 @@
                 <span>Colaboración</span><span>Organización</span>
               </div>
             </article>
+            <article class="secondary-experience-item">
+              <span>Staff</span>
+              <h3>Coordinación y apoyo en eventos</h3>
+              <p>
+                Apoyo en el evento ANUIES 2023, colaborando en la logística, atención a asistentes y coordinación de actividades para asegurar el buen desarrollo del evento.
+              </p>
+              <div class="tag-row">
+                <span>Colaboración</span><span>Organización</span><span>Logística</span>
+              </div>
+            </article>
           </div>
         </div>
       </dialog>
 
       <section id="habilidades" class="section-band skills-section">
-        <div class="section-stack">
-          <div class="section-heading">
+        <div class="section-stack" >
+          <div class="section-heading" data-aos="fade-up">
             <p class="eyebrow">Habilidades</p>
             <h2>Herramientas para diseñar, construir y publicar interfaces.</h2>
           </div>
           <div class="skills-grid">
-            <span>HTML</span>
-            <span>CSS y SCSS</span>
-            <span>Angular</span>
-            <span>JavaScript</span>
-            <span>TypeScript</span>
-            <span>Ionic</span>
-            <span>Capacitor</span>
-            <span>GitLab</span>
-            <span>GitHub</span>
-            <span>Astro</span>
-            <span>Tailwind</span>
-            <span>UI responsive</span>
+            <span data-aos="zoom-in" data-aos-delay="300">HTML</span>
+            <span data-aos="zoom-in" data-aos-delay="300">CSS y SCSS</span>
+            <span data-aos="zoom-in" data-aos-delay="300">Angular</span>
+            <span data-aos="zoom-in" data-aos-delay="300">JavaScript</span>
+            <span data-aos="zoom-in" data-aos-delay="300">TypeScript</span>
+            <span data-aos="zoom-in" data-aos-delay="300">Ionic</span>
+            <span data-aos="zoom-in" data-aos-delay="300">Capacitor</span>
+            <span data-aos="zoom-in" data-aos-delay="300">GitLab</span>
+            <span data-aos="zoom-in" data-aos-delay="300">GitHub</span>
+            <span data-aos="zoom-in" data-aos-delay="300">Astro</span>
+            <span data-aos="zoom-in" data-aos-delay="300">Tailwind</span>
+            <span data-aos="zoom-in" data-aos-delay="300">UI responsive</span>
           </div>
         </div>
       </section>
 
       <section id="contacto" class="contact-section">
         <div class="contact-grid">
-          <div>
+          <div data-aos="fade-right">
             <p class="eyebrow">Contacto</p>
-            <h2>Convirtamos tu siguiente idea en algo publicable.</h2>
+            <h2>¿Tienes un proyecto en mente? Hablemos.</h2>
             <p>
-              Estoy abierto a oportunidades y proyectos donde pueda aportar desarrollo frontend, integración web,
-              soluciones multiplataforma y una experiencia de usuario clara.
+              Disponible para nuevas oportunidades frontend, colaboraciones tecnológicas y proyectos.
             </p>
           </div>
-          <div class="contact-links">
-            <a href="mailto:jesus_antulio@protonmail.com">
+          <div class="contact-links" >
+            <a href="mailto:jesus_antulio@protonmail.com" data-aos="fade-left" data-aos-delay="100">
               <i data-lucide="mail"></i>
               jesus_antulio@protonmail.com
             </a>
-            <a href="tel:+524448288334">
+            <a href="tel:+524448288334" data-aos="fade-left" data-aos-delay="200">
               <i data-lucide="phone"></i>
               +52 444 828 8334
             </a>
-            <a href="https://maps.google.com/?q=San%20Luis%20Potos%C3%AD%2C%20M%C3%A9xico" target="_blank" rel="noreferrer">
+            <a href="https://maps.google.com/?q=San%20Luis%20Potos%C3%AD%2C%20M%C3%A9xico" target="_blank" rel="noreferrer" data-aos="fade-left" data-aos-delay="300">
               <i data-lucide="map-pin"></i>
               San Luis Potosí, México
             </a>
-            <a href="assets/docs/cv-jesus-jimenez.pdf" download>
+            <a href="/assets/docs/cv-jesus-jimenez.pdf" download data-aos="fade-left" data-aos-delay="400">
               <i data-lucide="download"></i>
               Descargar CV
             </a>
@@ -377,7 +443,14 @@
       <p>© 2026 Jesús Antulio Jiménez Delgado.</p>
     </footer>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="js/script.js"></script>
+    <script is:inline src="https://unpkg.com/lucide@latest"></script>
+    <script is:inline src="/js/script.js"></script>
+    <script>
+      import AOS from 'aos';
+      AOS.init({
+        duration: 1000,
+        once: true
+      });
+    </script>
   </body>
 </html>

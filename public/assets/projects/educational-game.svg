@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Videojuego educativo</title>
+  <desc id="desc">Mockup de videojuego educativo con tablero, puntos e interfaz.</desc>
+  <rect width="1200" height="760" rx="48" fill="#11161c"/>
+  <rect x="82" y="78" width="1036" height="604" rx="38" fill="#fffaf0"/>
+  <rect x="132" y="128" width="936" height="98" rx="28" fill="#151515"/>
+  <rect x="176" y="166" width="238" height="22" rx="11" fill="#f0bf45"/>
+  <rect x="836" y="158" width="172" height="38" rx="19" fill="#e04f39"/>
+  <rect x="166" y="284" width="300" height="300" rx="28" fill="#087f8c"/>
+  <rect x="518" y="284" width="300" height="300" rx="28" fill="#f0bf45"/>
+  <rect x="870" y="284" width="142" height="300" rx="28" fill="#5f4bb6"/>
+  <circle cx="316" cy="434" r="72" fill="#fffaf0"/>
+  <path d="M286 426h60M316 396v60" stroke="#151515" stroke-width="18" stroke-linecap="round"/>
+  <polygon points="668,354 748,514 588,514" fill="#151515"/>
+  <circle cx="940" cy="372" r="28" fill="#fffaf0"/>
+  <circle cx="940" cy="448" r="28" fill="#fffaf0" opacity=".78"/>
+  <circle cx="940" cy="524" r="28" fill="#fffaf0" opacity=".55"/>
+</svg>
