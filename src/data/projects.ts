@@ -78,8 +78,50 @@ export const projectData = {
       "Proyecto para digitalizar proceso de citas en distintos ambitos, asi como manejo de expedientes y seguimiento de casos. Incluye un sistema de micrositios para mostrar información relevante, con atención a experiencia de usuario y rendimiento, y una interfaz móvil híbrida para acceso desde dispositivos móviles.",
     images: [
       {
-        src: "/assets/projects/recepcionistapp/recepcionistapp-1.png",
-      }
+        src: "/assets/projects/recepcionistapp/web-1.png",
+      },
+      {
+        src: "/assets/projects/recepcionistapp/web-2.png",
+      },
+      {
+        src: "/assets/projects/recepcionistapp/web-3.png",
+      },
+      {
+        src: "/assets/projects/recepcionistapp/web-4.png",
+      },
+      {
+        src: "/assets/projects/recepcionistapp/web-5.png",
+      },
+      {
+        src: "/assets/projects/recepcionistapp/web-6.png",
+      },
+      {
+        src: "/assets/projects/recepcionistapp/web-7.png",
+      },
+      {
+        src: "/assets/projects/recepcionistapp/web-8.png",
+      },
+      {
+        src: "/assets/projects/recepcionistapp/web-9.png",
+      },
+      {
+        src: "/assets/projects/recepcionistapp/app-1.png",
+      },
+      {
+        src: "/assets/projects/recepcionistapp/app-2.png",
+      },
+      {
+        src: "/assets/projects/recepcionistapp/app-3.png",
+      },
+      {
+        src: "/assets/projects/recepcionistapp/app-4.png",
+      },
+      {
+        src: "/assets/projects/recepcionistapp/app-5.png",
+      },
+      {
+        src: "/assets/projects/recepcionistapp/app-6.png",
+      },
     ],
     details: [
       ["Rol", "Creación del proyecto inicial y desarrollo de la app movil híbrida con Ionic, incluyendo diseño de interfaz y experiencia de usuario."],
@@ -88,4 +130,22 @@ export const projectData = {
     ],
     tags: ["Angular", "Ionic", "Tailwind", "UX/UI"],
   },
+  landings: {
+    eyebrow: "Proyecto 04",
+    title: "Páginas informativas",
+    description: 
+      "Desarrollo de distintas landings para mostrar información sobre distintas empresas. Estas páginas se enfocan en mostrar información relevante de manera clara y atractiva, con atención a experiencia de usuario y rendimiento, utilizando tecnologías modernas para garantizar una presentación efectiva y profesional.",
+    images: [
+      {
+        src: "/assets/projects/landings/landing-1.png",
+      },
+      {
+        src: "/assets/projects/landings/landing-2.png",
+      }
+    ],
+    details: [
+
+    ],
+    tags: ["HTML", "Astro", "Tailwind", "Bootstrap", "UX/UI"],
+  }
 };
