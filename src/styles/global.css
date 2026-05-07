@@ -475,6 +475,12 @@ p {
     linear-gradient(315deg, var(--accent-2), var(--accent-4));
   color: white;
   box-shadow: var(--shadow);
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
 }
 
 .avatar-orbit span {
@@ -600,8 +606,7 @@ p {
   padding: 26px;
 }
 
-.feature-card i,
-.project-card > i {
+.feature-card i {
   display: inline-grid;
   width: 44px;
   height: 44px;
@@ -612,14 +617,12 @@ p {
   color: var(--accent-2);
 }
 
-.feature-card:nth-child(2) i,
-.project-card:nth-child(2) > i {
+.feature-card:nth-child(2) i {
   background: color-mix(in srgb, var(--accent) 18%, transparent);
   color: var(--accent);
 }
 
-.feature-card:nth-child(3) i,
-.project-card:nth-child(3) > i {
+.feature-card:nth-child(3) i {
   background: color-mix(in srgb, var(--accent-3) 22%, transparent);
   color: var(--accent-3);
 }
@@ -679,19 +682,58 @@ p {
 }
 
 .project-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: grid;
+  grid-auto-columns: minmax(330px, 40%);
+  grid-auto-flow: column;
+  grid-template-columns: none;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  padding: 6px 4px 22px;
+  scroll-padding-inline: 4px;
+  scroll-snap-type: inline mandatory;
+  scrollbar-color: color-mix(in srgb, var(--accent-3) 72%, transparent) color-mix(in srgb, var(--inverse-text) 14%, transparent);
+}
+
+.project-grid::-webkit-scrollbar {
+  height: 10px;
+}
+
+.project-grid::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--inverse-text) 12%, transparent);
+}
+
+.project-grid::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-3) 72%, transparent);
 }
 
 .project-card {
   position: relative;
   overflow: hidden;
-  min-height: 360px;
+  min-height: 520px;
   padding: 28px;
   background: color-mix(in srgb, var(--bg-elevated) 9%, transparent);
   color: var(--inverse-text);
+  cursor: pointer;
+  scroll-snap-align: start;
+  transition: border-color 180ms ease, transform 180ms ease, background 180ms ease;
+}
+
+.project-card:hover,
+.project-card:focus-visible {
+  border-color: color-mix(in srgb, var(--accent-3) 54%, transparent);
+  background: color-mix(in srgb, var(--bg-elevated) 13%, transparent);
+  transform: translateY(-3px);
+}
+
+.project-card:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent-3) 76%, transparent);
+  outline-offset: 4px;
 }
 
 .project-card::after {
+  z-index: 0;
   position: absolute;
   right: -36px;
   bottom: -52px;
@@ -703,9 +745,111 @@ p {
 }
 
 .project-number {
-  margin-bottom: 42px;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 18px;
   color: color-mix(in srgb, var(--inverse-text) 48%, transparent);
   font-weight: 700;
+}
+
+.project-gallery {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  margin-bottom: 24px;
+  border: 1px solid color-mix(in srgb, var(--inverse-text) 15%, transparent);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--inverse-text) 8%, transparent);
+  aspect-ratio: 16 / 10;
+}
+
+.project-image-trigger,
+.modal-gallery-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: zoom-in;
+}
+
+.project-image-trigger img,
+.modal-gallery-image img,
+.image-viewer img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-gallery-image img {
+  object-fit: contain;
+}
+
+.gallery-control {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: inline-grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--inverse-text) 22%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--inverse) 62%, transparent);
+  color: var(--inverse-text);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-50%);
+  transition: opacity 160ms ease, background 160ms ease;
+}
+
+.project-gallery:hover .gallery-control,
+.project-card:focus-within .gallery-control {
+  opacity: 1;
+}
+
+.gallery-control:hover,
+.gallery-control:focus-visible,
+.image-nav:hover,
+.image-nav:focus-visible {
+  background: var(--accent);
+}
+
+.gallery-control-prev {
+  left: 12px;
+}
+
+.gallery-control-next {
+  right: 12px;
+}
+
+.gallery-dots {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  display: flex;
+  gap: 6px;
+}
+
+.gallery-dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--inverse-text) 38%, transparent);
+}
+
+.gallery-dots span.is-active {
+  width: 18px;
+  background: var(--accent-3);
+}
+
+.project-card h3,
+.project-card p,
+.project-card .tag-row {
+  position: relative;
+  z-index: 1;
 }
 
 .project-card p {
@@ -715,6 +859,137 @@ p {
 .project-card .tag-row span {
   background: color-mix(in srgb, var(--inverse-text) 9%, transparent);
   color: var(--inverse-text);
+}
+
+.project-modal,
+.image-modal {
+  width: min(1040px, calc(100% - 28px));
+  max-height: min(820px, calc(100dvh - 32px));
+  border: 0;
+  border-radius: 28px;
+  background: transparent;
+  color: var(--text);
+  padding: 0;
+}
+
+.project-modal::backdrop,
+.image-modal::backdrop {
+  background: color-mix(in srgb, var(--inverse) 66%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.project-modal-panel {
+  max-height: min(820px, calc(100dvh - 32px));
+}
+
+.project-modal-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+  gap: 26px;
+}
+
+.modal-gallery-image {
+  overflow: hidden;
+  min-height: 360px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--surface-muted);
+}
+
+.project-modal-copy {
+  display: grid;
+  align-content: start;
+  gap: 22px;
+}
+
+.project-modal-copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.72;
+}
+
+.project-detail-list {
+  display: grid;
+  gap: 12px;
+}
+
+.project-detail-list div {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+  padding: 16px;
+}
+
+.project-detail-list strong {
+  display: block;
+  margin-bottom: 6px;
+  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+
+.project-detail-list span {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.image-modal {
+  width: min(1180px, calc(100% - 24px));
+}
+
+.image-modal-panel {
+  display: grid;
+  gap: 18px;
+  border: 1px solid color-mix(in srgb, var(--inverse-text) 18%, transparent);
+  border-radius: 28px;
+  background: #0b0d10;
+  box-shadow: var(--shadow);
+  padding: clamp(14px, 2vw, 22px);
+}
+
+.image-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  color: #fffaf0;
+}
+
+.image-modal-header h2 {
+  margin: 0;
+  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(1rem, 2vw, 1.35rem);
+}
+
+.image-viewer {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) 48px;
+  align-items: center;
+  gap: 14px;
+}
+
+.image-viewer img {
+  max-height: calc(100dvh - 210px);
+  border-radius: 18px;
+  background: #151515;
+  object-fit: contain;
+}
+
+.image-nav {
+  display: inline-grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid rgba(255, 250, 240, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 250, 240, 0.08);
+  color: #fffaf0;
+  cursor: pointer;
+}
+
+.image-counter {
+  margin: 0;
+  color: rgba(255, 250, 240, 0.72);
+  text-align: center;
 }
 
 .sticky-heading {
@@ -985,9 +1260,16 @@ p {
     display: grid;
   }
 
-  .project-grid,
+  .project-grid {
+    grid-auto-columns: minmax(310px, 58%);
+  }
+
   .skills-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .project-modal-body {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1015,10 +1297,44 @@ p {
 
   .metric-grid,
   .feature-grid,
-  .project-grid,
   .skills-grid,
   .panel-links {
     grid-template-columns: 1fr;
+  }
+
+  .project-grid {
+    grid-auto-columns: minmax(272px, 88%);
+  }
+
+  .project-card {
+    min-height: 480px;
+    padding: 22px;
+  }
+
+  .project-gallery {
+    border-radius: 16px;
+  }
+
+  .gallery-control {
+    opacity: 1;
+  }
+
+  .modal-header {
+    align-items: flex-start;
+  }
+
+  .modal-gallery-image {
+    min-height: 240px;
+  }
+
+  .image-viewer {
+    grid-template-columns: 40px minmax(0, 1fr) 40px;
+    gap: 8px;
+  }
+
+  .image-nav {
+    width: 40px;
+    height: 40px;
   }
 
   .metric-card {

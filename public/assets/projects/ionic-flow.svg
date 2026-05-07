@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Flujo movil</title>
+  <desc id="desc">Mockup de flujo de tres pantallas moviles conectadas.</desc>
+  <rect width="1200" height="760" rx="48" fill="#f6f3ec"/>
+  <g fill="#151515">
+    <rect x="120" y="86" width="250" height="560" rx="42"/>
+    <rect x="476" y="86" width="250" height="560" rx="42"/>
+    <rect x="832" y="86" width="250" height="560" rx="42"/>
+  </g>
+  <g fill="#fffaf0">
+    <rect x="140" y="122" width="210" height="486" rx="28"/>
+    <rect x="496" y="122" width="210" height="486" rx="28"/>
+    <rect x="852" y="122" width="210" height="486" rx="28"/>
+  </g>
+  <rect x="178" y="170" width="118" height="16" rx="8" fill="#171717"/>
+  <rect x="178" y="232" width="132" height="132" rx="28" fill="#4cc9d7"/>
+  <rect x="178" y="420" width="132" height="38" rx="19" fill="#ff755f"/>
+  <rect x="534" y="170" width="118" height="16" rx="8" fill="#171717"/>
+  <rect x="534" y="230" width="134" height="20" rx="10" fill="#d8d0c4"/>
+  <rect x="534" y="286" width="134" height="20" rx="10" fill="#d8d0c4"/>
+  <rect x="534" y="342" width="134" height="20" rx="10" fill="#d8d0c4"/>
+  <rect x="534" y="458" width="134" height="42" rx="21" fill="#087f8c"/>
+  <rect x="890" y="170" width="118" height="16" rx="8" fill="#171717"/>
+  <circle cx="956" cy="292" r="68" fill="#f0bf45"/>
+  <rect x="890" y="438" width="134" height="20" rx="10" fill="#d8d0c4"/>
+  <rect x="912" y="496" width="90" height="38" rx="19" fill="#5f4bb6"/>
+  <path d="M386 365h58M744 365h58" stroke="#087f8c" stroke-width="18" stroke-linecap="round"/>
+</svg>

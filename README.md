@@ -1,13 +1,20 @@
 # Portafolio & CV Personal - Jesús Jiménez
 
-Single page moderna para presentar el perfil profesional, experiencia, habilidades y datos de contacto de Jesús Antulio Jiménez Delgado.
+Proyecto Astro para presentar el perfil profesional, experiencia, habilidades, proyectos y datos de contacto de Jesús Antulio Jiménez Delgado.
+
+## Scripts
+
+- `npm run dev`: inicia el servidor local de Astro.
+- `npm run build`: genera la versión estática en `dist/`.
+- `npm run preview`: previsualiza el build localmente.
 
 ## Archivos
 
-- `index.html`: estructura del sitio y contenido principal.
-- `styles.css`: estilos extra sobre Tailwind.
-- `script.js`: animación visual del hero e inicialización de iconos.
-- `cv-jesus-jimenez.pdf`: CV descargable desde el sitio.
+- `src/pages/index.astro`: estructura del sitio y contenido principal.
+- `src/styles/global.css`: estilos globales.
+- `public/js/script.js`: interacciones del sitio, modales, galería y animación visual del hero.
+- `public/assets/docs/cv-jesus-jimenez.pdf`: CV descargable desde el sitio.
+- `public/assets/projects/`: imágenes usadas en la galería de proyectos.
 
 ## Personalización rápida
 
@@ -26,4 +33,4 @@ Puedes subir estos archivos a cualquiera de estas opciones:
 - Vercel
 - Cloudflare Pages
 
-Para GitHub Pages, crea un repositorio, sube los archivos y activa Pages desde `Settings > Pages`.
+Para publicar, ejecuta `npm run build` y despliega la carpeta `dist/` en Netlify, Vercel, Cloudflare Pages o GitHub Pages.
