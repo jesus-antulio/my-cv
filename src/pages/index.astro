@@ -58,8 +58,8 @@ import 'aos/dist/aos.css';
     </script>
   </head>
   <body>
-    <header class="site-header" data-aos="fade">
-      <nav class="nav-shell" aria-label="Navegación principal">
+    <header class="site-header">
+      <nav class="nav-shell" aria-label="Navegación principal" data-aos="fade-down">
         <a href="#inicio" class="brand" aria-label="Ir al inicio">
           <span class="brand-mark">JA</span>
           <span>
@@ -69,11 +69,11 @@ import 'aos/dist/aos.css';
         </a>
 
         <div class="nav-links" id="navLinks">
-          <a href="#perfil">Perfil</a>
-          <a href="#proyectos">Proyectos</a>
-          <a href="#experiencia">Experiencia</a>
-          <a href="#habilidades">Habilidades</a>
-          <a href="#contacto">Contacto</a>
+          <a href="#perfil" data-aos="fade" data-aos-delay="100">Perfil</a>
+          <a href="#proyectos" data-aos="fade" data-aos-delay="200">Proyectos</a>
+          <a href="#experiencia" data-aos="fade" data-aos-delay="300">Experiencia</a>
+          <a href="#habilidades" data-aos="fade" data-aos-delay="400">Habilidades</a>
+          <a href="#contacto" data-aos="fade" data-aos-delay="500">Contacto</a>
         </div>
 
         <div class="nav-actions">
@@ -175,7 +175,9 @@ import 'aos/dist/aos.css';
         <div class="section-grid">
           <div class="section-heading" data-aos="fade-right">
             <p class="eyebrow">Perfil</p>
-            <h2>Frontend con criterio visual, arquitectura modular y foco en producto.</h2>
+            <h2>
+              Desarrollo FrontEnd con Angular, Ionic y Astro.
+            </h2>
           </div>
           <div class="feature-grid">
             <article class="feature-card" data-aos="zoom-in" data-aos-delay="100">
@@ -196,7 +198,7 @@ import 'aos/dist/aos.css';
             <article class="feature-card" data-aos="zoom-in" data-aos-delay="400">
               <i data-lucide="gauge"></i>
               <h3>Rendimiento web</h3>
-              <p>Landings y sitios con Astro, cuidando carga, claridad y una publicación más ligera.</p>
+              <p>Landings y sitios con Astro, cuidando carga, claridad y amigables con SEO.</p>
             </article>
           </div>
         </div>
@@ -210,8 +212,7 @@ import 'aos/dist/aos.css';
               <h2>Trabajo seleccionado con una lectura más editorial.</h2>
             </div>
             <p>
-              Áreas basadas en experiencia profesional, preparadas para sumar capturas, métricas o enlaces públicos
-              cuando estén disponibles.
+              Estos proyectos reflejan mi enfoque en el desarrollo frontend, mostrando desde aplicaciones Angular hasta sitios con Astro, con atención a la experiencia de usuario, rendimiento y detalles técnicos.
             </p>
           </div>
 
@@ -324,7 +325,7 @@ import 'aos/dist/aos.css';
               <h3>Ingeniería en Sistemas Inteligentes | UASLP</h3>
               <p>Formación profesional en la Facultad de Ingeniería, San Luis Potosí, México.</p>
             </article>
-            <div class="secondary-experience-cta" data-aos="fade-up" data-aos-delay="500">
+            <div class="secondary-experience-cta" data-aos="fade" data-aos-delay="500">
               <p>
                 Además de estos roles técnicos, he sumado experiencia complementaria en atención a clientes, gestión de archivos y procesos administrativos que enriquecen mi perspectiva y habilidades para colaborar en equipos.
               </p>
@@ -370,6 +371,16 @@ import 'aos/dist/aos.css';
                 <span>Colaboración</span><span>Organización</span>
               </div>
             </article>
+            <article class="secondary-experience-item">
+              <span>Staff</span>
+              <h3>Coordinación y apoyo en eventos</h3>
+              <p>
+                Apoyo en el evento ANUIES 2023, colaborando en la logística, atención a asistentes y coordinación de actividades para asegurar el buen desarrollo del evento.
+              </p>
+              <div class="tag-row">
+                <span>Colaboración</span><span>Organización</span><span>Logística</span>
+              </div>
+            </article>
           </div>
         </div>
       </dialog>
@@ -401,10 +412,9 @@ import 'aos/dist/aos.css';
         <div class="contact-grid">
           <div data-aos="fade-right">
             <p class="eyebrow">Contacto</p>
-            <h2>Convirtamos tu siguiente idea en algo publicable.</h2>
+            <h2>¿Tienes un proyecto en mente? Hablemos.</h2>
             <p>
-              Estoy abierto a oportunidades y proyectos donde pueda aportar desarrollo frontend, integración web,
-              soluciones multiplataforma y una experiencia de usuario clara.
+              Disponible para nuevas oportunidades frontend, colaboraciones tecnológicas y proyectos.
             </p>
           </div>
           <div class="contact-links" >
