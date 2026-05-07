@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Nivel educativo</title>
+  <desc id="desc">Mockup de nivel educativo con progreso y actividad interactiva.</desc>
+  <rect width="1200" height="760" rx="48" fill="#fff7ea"/>
+  <rect x="78" y="82" width="1044" height="596" rx="42" fill="#151515"/>
+  <rect x="128" y="132" width="944" height="70" rx="24" fill="#fffaf0"/>
+  <rect x="172" y="160" width="246" height="16" rx="8" fill="#171717"/>
+  <rect x="776" y="154" width="234" height="28" rx="14" fill="#087f8c"/>
+  <rect x="128" y="252" width="604" height="336" rx="34" fill="#fffaf0"/>
+  <rect x="788" y="252" width="284" height="336" rx="34" fill="#fffaf0"/>
+  <path d="M210 510c88-156 168 72 278-96s154-18 190-104" fill="none" stroke="#e04f39" stroke-width="20" stroke-linecap="round"/>
+  <circle cx="308" cy="396" r="44" fill="#f0bf45"/>
+  <rect x="838" y="312" width="174" height="18" rx="9" fill="#171717"/>
+  <rect x="838" y="374" width="166" height="18" rx="9" fill="#d8d0c4"/>
+  <rect x="838" y="430" width="118" height="18" rx="9" fill="#d8d0c4"/>
+  <rect x="838" y="506" width="140" height="42" rx="21" fill="#5f4bb6"/>
+</svg>

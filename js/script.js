@@ -7,6 +7,23 @@ const navLinks = document.querySelector("#navLinks");
 const secondaryExperienceOpen = document.querySelector("#secondaryExperienceOpen");
 const secondaryExperienceClose = document.querySelector("#secondaryExperienceClose");
 const secondaryExperienceModal = document.querySelector("#secondaryExperienceModal");
+const projectCards = document.querySelectorAll("[data-project-card]");
+const projectModal = document.querySelector("#projectModal");
+const projectModalClose = document.querySelector("#projectModalClose");
+const projectModalEyebrow = document.querySelector("#projectModalEyebrow");
+const projectModalTitle = document.querySelector("#projectModalTitle");
+const projectModalDescription = document.querySelector("#projectModalDescription");
+const projectModalDetails = document.querySelector("#projectModalDetails");
+const projectModalTags = document.querySelector("#projectModalTags");
+const projectModalImageButton = document.querySelector("#projectModalImageButton");
+const projectModalImage = document.querySelector("#projectModalImage");
+const imageModal = document.querySelector("#imageModal");
+const imageModalClose = document.querySelector("#imageModalClose");
+const imageModalTitle = document.querySelector("#imageModalTitle");
+const imageModalImage = document.querySelector("#imageModalImage");
+const imagePrev = document.querySelector("#imagePrev");
+const imageNext = document.querySelector("#imageNext");
+const imageCounter = document.querySelector("#imageCounter");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const systemDark = window.matchMedia("(prefers-color-scheme: dark)");
 
@@ -14,6 +31,77 @@ let nodes = [];
 let width = 0;
 let height = 0;
 let animationFrame = 0;
+let activeProjectId = null;
+let activeImageIndex = 0;
+
+const projectData = {
+  angular: {
+    eyebrow: "Proyecto 01",
+    title: "Aplicaciones Web Angular",
+    description:
+      "Desarrollo de interfaces internas con componentes reutilizables, estructura modular y consumo de APIs para productos que necesitan crecer sin volverse difíciles de mantener.",
+    images: [
+      {
+        src: "assets/projects/angular-dashboard.svg",
+        alt: "Dashboard web modular desarrollado con Angular",
+      },
+      {
+        src: "assets/projects/angular-components.svg",
+        alt: "Librería de componentes para productos Angular",
+      },
+    ],
+    details: [
+      ["Rol", "Frontend developer enfocado en arquitectura de componentes e integración visual."],
+      ["Aporte", "Módulos reutilizables, manejo de estados de interfaz y conexión con servicios."],
+      ["Resultado", "Bases de UI más consistentes para acelerar nuevas pantallas internas."],
+    ],
+    tags: ["Angular", "TypeScript", "APIs"],
+  },
+  ionic: {
+    eyebrow: "Proyecto 02",
+    title: "Apps móviles híbridas",
+    description:
+      "Experiencias multiplataforma creadas con Ionic y Capacitor, cuidando navegación, responsividad y mantenimiento desde una sola base de código.",
+    images: [
+      {
+        src: "assets/projects/ionic-mobile.svg",
+        alt: "Interfaz móvil híbrida desarrollada con Ionic y Capacitor",
+      },
+      {
+        src: "assets/projects/ionic-flow.svg",
+        alt: "Flujo de pantallas para una app móvil híbrida",
+      },
+    ],
+    details: [
+      ["Rol", "Construcción frontend para vistas móviles y patrones de interacción."],
+      ["Aporte", "Componentes adaptables, navegación entre pantallas y preparación para despliegue móvil."],
+      ["Resultado", "Interfaz unificada para web y movil con menor costo de mantenimiento."],
+    ],
+    tags: ["Ionic", "Capacitor", "UX"],
+  },
+  games: {
+    eyebrow: "Proyecto 03",
+    title: "Videojuegos educativos",
+    description:
+      "Herramientas interactivas para aprendizaje, combinando lógica de juego, elementos visuales y dinámicas pensadas para reforzar contenidos educativos.",
+    images: [
+      {
+        src: "assets/projects/educational-game.svg",
+        alt: "Pantalla de videojuego educativo interactivo",
+      },
+      {
+        src: "assets/projects/educational-level.svg",
+        alt: "Nivel educativo con progreso y actividad interactiva",
+      },
+    ],
+    details: [
+      ["Rol", "Conceptualización, apoyo gráfico y desarrollo funcional con JavaScript."],
+      ["Aporte", "Mecánicas interactivas, pantallas de actividad y retroalimentación para usuarios."],
+      ["Resultado", "Actividades digitales más dinámicas para apoyar procesos de enseñanza."],
+    ],
+    tags: ["JavaScript", "jQuery", "Educación"],
+  },
+};
 
 function getStoredTheme() {
   try {
@@ -64,24 +152,145 @@ function toggleMenu() {
   menuToggle?.setAttribute("aria-expanded", String(Boolean(isOpen)));
 }
 
+function syncBodyLock() {
+  document.body.style.overflow = document.querySelector("dialog[open]") ? "hidden" : "";
+}
+
+function showDialog(dialog) {
+  if (!dialog) return;
+
+  if (typeof dialog.showModal === "function") {
+    dialog.showModal();
+  } else {
+    dialog.setAttribute("open", "");
+  }
+
+  syncBodyLock();
+}
+
 function openSecondaryExperience() {
   if (!secondaryExperienceModal) return;
 
-  if (typeof secondaryExperienceModal.showModal === "function") {
-    secondaryExperienceModal.showModal();
-  } else {
-    secondaryExperienceModal.setAttribute("open", "");
-  }
-
-  document.body.style.overflow = "hidden";
+  showDialog(secondaryExperienceModal);
 }
 
 function closeSecondaryExperience() {
   if (!secondaryExperienceModal?.open) return;
 
   secondaryExperienceModal.close();
-  document.body.style.overflow = "";
+  syncBodyLock();
   secondaryExperienceOpen?.focus();
+}
+
+function getProject(projectId) {
+  return projectData[projectId] || null;
+}
+
+function renderCardGallery(card, nextIndex) {
+  const project = getProject(card.dataset.projectCard);
+  const image = card.querySelector(".project-image-trigger img");
+  const dots = card.querySelector(".gallery-dots");
+  if (!project || !image || !dots) return;
+
+  const safeIndex = (nextIndex + project.images.length) % project.images.length;
+  card.dataset.activeImage = String(safeIndex);
+  image.src = project.images[safeIndex].src;
+  image.alt = project.images[safeIndex].alt;
+  dots.innerHTML = project.images
+    .map((_, index) => `<span class="${index === safeIndex ? "is-active" : ""}"></span>`)
+    .join("");
+}
+
+function openProject(projectId) {
+  const project = getProject(projectId);
+  if (!project || !projectModal) return;
+
+  activeProjectId = projectId;
+  activeImageIndex = 0;
+  projectModalEyebrow.textContent = project.eyebrow;
+  projectModalTitle.textContent = project.title;
+  projectModalDescription.textContent = project.description;
+  projectModalImage.src = project.images[activeImageIndex].src;
+  projectModalImage.alt = project.images[activeImageIndex].alt;
+  projectModalDetails.innerHTML = project.details
+    .map(([label, value]) => `<div><strong>${label}</strong><span>${value}</span></div>`)
+    .join("");
+  projectModalTags.innerHTML = project.tags.map((tag) => `<span>${tag}</span>`).join("");
+
+  showDialog(projectModal);
+}
+
+function closeProject() {
+  if (!projectModal?.open) return;
+
+  projectModal.close();
+  syncBodyLock();
+  document.querySelector(`[data-project-card="${activeProjectId}"]`)?.focus();
+}
+
+function renderImageModal() {
+  const project = getProject(activeProjectId);
+  if (!project || !imageModalImage || !imageCounter) return;
+
+  const image = project.images[activeImageIndex];
+  imageModalTitle.textContent = project.title;
+  imageModalImage.src = image.src;
+  imageModalImage.alt = image.alt;
+  imageCounter.textContent = `${activeImageIndex + 1} / ${project.images.length}`;
+}
+
+function openImageGallery(projectId, imageIndex = 0) {
+  const project = getProject(projectId);
+  if (!project || !imageModal) return;
+
+  activeProjectId = projectId;
+  activeImageIndex = (imageIndex + project.images.length) % project.images.length;
+  renderImageModal();
+  showDialog(imageModal);
+}
+
+function closeImageGallery() {
+  if (!imageModal?.open) return;
+
+  imageModal.close();
+  syncBodyLock();
+}
+
+function moveActiveImage(direction) {
+  const project = getProject(activeProjectId);
+  if (!project) return;
+
+  activeImageIndex = (activeImageIndex + direction + project.images.length) % project.images.length;
+  renderImageModal();
+}
+
+function initializeProjectCards() {
+  projectCards.forEach((card) => {
+    renderCardGallery(card, 0);
+
+    card.querySelector(".gallery-control-prev")?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      renderCardGallery(card, Number(card.dataset.activeImage || 0) - 1);
+    });
+
+    card.querySelector(".gallery-control-next")?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      renderCardGallery(card, Number(card.dataset.activeImage || 0) + 1);
+    });
+
+    card.querySelector(".project-image-trigger")?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      openImageGallery(card.dataset.projectCard, Number(card.dataset.activeImage || 0));
+    });
+
+    card.addEventListener("click", () => openProject(card.dataset.projectCard));
+    card.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openProject(card.dataset.projectCard);
+      }
+    });
+  });
 }
 
 function readCanvasColors() {
@@ -214,6 +423,7 @@ function animateCounters() {
 initializeTheme();
 startCanvas();
 animateCounters();
+initializeProjectCards();
 
 window.addEventListener("resize", startCanvas);
 
@@ -240,17 +450,41 @@ navLinks?.querySelectorAll("a").forEach((link) => {
 
 secondaryExperienceOpen?.addEventListener("click", openSecondaryExperience);
 secondaryExperienceClose?.addEventListener("click", closeSecondaryExperience);
+projectModalClose?.addEventListener("click", closeProject);
+imageModalClose?.addEventListener("click", closeImageGallery);
+projectModalImageButton?.addEventListener("click", () => openImageGallery(activeProjectId, activeImageIndex));
+imagePrev?.addEventListener("click", () => moveActiveImage(-1));
+imageNext?.addEventListener("click", () => moveActiveImage(1));
 
 secondaryExperienceModal?.addEventListener("click", (event) => {
   if (event.target === secondaryExperienceModal) closeSecondaryExperience();
 });
 
 secondaryExperienceModal?.addEventListener("close", () => {
-  document.body.style.overflow = "";
+  syncBodyLock();
+});
+
+projectModal?.addEventListener("click", (event) => {
+  if (event.target === projectModal) closeProject();
+});
+
+projectModal?.addEventListener("close", () => {
+  syncBodyLock();
+});
+
+imageModal?.addEventListener("click", (event) => {
+  if (event.target === imageModal) closeImageGallery();
+});
+
+imageModal?.addEventListener("close", () => {
+  syncBodyLock();
 });
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeMenu();
+  if (!imageModal?.open) return;
+  if (event.key === "ArrowLeft") moveActiveImage(-1);
+  if (event.key === "ArrowRight") moveActiveImage(1);
 });
 
 if (window.lucide) {

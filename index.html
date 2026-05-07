@@ -205,28 +205,61 @@
             </p>
           </div>
 
-          <div class="project-grid">
-            <article class="project-card">
+          <div class="project-grid" aria-label="Proyectos destacados">
+            <article class="project-card" data-project-card="angular" tabindex="0" aria-label="Abrir detalles de Aplicaciones Web Angular">
               <div class="project-number">01</div>
-              <i data-lucide="monitor-smartphone"></i>
+              <div class="project-gallery" aria-label="Galería de Aplicaciones Web Angular">
+                <button class="project-image-trigger" type="button" aria-label="Abrir galería de Aplicaciones Web Angular">
+                  <img src="assets/projects/angular-dashboard.svg" alt="Dashboard web modular desarrollado con Angular" />
+                </button>
+                <button class="gallery-control gallery-control-prev" type="button" aria-label="Imagen anterior">
+                  <i data-lucide="chevron-left"></i>
+                </button>
+                <button class="gallery-control gallery-control-next" type="button" aria-label="Imagen siguiente">
+                  <i data-lucide="chevron-right"></i>
+                </button>
+                <div class="gallery-dots" aria-hidden="true"></div>
+              </div>
               <h3>Aplicaciones Web Angular</h3>
               <p>Componentes reutilizables, arquitectura modular e integración de librerías para productos internos.</p>
               <div class="tag-row">
                 <span>Angular</span><span>TypeScript</span><span>APIs</span>
               </div>
             </article>
-            <article class="project-card">
+            <article class="project-card" data-project-card="ionic" tabindex="0" aria-label="Abrir detalles de Apps móviles híbridas">
               <div class="project-number">02</div>
-              <i data-lucide="app-window"></i>
+              <div class="project-gallery" aria-label="Galería de Apps móviles híbridas">
+                <button class="project-image-trigger" type="button" aria-label="Abrir galería de Apps móviles híbridas">
+                  <img src="assets/projects/ionic-mobile.svg" alt="Interfaz móvil híbrida desarrollada con Ionic y Capacitor" />
+                </button>
+                <button class="gallery-control gallery-control-prev" type="button" aria-label="Imagen anterior">
+                  <i data-lucide="chevron-left"></i>
+                </button>
+                <button class="gallery-control gallery-control-next" type="button" aria-label="Imagen siguiente">
+                  <i data-lucide="chevron-right"></i>
+                </button>
+                <div class="gallery-dots" aria-hidden="true"></div>
+              </div>
               <h3>Apps móviles híbridas</h3>
               <p>Desarrollo con Ionic y Capacitor para experiencias multiplataforma fluidas y fáciles de mantener.</p>
               <div class="tag-row">
                 <span>Ionic</span><span>Capacitor</span><span>UX</span>
               </div>
             </article>
-            <article class="project-card">
+            <article class="project-card" data-project-card="games" tabindex="0" aria-label="Abrir detalles de Videojuegos educativos">
               <div class="project-number">03</div>
-              <i data-lucide="gamepad-2"></i>
+              <div class="project-gallery" aria-label="Galería de Videojuegos educativos">
+                <button class="project-image-trigger" type="button" aria-label="Abrir galería de Videojuegos educativos">
+                  <img src="assets/projects/educational-game.svg" alt="Pantalla de videojuego educativo interactivo" />
+                </button>
+                <button class="gallery-control gallery-control-prev" type="button" aria-label="Imagen anterior">
+                  <i data-lucide="chevron-left"></i>
+                </button>
+                <button class="gallery-control gallery-control-next" type="button" aria-label="Imagen siguiente">
+                  <i data-lucide="chevron-right"></i>
+                </button>
+                <div class="gallery-dots" aria-hidden="true"></div>
+              </div>
               <h3>Videojuegos educativos</h3>
               <p>Herramientas interactivas para enseñanza, desde conceptualización hasta desarrollo funcional.</p>
               <div class="tag-row">
@@ -236,6 +269,51 @@
           </div>
         </div>
       </section>
+
+      <dialog class="project-modal" id="projectModal" aria-labelledby="projectModalTitle">
+        <div class="modal-panel project-modal-panel">
+          <div class="modal-header">
+            <div>
+              <p class="eyebrow" id="projectModalEyebrow">Proyecto</p>
+              <h2 id="projectModalTitle"></h2>
+            </div>
+            <button class="icon-button" type="button" id="projectModalClose" aria-label="Cerrar proyecto">
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+          <div class="project-modal-body">
+            <button class="modal-gallery-image" type="button" id="projectModalImageButton" aria-label="Abrir imagen en grande">
+              <img id="projectModalImage" src="" alt="" />
+            </button>
+            <div class="project-modal-copy">
+              <p id="projectModalDescription"></p>
+              <div class="project-detail-list" id="projectModalDetails"></div>
+              <div class="tag-row" id="projectModalTags"></div>
+            </div>
+          </div>
+        </div>
+      </dialog>
+
+      <dialog class="image-modal" id="imageModal" aria-labelledby="imageModalTitle">
+        <div class="image-modal-panel">
+          <div class="image-modal-header">
+            <h2 id="imageModalTitle"></h2>
+            <button class="icon-button" type="button" id="imageModalClose" aria-label="Cerrar galería">
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+          <div class="image-viewer">
+            <button class="image-nav" type="button" id="imagePrev" aria-label="Imagen anterior">
+              <i data-lucide="chevron-left"></i>
+            </button>
+            <img id="imageModalImage" src="" alt="" />
+            <button class="image-nav" type="button" id="imageNext" aria-label="Imagen siguiente">
+              <i data-lucide="chevron-right"></i>
+            </button>
+          </div>
+          <p class="image-counter" id="imageCounter"></p>
+        </div>
+      </dialog>
 
       <section id="experiencia" class="section-band">
         <div class="section-grid">
