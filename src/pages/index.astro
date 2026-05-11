@@ -3,6 +3,7 @@ import "../styles/global.css";
 import { projectData } from "../data/projects";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import Analytics from '@vercel/analytics/astro'
 
 ---
 
@@ -58,6 +59,7 @@ import 'aos/dist/aos.css';
     </script>
   </head>
   <body>
+    <Analytics />
     <header class="site-header">
       <nav class="nav-shell" aria-label="Navegación principal" data-aos="fade-down">
         <a href="#inicio" class="brand" aria-label="Ir al inicio">
