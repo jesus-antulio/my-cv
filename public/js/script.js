@@ -26,6 +26,8 @@ const imageNext = document.querySelector("#imageNext");
 const imageCounter = document.querySelector("#imageCounter");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const systemDark = window.matchMedia("(prefers-color-scheme: dark)");
+const modalCloseDuration = 220;
+const modalCloseTimers = new WeakMap();
 
 let nodes = [];
 let width = 0;
@@ -87,8 +89,20 @@ function syncBodyLock() {
   document.body.style.overflow = document.querySelector("dialog[open]") ? "hidden" : "";
 }
 
+function clearModalCloseState(dialog) {
+  const timer = modalCloseTimers.get(dialog);
+  if (timer) {
+    window.clearTimeout(timer);
+    modalCloseTimers.delete(dialog);
+  }
+
+  dialog.dataset.closing = "false";
+}
+
 function showDialog(dialog) {
   if (!dialog) return;
+
+  clearModalCloseState(dialog);
 
   if (typeof dialog.showModal === "function") {
     dialog.showModal();
@@ -105,12 +119,34 @@ function openSecondaryExperience() {
   showDialog(secondaryExperienceModal);
 }
 
+function closeDialogWithAnimation(dialog, onClose) {
+  if (!dialog?.open || dialog.dataset.closing === "true") return;
+
+  dialog.dataset.closing = "true";
+
+  if (reduceMotion.matches) {
+    dialog.close();
+    clearModalCloseState(dialog);
+    onClose?.();
+    return;
+  }
+
+  const timer = window.setTimeout(() => {
+    dialog.close();
+    clearModalCloseState(dialog);
+    onClose?.();
+  }, modalCloseDuration);
+
+  modalCloseTimers.set(dialog, timer);
+}
+
 function closeSecondaryExperience() {
   if (!secondaryExperienceModal?.open) return;
 
-  secondaryExperienceModal.close();
-  syncBodyLock();
-  secondaryExperienceOpen?.focus();
+  closeDialogWithAnimation(secondaryExperienceModal, () => {
+    syncBodyLock();
+    secondaryExperienceOpen?.focus();
+  });
 }
 
 function getProject(projectId) {
@@ -154,9 +190,10 @@ function openProject(projectId) {
 function closeProject() {
   if (!projectModal?.open) return;
 
-  projectModal.close();
-  syncBodyLock();
-  document.querySelector(`[data-project-card="${activeProjectId}"]`)?.focus();
+  closeDialogWithAnimation(projectModal, () => {
+    syncBodyLock();
+    document.querySelector(`[data-project-card="${activeProjectId}"]`)?.focus();
+  });
 }
 
 function renderImageModal() {
@@ -183,8 +220,9 @@ function openImageGallery(projectId, imageIndex = 0) {
 function closeImageGallery() {
   if (!imageModal?.open) return;
 
-  imageModal.close();
-  syncBodyLock();
+  closeDialogWithAnimation(imageModal, () => {
+    syncBodyLock();
+  });
 }
 
 function moveActiveImage(direction) {
@@ -391,7 +429,13 @@ secondaryExperienceModal?.addEventListener("click", (event) => {
   if (event.target === secondaryExperienceModal) closeSecondaryExperience();
 });
 
+secondaryExperienceModal?.addEventListener("cancel", (event) => {
+  event.preventDefault();
+  closeSecondaryExperience();
+});
+
 secondaryExperienceModal?.addEventListener("close", () => {
+  clearModalCloseState(secondaryExperienceModal);
   syncBodyLock();
 });
 
@@ -399,7 +443,13 @@ projectModal?.addEventListener("click", (event) => {
   if (event.target === projectModal) closeProject();
 });
 
+projectModal?.addEventListener("cancel", (event) => {
+  event.preventDefault();
+  closeProject();
+});
+
 projectModal?.addEventListener("close", () => {
+  clearModalCloseState(projectModal);
   syncBodyLock();
 });
 
@@ -407,7 +457,13 @@ imageModal?.addEventListener("click", (event) => {
   if (event.target === imageModal) closeImageGallery();
 });
 
+imageModal?.addEventListener("cancel", (event) => {
+  event.preventDefault();
+  closeImageGallery();
+});
+
 imageModal?.addEventListener("close", () => {
+  clearModalCloseState(imageModal);
   syncBodyLock();
 });
 

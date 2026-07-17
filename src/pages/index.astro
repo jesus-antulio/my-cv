@@ -5,6 +5,51 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Analytics from '@vercel/analytics/astro'
 
+const siteUrl = "https://jesus-antulio.com.mx";
+const profileImage = `${siteUrl}/assets/img/me.jpg`;
+const whatsappUrl = "https://wa.me/524448288334?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20conversaci%C3%B3n%20sobre%20un%20proyecto";
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${siteUrl}#person`,
+      "name": "Jesús Antulio Jiménez Delgado",
+      "alternateName": "Jesús A. Jiménez",
+      "jobTitle": "Frontend Developer",
+      "description": "Desarrollador frontend especializado en Angular, Ionic y Astro, con base en San Luis Potosí, México.",
+      "url": siteUrl,
+      "image": profileImage,
+      "email": "jesus_antulio@outlook.com",
+      "telephone": "+52 444 828 8334",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "San Luis Potosí",
+        "addressCountry": "MX"
+      },
+      "knowsAbout": [
+        "Angular",
+        "Ionic",
+        "Astro",
+        "TypeScript",
+        "JavaScript",
+        "Frontend Development",
+        "UI responsive"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}#website`,
+      "url": siteUrl,
+      "name": "Jesús A. Jiménez | Frontend Developer",
+      "description": "Portafolio profesional y CV personal de Jesús Antulio Jiménez Delgado.",
+      "publisher": {
+        "@id": `${siteUrl}#person`
+      },
+      "inLanguage": "es-MX"
+    }
+  ]
+};
 ---
 
 <!doctype html>
@@ -13,23 +58,30 @@ import Analytics from '@vercel/analytics/astro'
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Jesús Antulio Jiménez Delgado" />
+    <meta name="creator" content="Jesús Antulio Jiménez Delgado" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta
       name="description"
-      content="Portafolio profesional y CV personal de Jesús Antulio Jiménez Delgado: desarrollador frontend especializado en Angular, Ionic y Astro."
+      content="Portafolio profesional y CV personal de Jesús Antulio Jiménez Delgado, frontend developer en San Luis Potosí especializado en Angular, Ionic y Astro."
     />
-    <meta name="keywords" content="frontend developer, Angular, Ionic, Astro, JavaScript, TypeScript, web development" />
+    <meta name="keywords" content="frontend developer, desarrollador frontend, Angular, Ionic, Astro, JavaScript, TypeScript, San Luis Potosí, portafolio" />
     <meta name="theme-color" content="#f6f3ec" />
     <meta name="color-scheme" content="light dark" />
-    <meta property="og:title" content="Jesús A. Jiménez | Frontend Developer" />
-    <meta property="og:description" content="Portafolio profesional y CV personal de Jesús Antulio Jiménez Delgado: desarrollador frontend especializado en Angular, Ionic y Astro." />
+    <meta property="og:site_name" content="Jesús A. Jiménez | Frontend Developer" />
+    <meta property="og:title" content="Jesús A. Jiménez | Frontend Developer en San Luis Potosí" />
+    <meta property="og:description" content="Portafolio profesional y CV personal de Jesús Antulio Jiménez Delgado, frontend developer especializado en Angular, Ionic y Astro." />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_ES" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:image" content={profileImage} />
+    <meta property="og:image:alt" content="Fotografía de Jesús Antulio Jiménez Delgado" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Jesús A. Jiménez | Frontend Developer" />
-    <meta name="twitter:description" content="Portafolio profesional y CV personal de Jesús Antulio Jiménez Delgado: desarrollador frontend especializado en Angular, Ionic y Astro." />
-    <title>Jesús A. Jiménez | Frontend Developer</title>
+    <meta name="twitter:title" content="Jesús A. Jiménez | Frontend Developer en San Luis Potosí" />
+    <meta name="twitter:description" content="Portafolio profesional y CV personal de Jesús Antulio Jiménez Delgado, frontend developer especializado en Angular, Ionic y Astro." />
+    <meta name="twitter:image" content={profileImage} />
+    <title>Jesús A. Jiménez | Frontend Developer en San Luis Potosí</title>
     <link rel="icon" href="/assets/favicon/favicon.ico" type="image/x-icon" />
-    <link rel="canonical" href="https://jesus-antulio.com.mx" />
+    <link rel="canonical" href={siteUrl} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -56,6 +108,9 @@ import Analytics from '@vercel/analytics/astro'
     </script>
     <script define:vars={{ projectData }} is:inline>
       window.projectData = projectData;
+    </script>
+    <script type="application/ld+json" is:inline>
+      {JSON.stringify(structuredData)}
     </script>
   </head>
   <body>
@@ -314,6 +369,7 @@ import Analytics from '@vercel/analytics/astro'
             <article class="timeline-item" data-aos="fade" data-aos-delay="100">
               <span>2024 - Presente</span>
               <h3>Desarrollador Frontend | FoxCode</h3>
+              <span class="role-badge">Rol actual</span>
               <p>Aplicaciones web con Angular, interfaces dinámicas, componentes reutilizables, arquitectura modular, control de versiones, apps con Ionic y landings con Astro.</p>
             </article>
             <article class="timeline-item" data-aos="fade" data-aos-delay="200">
@@ -420,7 +476,7 @@ import Analytics from '@vercel/analytics/astro'
             <p class="eyebrow">Contacto</p>
             <h2>¿Tienes un proyecto en mente? Hablemos.</h2>
             <p>
-              Disponible para nuevas oportunidades frontend, colaboraciones tecnológicas y proyectos.
+              Disponible para nuevas oportunidades frontend, colaboraciones tecnológicas y proyectos en Angular, Ionic y Astro.
             </p>
           </div>
           <div class="contact-links" >
@@ -452,6 +508,11 @@ import Analytics from '@vercel/analytics/astro'
     <footer class="site-footer">
       <p>© 2026 Jesús Antulio Jiménez Delgado.</p>
     </footer>
+
+    <a class="mobile-whatsapp-fab" href={whatsappUrl} target="_blank" rel="noreferrer" aria-label="Escribir por WhatsApp">
+      <i data-lucide="message-circle"></i>
+      WhatsApp
+    </a>
 
     <script is:inline src="https://unpkg.com/lucide@latest"></script>
     <script is:inline src="/js/script.js"></script>
