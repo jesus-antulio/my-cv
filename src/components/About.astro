@@ -1,0 +1,98 @@
+---
+import { features } from "../data/skills";
+import SectionHeading from "./ui/SectionHeading.astro";
+---
+
+<section id="perfil" class="section">
+  <div class="container section-grid">
+    <SectionHeading
+      index="01"
+      label="perfil"
+      title="Desarrollo FrontEnd con Angular, Ionic y Astro."
+      aos="fade-right"
+      sticky
+    />
+
+    <div class="feature-grid">
+      {
+        features.map((feature, index) => (
+          <article class="feature-card card" data-aos="fade-up" data-aos-delay={index * 100}>
+            <span class="feature-icon">
+              <i data-lucide={feature.icon} />
+            </span>
+            <h3>{feature.title}</h3>
+            <p>{feature.text}</p>
+            <span class="feature-index" aria-hidden="true">
+              0{index + 1}
+            </span>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .feature-card {
+    display: grid;
+    gap: 12px;
+    align-content: start;
+    overflow: hidden;
+    padding: 24px;
+  }
+
+  .feature-icon {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    color: var(--accent);
+    transition: background 220ms ease, color 220ms ease, rotate 220ms ease, box-shadow 220ms ease;
+  }
+
+  .feature-icon :global(svg) {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .feature-card:hover .feature-icon {
+    background: var(--accent);
+    box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 50%, transparent);
+    color: var(--accent-ink);
+    rotate: -8deg;
+  }
+
+  .feature-card p {
+    font-size: 0.94rem;
+  }
+
+  .feature-index {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    color: var(--line-strong);
+    font-family: var(--font-mono);
+    font-size: 1.6rem;
+    font-weight: 800;
+    transition: color 220ms ease;
+  }
+
+  .feature-card:hover .feature-index {
+    color: var(--accent);
+  }
+
+  @media (max-width: 680px) {
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

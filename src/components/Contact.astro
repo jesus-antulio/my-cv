@@ -1,0 +1,133 @@
+---
+import { site } from "../data/site";
+import SectionHeading from "./ui/SectionHeading.astro";
+
+const links = [
+  { icon: "mail", label: site.email, href: `mailto:${site.email}` },
+  { icon: "phone", label: site.phoneDisplay, href: site.phoneHref },
+  { icon: "message-circle", label: "WhatsApp", href: site.whatsappContactUrl, external: true },
+  { icon: "map-pin", label: site.location, href: site.mapsUrl, external: true },
+  { icon: "download", label: "Descargar CV", href: site.cvPath, download: true },
+];
+---
+
+<section id="contacto" class="section contact-section">
+  <div class="container contact-grid">
+    <SectionHeading index="05" label="contacto" title="¿Tienes un proyecto en mente? Hablemos." aos="fade-right">
+      <p>
+        Disponible para nuevas oportunidades frontend, colaboraciones tecnológicas y proyectos en Angular, Ionic y
+        Astro.
+      </p>
+    </SectionHeading>
+
+    <div class="window contact-window" data-aos="fade-left">
+      <div class="window-bar">
+        <span class="window-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="window-title">contacto.sh</span>
+      </div>
+      <div class="contact-links">
+        {
+          links.map((link) => (
+            <a
+              href={link.href}
+              target={link.external ? "_blank" : undefined}
+              rel={link.external ? "noreferrer" : undefined}
+              download={link.download}
+            >
+              <span class="contact-prompt" aria-hidden="true">
+                $
+              </span>
+              <i data-lucide={link.icon} />
+              <span class="contact-label">{link.label}</span>
+              <i data-lucide="arrow-up-right" class="contact-arrow" />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-section {
+    overflow: hidden;
+  }
+
+  /* Resplandor de fondo */
+  .contact-section::before {
+    position: absolute;
+    bottom: -40%;
+    left: 50%;
+    width: min(900px, 120%);
+    aspect-ratio: 1;
+    margin-left: calc(min(900px, 120%) / -2);
+    border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in srgb, var(--accent) 14%, transparent), transparent 62%);
+    content: "";
+    pointer-events: none;
+  }
+
+  .contact-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(32px, 6vw, 72px);
+    align-items: center;
+  }
+
+  .contact-links {
+    display: grid;
+    padding: 10px;
+  }
+
+  .contact-links a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 54px;
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    transition: background 180ms ease, color 180ms ease, padding-left 180ms ease;
+  }
+
+  .contact-links a + a {
+    border-top: 1px solid var(--line);
+  }
+
+  .contact-prompt {
+    color: var(--accent);
+    font-weight: 800;
+  }
+
+  .contact-label {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .contact-links :global(.contact-arrow) {
+    margin-left: auto;
+    color: var(--accent);
+    opacity: 0;
+    translate: -6px 6px;
+    transition: opacity 180ms ease, translate 180ms ease;
+  }
+
+  .contact-links a:hover {
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    color: var(--accent);
+    padding-left: 22px;
+  }
+
+  .contact-links a:hover :global(.contact-arrow) {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  @media (max-width: 980px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

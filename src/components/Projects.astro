@@ -1,0 +1,54 @@
+---
+import { projectData } from "../data/projects";
+import ImageModal from "./ImageModal.astro";
+import ProjectCard from "./ProjectCard.astro";
+import ProjectModal from "./ProjectModal.astro";
+import SectionHeading from "./ui/SectionHeading.astro";
+---
+
+<section id="proyectos" class="section section-alt">
+  <div class="container section-stack">
+    <div class="work-heading">
+      <SectionHeading index="02" label="proyectos" title="Proyectos en los que he trabajado." />
+      <p data-aos="fade-up" data-aos-delay="100">
+        Estos proyectos reflejan mi enfoque en el desarrollo frontend, mostrando desde aplicaciones Angular hasta
+        sitios con Astro, con atención a la experiencia de usuario, rendimiento y detalles técnicos.
+      </p>
+    </div>
+
+    <div class="project-grid" aria-label="Proyectos destacados">
+      {Object.entries(projectData).map(([id, project], index) => <ProjectCard id={id} project={project} index={index} />)}
+    </div>
+  </div>
+</section>
+
+<ProjectModal />
+<ImageModal />
+
+<script>
+  import { initProjectGallery } from "../scripts/project-gallery";
+
+  initProjectGallery();
+</script>
+
+<style>
+  .work-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(20px, 5vw, 64px);
+    align-items: end;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  @media (max-width: 860px) {
+    .work-heading,
+    .project-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,126 @@
+---
+import "../styles/global.css";
+import "aos/dist/aos.css";
+import Analytics from "@vercel/analytics/astro";
+import { site } from "../data/site";
+
+const profileImage = `${site.url}${site.profileImage}`;
+const themeColor = site.themeColor;
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${site.url}#person`,
+      name: site.fullName,
+      alternateName: site.shortName,
+      jobTitle: site.role,
+      description:
+        "Desarrollador frontend especializado en Angular, Ionic y Astro, con base en San Luis Potosí, México.",
+      url: site.url,
+      image: profileImage,
+      email: site.email,
+      telephone: site.phoneDisplay,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "San Luis Potosí",
+        addressCountry: "MX",
+      },
+      knowsAbout: [
+        "Angular",
+        "Ionic",
+        "Astro",
+        "TypeScript",
+        "JavaScript",
+        "Frontend Development",
+        "UI responsive",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${site.url}#website`,
+      url: site.url,
+      name: site.siteName,
+      description: `Portafolio profesional y CV personal de ${site.fullName}.`,
+      publisher: { "@id": `${site.url}#person` },
+      inLanguage: "es-MX",
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="es" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content={site.fullName} />
+    <meta name="creator" content={site.fullName} />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta name="description" content={site.description} />
+    <meta name="keywords" content={site.keywords} />
+    <meta name="theme-color" content={themeColor.dark} />
+    <meta name="color-scheme" content="dark light" />
+    <meta property="og:site_name" content={site.siteName} />
+    <meta property="og:title" content={site.title} />
+    <meta property="og:description" content={site.socialDescription} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:url" content={site.url} />
+    <meta property="og:image" content={profileImage} />
+    <meta property="og:image:alt" content={`Fotografía de ${site.fullName}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={site.title} />
+    <meta name="twitter:description" content={site.socialDescription} />
+    <meta name="twitter:image" content={profileImage} />
+    <title>{site.title}</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/favicon/icon-32.png" type="image/png" sizes="32x32" />
+    <link rel="alternate icon" href="/assets/favicon/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png" />
+    <link rel="canonical" href={site.url} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Fija el tema antes del primer pintado: el guardado por el usuario o, por defecto, oscuro. -->
+    <script is:inline define:vars={{ themeColor }}>
+      (() => {
+        let theme = "dark";
+        try {
+          if (localStorage.getItem("theme") === "light") theme = "light";
+        } catch {
+          /* sin acceso a localStorage */
+        }
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", themeColor[theme]);
+      })();
+    </script>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />
+  </head>
+  <body>
+    <Analytics />
+    <div class="cursor-glow" aria-hidden="true"></div>
+    <slot />
+
+    <script is:inline src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      import AOS from "aos";
+      import { initCursorGlow, initIcons } from "../scripts/effects";
+
+      initIcons();
+      initCursorGlow();
+      AOS.init({
+        duration: 700,
+        easing: "ease-out-cubic",
+        offset: 60,
+        once: true,
+        disable: () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+      });
+    </script>
+  </body>
+</html>

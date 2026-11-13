@@ -1,0 +1,180 @@
+---
+import { secondaryExperienceIntro, timeline } from "../data/experience";
+import SecondaryExperienceModal from "./SecondaryExperienceModal.astro";
+import SectionHeading from "./ui/SectionHeading.astro";
+---
+
+<section id="experiencia" class="section">
+  <div class="container section-grid">
+    <SectionHeading
+      index="03"
+      label="cv"
+      title="Experiencia, educación y evolución técnica."
+      aos="fade-right"
+      sticky
+    >
+      <a class="button button-secondary" href="#contacto">
+        <i data-lucide="mail"></i>
+        Contactar
+      </a>
+    </SectionHeading>
+
+    <div class="experience-column">
+      <div class="timeline">
+        {
+          timeline.map((item, index) => (
+            <article
+              class:list={["timeline-item", { "is-current": item.current }]}
+              data-aos="fade-left"
+              data-aos-delay={index * 80}
+            >
+              <div class="timeline-card card">
+                <span class="timeline-period">{item.period}</span>
+                <h3>{item.title}</h3>
+                {item.current && <span class="role-badge">Rol actual</span>}
+                <p>{item.description}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="secondary-experience-cta" data-aos="fade-up">
+        <p>{secondaryExperienceIntro}</p>
+        <button class="button button-secondary" type="button" id="secondaryExperienceOpen">
+          <i data-lucide="layers-3"></i>
+          Ver experiencia complementaria
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<SecondaryExperienceModal />
+
+<script>
+  import { initTimelineProgress } from "../scripts/effects";
+  import { closeDialog, showDialog, wireDialog } from "../scripts/modals";
+
+  const modal = document.querySelector<HTMLDialogElement>("#secondaryExperienceModal");
+  const openButton = document.querySelector<HTMLElement>("#secondaryExperienceOpen");
+
+  openButton?.addEventListener("click", () => showDialog(modal));
+  wireDialog(modal, document.querySelector("#secondaryExperienceClose"), () =>
+    closeDialog(modal, () => openButton?.focus()),
+  );
+
+  initTimelineProgress();
+</script>
+
+<style>
+  .experience-column {
+    display: grid;
+    gap: 28px;
+  }
+
+  .timeline {
+    --progress: 1;
+    position: relative;
+    display: grid;
+    gap: 18px;
+    padding-left: 34px;
+  }
+
+  /* Riel y línea que se "dibuja" con el scroll (--progress la actualiza effects.ts) */
+  .timeline::before,
+  .timeline::after {
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    left: 7px;
+    width: 2px;
+    border-radius: 2px;
+    content: "";
+  }
+
+  .timeline::before {
+    background: var(--line);
+  }
+
+  .timeline::after {
+    background: linear-gradient(180deg, var(--accent), var(--accent-3));
+    box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 70%, transparent);
+    scale: 1 var(--progress);
+    transform-origin: top;
+  }
+
+  .timeline-item {
+    position: relative;
+  }
+
+  /* Nodo */
+  .timeline-item::before {
+    position: absolute;
+    top: 26px;
+    left: -34px;
+    z-index: 1;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    background: var(--bg);
+    content: "";
+  }
+
+  .timeline-item.is-current::before {
+    background: var(--accent);
+    animation: pulse-ring 1.8s ease-out infinite;
+  }
+
+  .timeline-card {
+    display: grid;
+    gap: 10px;
+    justify-items: start;
+    padding: 22px 24px;
+  }
+
+  .timeline-period {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .role-badge {
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 2px 10px;
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+
+  .timeline-card p {
+    font-size: 0.94rem;
+  }
+
+  .secondary-experience-cta {
+    display: grid;
+    gap: 16px;
+    justify-items: start;
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    background: color-mix(in srgb, var(--accent) 4%, transparent);
+  }
+
+  .secondary-experience-cta p {
+    font-size: 0.94rem;
+  }
+
+  @media (max-width: 680px) {
+    .secondary-experience-cta .button {
+      width: 100%;
+    }
+  }
+</style>

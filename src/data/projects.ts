@@ -1,4 +1,18 @@
-export const projectData = {
+export interface ProjectImage {
+  src: string;
+  alt?: string;
+}
+
+export interface Project {
+  eyebrow: string;
+  title: string;
+  description: string;
+  images: ProjectImage[];
+  details: [label: string, value: string][];
+  tags: string[];
+}
+
+export const projectData: Record<string, Project> = {
   crm_4sales: {
     eyebrow: "Proyecto 01",
     title: "4Sales: CRM y micrositios",

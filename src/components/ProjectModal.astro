@@ -1,0 +1,27 @@
+---
+// El contenido lo rellena src/scripts/project-gallery.ts; los estilos están en global.css.
+---
+
+<dialog class="modal project-modal" id="projectModal" aria-labelledby="projectModalTitle">
+  <div class="modal-panel">
+    <div class="modal-header">
+      <div>
+        <p class="eyebrow" id="projectModalEyebrow">Proyecto</p>
+        <h2 id="projectModalTitle"></h2>
+      </div>
+      <button class="icon-button" type="button" id="projectModalClose" aria-label="Cerrar proyecto">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+    <div class="project-modal-body">
+      <button class="modal-gallery-image" type="button" id="projectModalImageButton" aria-label="Abrir imagen en grande">
+        <img id="projectModalImage" alt="" />
+      </button>
+      <div class="project-modal-copy">
+        <p id="projectModalDescription"></p>
+        <div class="project-detail-list" id="projectModalDetails"></div>
+        <div class="tag-row" id="projectModalTags"></div>
+      </div>
+    </div>
+  </div>
+</dialog>

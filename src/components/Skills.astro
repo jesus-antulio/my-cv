@@ -1,0 +1,115 @@
+---
+import { skills } from "../data/skills";
+import SectionHeading from "./ui/SectionHeading.astro";
+---
+
+<section id="habilidades" class="section section-alt">
+  <div class="container section-stack">
+    <SectionHeading
+      index="04"
+      label="habilidades"
+      title="Herramientas para diseñar, construir y publicar interfaces."
+    />
+
+    <ul class="skills-grid">
+      {
+        skills.map((skill, index) => (
+          <li data-aos="zoom-in" data-aos-delay={index * 45}>
+            <span class="skill-chip">
+              <span class="skill-prefix" aria-hidden="true">
+                &lt;
+              </span>
+              {skill}
+              <span class="skill-prefix" aria-hidden="true">
+                /&gt;
+              </span>
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .skill-chip {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    overflow: hidden;
+    min-height: 64px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 12px;
+    background: var(--surface);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-align: center;
+    transition: border-color 200ms ease, color 200ms ease, box-shadow 200ms ease, translate 200ms ease;
+  }
+
+  /* Barra inferior que crece al pasar el cursor */
+  .skill-chip::after {
+    position: absolute;
+    inset: auto 0 0;
+    height: 2px;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+    content: "";
+    scale: 0 1;
+    transform-origin: left;
+    transition: scale 300ms ease;
+  }
+
+  .skill-chip:hover {
+    border-color: var(--line-strong);
+    box-shadow: var(--glow);
+    color: var(--accent);
+    translate: 0 -3px;
+  }
+
+  .skill-chip:hover::after {
+    scale: 1 1;
+  }
+
+  .skill-prefix {
+    color: var(--subtle);
+    font-weight: 400;
+    transition: color 200ms ease;
+  }
+
+  .skill-chip:hover .skill-prefix {
+    color: var(--accent);
+  }
+
+  @media (max-width: 980px) {
+    .skills-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 680px) {
+    .skills-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .skill-chip {
+      min-height: 54px;
+      padding: 10px 6px;
+      font-size: 0.76rem;
+    }
+  }
+</style>

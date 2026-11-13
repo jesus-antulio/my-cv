@@ -8,12 +8,16 @@ Proyecto Astro para presentar el perfil profesional, experiencia, habilidades, p
 - `npm run build`: genera la versión estática en `dist/`.
 - `npm run preview`: previsualiza el build localmente.
 
-## Archivos
+## Estructura
 
-- `src/pages/index.astro`: estructura del sitio y contenido principal.
-- `src/styles/global.css`: estilos globales.
-- `public/js/script.js`: interacciones del sitio, modales, galería y animación visual del hero.
-- `public/assets/docs/cv-jesus-jimenez.pdf`: CV descargable desde el sitio.
+- `src/pages/index.astro`: compone la página a partir de los componentes.
+- `src/layouts/Layout.astro`: `<head>` (SEO, Open Graph, JSON-LD), fuentes, favicon y tema inicial.
+- `src/components/`: una sección por archivo (`Header`, `Hero`, `About`, `Projects`, `Experience`, `Skills`, `Contact`, `Footer`), los modales y `ui/SectionHeading`. Cada componente lleva sus propios estilos.
+- `src/data/`: contenido del sitio (`site.ts`, `projects.ts`, `experience.ts`, `skills.ts`). Para cambiar textos, proyectos o datos de contacto se edita aquí.
+- `src/scripts/`: interacciones (tema, menú, modales, galería de proyectos, canvas del hero, contadores y animaciones).
+- `src/styles/global.css`: variables de color (tema oscuro y claro), estilos base, utilidades compartidas, modales y keyframes.
+- `public/favicon.svg` y `public/assets/favicon/`: favicon (los PNG e ICO se generan a partir del SVG).
+- `public/assets/docs/`: CV descargable desde el sitio.
 - `public/assets/projects/`: imágenes usadas en la galería de proyectos.
 
 ## Personalización rápida

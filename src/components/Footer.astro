@@ -1,0 +1,37 @@
+---
+import { site } from "../data/site";
+---
+
+<footer class="site-footer">
+  <p class="container">
+    <span class="footer-prompt" aria-hidden="true">&gt;_</span>
+    © 2026 {site.fullName}.
+  </p>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--line);
+    padding: 28px 0;
+  }
+
+  .site-footer p {
+    color: var(--subtle);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    text-align: center;
+  }
+
+  .footer-prompt {
+    margin-right: 8px;
+    color: var(--accent);
+    font-weight: 800;
+  }
+
+  @media (max-width: 680px) {
+    /* Deja espacio para el botón flotante de WhatsApp */
+    .site-footer {
+      padding-bottom: 92px;
+    }
+  }
+</style>
