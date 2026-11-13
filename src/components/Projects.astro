@@ -1,23 +1,24 @@
 ---
-import { projectData } from "../data/projects";
+import { getProjects } from "../data/projects";
+import { useTranslations } from "../i18n";
 import ImageModal from "./ImageModal.astro";
 import ProjectCard from "./ProjectCard.astro";
 import ProjectModal from "./ProjectModal.astro";
 import SectionHeading from "./ui/SectionHeading.astro";
+
+const t = useTranslations(Astro.currentLocale);
+const projects = getProjects(Astro.currentLocale);
 ---
 
-<section id="proyectos" class="section">
+<section id={t.sections.projects} class="section">
   <div class="container section-stack">
     <div class="work-heading">
-      <SectionHeading index="02" label="Proyectos" title="Proyectos en los que he trabajado." />
-      <p data-aos="fade-up" data-aos-delay="80">
-        Estos proyectos reflejan mi enfoque en el desarrollo frontend, mostrando desde aplicaciones Angular hasta
-        sitios con Astro, con atención a la experiencia de usuario, rendimiento y detalles técnicos.
-      </p>
+      <SectionHeading index="02" label={t.projects.label} title={t.projects.title} />
+      <p data-aos="fade-up" data-aos-delay="80">{t.projects.intro}</p>
     </div>
 
-    <div class="project-list" aria-label="Proyectos destacados">
-      {Object.entries(projectData).map(([id, project], index) => <ProjectCard id={id} project={project} index={index} />)}
+    <div class="project-list" aria-label={t.projects.listLabel}>
+      {Object.entries(projects).map(([id, project], index) => <ProjectCard id={id} project={project} index={index} />)}
     </div>
   </div>
 </section>

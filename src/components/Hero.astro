@@ -1,6 +1,10 @@
 ---
-import { site } from "../data/site";
-import { heroPhrases, heroStack, metrics } from "../data/skills";
+import { heroStack, site } from "../data/site";
+import { toLang, useTranslations } from "../i18n";
+
+const lang = toLang(Astro.currentLocale);
+const t = useTranslations(lang);
+const { hero } = t;
 
 const str = (value: string) => `<span class="tk-s">"${value}"</span>`;
 const half = Math.ceil(heroStack.length / 2);
@@ -8,66 +12,63 @@ const half = Math.ceil(heroStack.length / 2);
 // Resumen del perfil presentado como un archivo TypeScript.
 const codeLines = [
   `<span class="tk-k">const</span> dev = {`,
-  `  nombre: ${str(site.shortName)},`,
-  `  rol: ${str(site.role)},`,
-  `  ubicacion: ${str(site.location)},`,
+  `  ${hero.codeKeys.name}: ${str(site.shortName)},`,
+  `  ${hero.codeKeys.role}: ${str(t.meta.role)},`,
+  `  ${hero.codeKeys.location}: ${str(t.meta.location)},`,
   `  stack: [`,
   `    ${heroStack.slice(0, half).map(str).join(", ")},`,
   `    ${heroStack.slice(half).map(str).join(", ")},`,
   `  ],`,
-  `  disponible: <span class="tk-k">true</span>,`,
+  `  ${hero.codeKeys.available}: <span class="tk-k">true</span>,`,
   `};`,
   ``,
   `<span class="tk-k">export default</span> dev;`,
 ];
 ---
 
-<section id="inicio" class="hero">
+<section id={t.sections.home} class="hero">
   <div class="container hero-grid">
     <div class="hero-copy" data-aos="fade-up">
       <div class="identity">
-        <img src={site.profileImage} alt={`Foto de perfil de ${site.fullName}`} width="96" height="96" />
+        <img src={site.profileImage} alt={hero.photoAlt(site.fullName)} width="96" height="96" />
         <div>
           <strong>{site.fullName}</strong>
           <span class="status">
             <span class="status-dot" aria-hidden="true"></span>
-            Disponible para proyectos
+            {hero.available}
           </span>
         </div>
       </div>
 
       <h1>
-        Experto en <span class="accent">desarrollo web</span>
+        {hero.titleLead} <span class="accent">{hero.titleAccent}</span>
       </h1>
 
       <p class="prompt mono">
         <span class="prompt-sign" aria-hidden="true">$</span>
-        <span data-typed data-phrases={JSON.stringify(heroPhrases)}>{heroPhrases[0]}</span><span
+        <span data-typed data-phrases={JSON.stringify(hero.phrases)}>{hero.phrases[0]}</span><span
           class="caret"
           aria-hidden="true"></span>
       </p>
 
-      <p class="hero-lead">
-        Soy desarrollador Front-End en San Luis Potosí. Construyo aplicaciones dinámicas, responsivas y mantenibles,
-        principalmente con Angular e Ionic.
-      </p>
+      <p class="hero-lead">{hero.lead}</p>
 
       <div class="hero-actions">
-        <a class="button button-primary" href="#proyectos">
-          Ver proyectos
+        <a class="button button-primary" href={`#${t.sections.projects}`}>
+          {hero.viewProjects}
           <i data-lucide="arrow-down"></i>
         </a>
-        <a class="button" href={site.cvPath} download>
+        <a class="button" href={site.cv[lang]} hreflang={lang} download data-cv-link>
           <i data-lucide="download"></i>
-          Descargar CV
+          {hero.downloadCv}
         </a>
       </div>
     </div>
 
-    <figure class="editor card" data-aos="fade-up" data-aos-delay="120" aria-label="Resumen del perfil en formato de código">
+    <figure class="editor card" data-aos="fade-up" data-aos-delay="120" aria-label={hero.codeLabel}>
       <div class="editor-bar">
         <span class="editor-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-        <span class="editor-tab mono">perfil.ts</span>
+        <span class="editor-tab mono">{hero.codeFile}</span>
       </div>
       <ol class="code">
         {
@@ -82,7 +83,7 @@ const codeLines = [
 
     <dl class="metrics" data-aos="fade-up" data-aos-delay="160">
       {
-        metrics.map((metric) => (
+        hero.metrics.map((metric) => (
           <div class="metric">
             <dt>{metric.label}</dt>
             <dd class="counter" data-target={metric.target} data-suffix={metric.suffix ?? ""}>

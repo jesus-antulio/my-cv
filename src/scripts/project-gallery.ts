@@ -1,13 +1,19 @@
-import { projectData, type Project } from "../data/projects";
+import { getProjects, type Project } from "../data/projects";
+import { useTranslations } from "../i18n";
 import { closeDialog, showDialog, wireDialog } from "./modals";
 
 let activeProjectId: string | null = null;
 let activeImageIndex = 0;
 
+// El idioma de la página (<html lang>) decide los textos de los proyectos.
+const pageLang = document.documentElement.lang;
+const projectData = getProjects(pageLang);
+const { screenshot } = useTranslations(pageLang).projects;
+
 const getProject = (id: string | null | undefined): Project | null => (id && projectData[id]) || null;
 
 const imageAlt = (project: Project, index: number) =>
-  project.images[index].alt ?? `${project.title}: captura ${index + 1}`;
+  project.images[index].alt ?? screenshot(project.title, index + 1);
 
 const wrap = (index: number, length: number) => ((index % length) + length) % length;
 

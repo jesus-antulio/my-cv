@@ -3,7 +3,13 @@ import "../styles/global.css";
 import "aos/dist/aos.css";
 import Analytics from "@vercel/analytics/astro";
 import { site } from "../data/site";
+import { defaultLang, langPath, languages, toLang, useTranslations } from "../i18n";
 
+const lang = toLang(Astro.currentLocale);
+const { meta } = useTranslations(lang);
+
+const pageUrl = (code: typeof lang) => (code === defaultLang ? site.url : `${site.url}${langPath[code]}`);
+const canonical = pageUrl(lang);
 const profileImage = `${site.url}${site.profileImage}`;
 const themeColor = site.themeColor;
 
@@ -15,9 +21,8 @@ const structuredData = {
       "@id": `${site.url}#person`,
       name: site.fullName,
       alternateName: site.shortName,
-      jobTitle: site.role,
-      description:
-        "Desarrollador frontend especializado en Angular, Ionic y Astro, con base en San Luis Potosí, México.",
+      jobTitle: meta.role,
+      description: meta.personDescription,
       url: site.url,
       image: profileImage,
       email: site.email,
@@ -39,47 +44,49 @@ const structuredData = {
     },
     {
       "@type": "WebSite",
-      "@id": `${site.url}#website`,
-      url: site.url,
-      name: site.siteName,
-      description: `Portafolio profesional y CV personal de ${site.fullName}.`,
+      "@id": `${canonical}#website`,
+      url: canonical,
+      name: meta.siteName,
+      description: meta.websiteDescription,
       publisher: { "@id": `${site.url}#person` },
-      inLanguage: "es-MX",
+      inLanguage: meta.inLanguage,
     },
   ],
 };
 ---
 
 <!doctype html>
-<html lang="es" data-theme="dark">
+<html lang={lang} data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content={site.fullName} />
     <meta name="creator" content={site.fullName} />
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
-    <meta name="description" content={site.description} />
-    <meta name="keywords" content={site.keywords} />
+    <meta name="description" content={meta.description} />
+    <meta name="keywords" content={meta.keywords} />
     <meta name="theme-color" content={themeColor.dark} />
     <meta name="color-scheme" content="light dark" />
-    <meta property="og:site_name" content={site.siteName} />
-    <meta property="og:title" content={site.title} />
-    <meta property="og:description" content={site.socialDescription} />
+    <meta property="og:site_name" content={meta.siteName} />
+    <meta property="og:title" content={meta.title} />
+    <meta property="og:description" content={meta.socialDescription} />
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="es_ES" />
-    <meta property="og:url" content={site.url} />
+    <meta property="og:locale" content={meta.ogLocale} />
+    <meta property="og:url" content={canonical} />
     <meta property="og:image" content={profileImage} />
-    <meta property="og:image:alt" content={`Fotografía de ${site.fullName}`} />
+    <meta property="og:image:alt" content={meta.photoAlt(site.fullName)} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={site.title} />
-    <meta name="twitter:description" content={site.socialDescription} />
+    <meta name="twitter:title" content={meta.title} />
+    <meta name="twitter:description" content={meta.socialDescription} />
     <meta name="twitter:image" content={profileImage} />
-    <title>{site.title}</title>
+    <title>{meta.title}</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/assets/favicon/icon-32.png" type="image/png" sizes="32x32" />
     <link rel="alternate icon" href="/assets/favicon/favicon.ico" sizes="any" />
     <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png" />
-    <link rel="canonical" href={site.url} />
+    <link rel="canonical" href={canonical} />
+    {languages.map((code) => <link rel="alternate" hreflang={code} href={pageUrl(code)} />)}
+    <link rel="alternate" hreflang="x-default" href={pageUrl(defaultLang)} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -109,9 +116,11 @@ const structuredData = {
     <script is:inline src="https://unpkg.com/lucide@latest"></script>
     <script>
       import AOS from "aos";
+      import { initCvRegion } from "../scripts/cv-region";
       import { initIcons } from "../scripts/effects";
 
       initIcons();
+      initCvRegion();
       AOS.init({
         duration: 500,
         easing: "ease-out-cubic",

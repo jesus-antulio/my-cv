@@ -1,20 +1,23 @@
 ---
 // El contenido lo rellena src/scripts/project-gallery.ts; los estilos están en global.css.
+import { useTranslations } from "../i18n";
+
+const t = useTranslations(Astro.currentLocale).projects;
 ---
 
 <dialog class="modal project-modal" id="projectModal" aria-labelledby="projectModalTitle">
   <div class="modal-panel">
     <div class="modal-header">
       <div>
-        <p class="eyebrow" id="projectModalEyebrow">Proyecto</p>
+        <p class="eyebrow" id="projectModalEyebrow">{t.modalEyebrow}</p>
         <h2 id="projectModalTitle"></h2>
       </div>
-      <button class="icon-button" type="button" id="projectModalClose" aria-label="Cerrar proyecto">
+      <button class="icon-button" type="button" id="projectModalClose" aria-label={t.closeProject}>
         <i data-lucide="x"></i>
       </button>
     </div>
     <div class="project-modal-body">
-      <button class="modal-gallery-image" type="button" id="projectModalImageButton" aria-label="Abrir imagen en grande">
+      <button class="modal-gallery-image" type="button" id="projectModalImageButton" aria-label={t.openImage}>
         <img id="projectModalImage" alt="" />
       </button>
       <div class="project-modal-copy">
@@ -25,3 +28,4 @@
     </div>
   </div>
 </dialog>
+

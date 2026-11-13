@@ -1,28 +1,30 @@
 ---
-import { site } from "../data/site";
+import { site, whatsappUrl } from "../data/site";
+import { toLang, useTranslations } from "../i18n";
+
+const lang = toLang(Astro.currentLocale);
+const t = useTranslations(lang);
+const { contact } = t;
 
 const links = [
   { icon: "mail", label: site.email, href: `mailto:${site.email}` },
   { icon: "phone", label: site.phoneDisplay, href: site.phoneHref },
-  { icon: "message-circle", label: "WhatsApp", href: site.whatsappContactUrl, external: true },
-  { icon: "map-pin", label: site.location, href: site.mapsUrl, external: true },
-  { icon: "download", label: "Descargar CV", href: site.cvPath, download: true },
+  { icon: "message-circle", label: "WhatsApp", href: whatsappUrl(t.whatsapp.contactMessage), external: true },
+  { icon: "map-pin", label: t.meta.location, href: site.mapsUrl, external: true },
+  { icon: "download", label: contact.downloadCv, href: site.cv[lang], cv: true },
 ];
 ---
 
-<section id="contacto" class="section">
+<section id={t.sections.contact} class="section">
   <div class="container contact-grid">
     <div class="contact-copy" data-aos="fade-up">
       <p class="eyebrow">
         <span>05</span>
         <span class="eyebrow-sep" aria-hidden="true">/</span>
-        <span>Contacto</span>
+        <span>{contact.label}</span>
       </p>
-      <h2>¿Tienes un proyecto en mente? <span class="accent">Hablemos.</span></h2>
-      <p>
-        Disponible para nuevas oportunidades frontend, colaboraciones tecnológicas y proyectos en Angular, Ionic y
-        Astro.
-      </p>
+      <h2>{contact.titleLead} <span class="accent">{contact.titleAccent}</span></h2>
+      <p>{contact.text}</p>
     </div>
 
     <ul class="contact-links" data-aos="fade-up" data-aos-delay="80">
@@ -33,7 +35,9 @@ const links = [
               href={link.href}
               target={link.external ? "_blank" : undefined}
               rel={link.external ? "noreferrer" : undefined}
-              download={link.download}
+              download={link.cv}
+              hreflang={link.cv ? lang : undefined}
+              data-cv-link={link.cv}
             >
               <i data-lucide={link.icon} />
               <span class="contact-label">{link.label}</span>

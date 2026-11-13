@@ -1,12 +1,15 @@
 ---
 import { site } from "../data/site";
+import { useTranslations } from "../i18n";
+
+const t = useTranslations(Astro.currentLocale);
 ---
 
 <footer class="site-footer">
   <div class="container footer-inner">
     <p>© 2026 {site.fullName}</p>
-    <a href="#inicio" class="back-top">
-      Volver arriba
+    <a href={`#${t.sections.home}`} class="back-top">
+      {t.footer.backTop}
       <i data-lucide="arrow-up"></i>
     </a>
   </div>

@@ -1,5 +1,6 @@
 ---
 import type { Project } from "../data/projects";
+import { useTranslations } from "../i18n";
 
 interface Props {
   id: string;
@@ -8,6 +9,7 @@ interface Props {
 }
 
 const { id, project, index } = Astro.props;
+const t = useTranslations(Astro.currentLocale).projects;
 const number = String(index + 1).padStart(2, "0");
 const summary = `${project.description.split(", ").slice(0, 2).join(", ")}.`;
 const cover = project.images[0];
@@ -19,21 +21,21 @@ const cover = project.images[0];
   data-aos="fade-up"
   data-aos-delay={(index % 2) * 80}
   tabindex="0"
-  aria-label={`Abrir detalles de ${project.title}`}
+  aria-label={t.openDetails(project.title)}
 >
-  <div class="project-gallery" aria-label={`Galería de ${project.title}`}>
+  <div class="project-gallery" aria-label={t.gallery(project.title)}>
     <div class="window-bar">
-      <span class="mono">proyectos/{number}</span>
+      <span class="mono">{t.path}/{number}</span>
       <div class="gallery-dots" aria-hidden="true"></div>
     </div>
     <div class="project-shot">
-      <button class="project-image-trigger" type="button" aria-label={`Abrir galería de ${project.title}`}>
-        <img src={cover.src} alt={cover.alt ?? `${project.title}: captura 1`} loading="lazy" />
+      <button class="project-image-trigger" type="button" aria-label={t.openGallery(project.title)}>
+        <img src={cover.src} alt={cover.alt ?? t.screenshot(project.title, 1)} loading="lazy" />
       </button>
-      <button class="gallery-control gallery-control-prev" type="button" aria-label="Imagen anterior">
+      <button class="gallery-control gallery-control-prev" type="button" aria-label={t.prevImage}>
         <i data-lucide="chevron-left"></i>
       </button>
-      <button class="gallery-control gallery-control-next" type="button" aria-label="Imagen siguiente">
+      <button class="gallery-control gallery-control-next" type="button" aria-label={t.nextImage}>
         <i data-lucide="chevron-right"></i>
       </button>
     </div>
@@ -46,7 +48,7 @@ const cover = project.images[0];
       {project.tags.map((tag) => <span>{tag}</span>)}
     </div>
     <span class="open-hint" aria-hidden="true">
-      Ver detalles
+      {t.viewDetails}
       <i data-lucide="arrow-up-right"></i>
     </span>
   </div>

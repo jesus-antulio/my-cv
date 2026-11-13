@@ -1,15 +1,17 @@
 ---
-import { features } from "../data/skills";
+import { useTranslations } from "../i18n";
 import SectionHeading from "./ui/SectionHeading.astro";
+
+const t = useTranslations(Astro.currentLocale);
 ---
 
-<section id="perfil" class="section">
+<section id={t.sections.profile} class="section">
   <div class="container section-stack">
-    <SectionHeading index="01" label="Perfil" title="Desarrollo FrontEnd con Angular, Ionic y Astro." />
+    <SectionHeading index="01" label={t.about.label} title={t.about.title} />
 
     <div class="feature-grid" data-aos="fade-up">
       {
-        features.map((feature, index) => (
+        t.about.features.map((feature, index) => (
           <article class="feature">
             <div class="feature-top">
               <i data-lucide={feature.icon} />

@@ -1,22 +1,25 @@
 ---
-import { secondaryExperienceIntro, timeline } from "../data/experience";
+import { useTranslations } from "../i18n";
 import SecondaryExperienceModal from "./SecondaryExperienceModal.astro";
 import SectionHeading from "./ui/SectionHeading.astro";
+
+const t = useTranslations(Astro.currentLocale);
+const { experience } = t;
 ---
 
-<section id="experiencia" class="section">
+<section id={t.sections.experience} class="section">
   <div class="container section-stack">
-    <SectionHeading index="03" label="CV" title="Experiencia, educación y evolución técnica." />
+    <SectionHeading index="03" label={experience.label} title={experience.title} />
 
     <ol class="xp-list">
       {
-        timeline.map((item, index) => (
+        experience.timeline.map((item, index) => (
           <li class:list={["xp-row", { "is-current": item.current }]} data-aos="fade-up" data-aos-delay={index * 60}>
             <span class="xp-period mono">{item.period}</span>
             <div class="xp-body">
               <h3>
                 {item.title}
-                {item.current && <span class="role-badge mono">Rol actual</span>}
+                {item.current && <span class="role-badge mono">{experience.currentRole}</span>}
               </h3>
               <p>{item.description}</p>
             </div>
@@ -26,10 +29,10 @@ import SectionHeading from "./ui/SectionHeading.astro";
     </ol>
 
     <div class="secondary-cta card" data-aos="fade-up">
-      <p>{secondaryExperienceIntro}</p>
+      <p>{experience.secondaryIntro}</p>
       <button class="button" type="button" id="secondaryExperienceOpen">
         <i data-lucide="layers"></i>
-        Ver experiencia complementaria
+        {experience.secondaryOpen}
       </button>
     </div>
   </div>

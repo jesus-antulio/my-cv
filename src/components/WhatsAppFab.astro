@@ -1,14 +1,11 @@
 ---
-import { site } from "../data/site";
+import { whatsappUrl } from "../data/site";
+import { useTranslations } from "../i18n";
+
+const t = useTranslations(Astro.currentLocale).whatsapp;
 ---
 
-<a
-  class="whatsapp-fab"
-  href={site.whatsappProjectUrl}
-  target="_blank"
-  rel="noreferrer"
-  aria-label="Escribir por WhatsApp"
->
+<a class="whatsapp-fab" href={whatsappUrl(t.projectMessage)} target="_blank" rel="noreferrer" aria-label={t.label}>
   <i data-lucide="message-circle"></i>
   WhatsApp
 </a>

@@ -1,24 +1,28 @@
 ---
 // Visor de imágenes a pantalla completa; lo controla src/scripts/project-gallery.ts.
+import { useTranslations } from "../i18n";
+
+const t = useTranslations(Astro.currentLocale).projects;
 ---
 
 <dialog class="modal image-modal" id="imageModal" aria-labelledby="imageModalTitle">
   <div class="image-modal-panel">
     <div class="image-modal-header">
       <h2 id="imageModalTitle"></h2>
-      <button class="icon-button" type="button" id="imageModalClose" aria-label="Cerrar galería">
+      <button class="icon-button" type="button" id="imageModalClose" aria-label={t.closeGallery}>
         <i data-lucide="x"></i>
       </button>
     </div>
     <div class="image-viewer">
-      <button class="icon-button" type="button" id="imagePrev" aria-label="Imagen anterior">
+      <button class="icon-button" type="button" id="imagePrev" aria-label={t.prevImage}>
         <i data-lucide="chevron-left"></i>
       </button>
       <img id="imageModalImage" alt="" />
-      <button class="icon-button" type="button" id="imageNext" aria-label="Imagen siguiente">
+      <button class="icon-button" type="button" id="imageNext" aria-label={t.nextImage}>
         <i data-lucide="chevron-right"></i>
       </button>
     </div>
     <p class="image-counter" id="imageCounter"></p>
   </div>
 </dialog>
+

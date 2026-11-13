@@ -1,27 +1,24 @@
 ---
-import { secondaryExperience } from "../data/experience";
+import { useTranslations } from "../i18n";
+
+const t = useTranslations(Astro.currentLocale).experience;
 ---
 
 <dialog class="modal experience-modal" id="secondaryExperienceModal" aria-labelledby="secondaryExperienceTitle">
   <div class="modal-panel">
     <div class="modal-header">
       <div>
-        <p class="eyebrow">Experiencia complementaria</p>
-        <h2 id="secondaryExperienceTitle">Roles que suman contexto.</h2>
+        <p class="eyebrow">{t.secondaryEyebrow}</p>
+        <h2 id="secondaryExperienceTitle">{t.secondaryTitle}</h2>
       </div>
-      <button
-        class="icon-button"
-        type="button"
-        id="secondaryExperienceClose"
-        aria-label="Cerrar experiencia complementaria"
-      >
+      <button class="icon-button" type="button" id="secondaryExperienceClose" aria-label={t.secondaryClose}>
         <i data-lucide="x"></i>
       </button>
     </div>
 
     <div class="secondary-experience-list">
       {
-        secondaryExperience.map((item) => (
+        t.secondary.map((item) => (
           <article class="secondary-experience-item">
             <span class="secondary-role mono">{item.role}</span>
             <h3>{item.title}</h3>

@@ -1,21 +1,44 @@
 ---
-import { navLinks, site } from "../data/site";
+import { site } from "../data/site";
+import { langName, langPath, languages, toLang, useTranslations } from "../i18n";
 
+const lang = toLang(Astro.currentLocale);
+const t = useTranslations(lang);
 const handle = new URL(site.url).hostname.split(".")[0];
+const links = (["profile", "projects", "experience", "skills", "contact"] as const).map((key) => ({
+  href: `#${t.sections[key]}`,
+  label: t.nav.links[key],
+}));
 ---
 
 <header class="site-header">
-  <nav class="nav-shell container" aria-label="Navegación principal">
-    <a href="#inicio" class="brand" aria-label={`${site.shortName}: ir al inicio`}>
+  <nav class="nav-shell container" aria-label={t.nav.label}>
+    <a href={`#${t.sections.home}`} class="brand" aria-label={`${site.shortName}: ${t.nav.home}`}>
       <span class="brand-prompt" aria-hidden="true">~/</span>{handle}
     </a>
 
     <div class="nav-links" id="navLinks">
-      {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+      {links.map((link) => <a href={link.href}>{link.label}</a>)}
     </div>
 
     <div class="nav-actions">
-      <button class="icon-button" type="button" id="themeToggle" aria-label="Cambiar tema" aria-pressed="false">
+      <div class="lang-switch" role="group" aria-label={t.nav.language}>
+        {
+          languages.map((code) => (
+            <a
+              href={langPath[code]}
+              hreflang={code}
+              lang={code}
+              aria-label={langName[code]}
+              aria-current={code === lang ? "true" : undefined}
+              data-lang-link={code}
+            >
+              {code.toUpperCase()}
+            </a>
+          ))
+        }
+      </div>
+      <button class="icon-button" type="button" id="themeToggle" aria-label={t.nav.theme} aria-pressed="false">
         <i data-lucide="moon" class="theme-icon theme-icon-moon"></i>
         <i data-lucide="sun" class="theme-icon theme-icon-sun"></i>
       </button>
@@ -23,13 +46,13 @@ const handle = new URL(site.url).hostname.split(".")[0];
         class="icon-button menu-toggle"
         type="button"
         id="menuToggle"
-        aria-label="Abrir menú"
+        aria-label={t.nav.menu}
         aria-expanded="false"
         aria-controls="navLinks"
       >
         <i data-lucide="menu"></i>
       </button>
-      <a class="button button-primary nav-cta" href={`mailto:${site.email}`}>Hablemos</a>
+      <a class="button button-primary nav-cta" href={`mailto:${site.email}`}>{t.nav.cta}</a>
     </div>
   </nav>
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
@@ -177,5 +200,36 @@ const handle = new URL(site.url).hostname.split(".")[0];
       opacity: 0;
       translate: 0 -6px;
     }
+  }
+
+  /* Selector de idioma: dos enlaces en un control segmentado */
+  .lang-switch {
+    display: inline-flex;
+    align-items: center;
+    height: 40px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 3px;
+  }
+
+  .lang-switch a {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    border-radius: 5px;
+    padding: 0 9px;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    transition: color 160ms ease, background 160ms ease;
+  }
+
+  .lang-switch a:hover {
+    color: var(--text);
+  }
+
+  .lang-switch a[aria-current="true"] {
+    background: var(--accent-soft);
+    color: var(--accent);
   }
 </style>

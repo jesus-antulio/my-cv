@@ -1,19 +1,17 @@
 ---
-import { skills } from "../data/skills";
+import { useTranslations } from "../i18n";
 import SectionHeading from "./ui/SectionHeading.astro";
+
+const t = useTranslations(Astro.currentLocale);
 ---
 
-<section id="habilidades" class="section">
+<section id={t.sections.skills} class="section">
   <div class="container split">
-    <SectionHeading
-      index="04"
-      label="Habilidades"
-      title="Herramientas para diseñar, construir y publicar interfaces."
-    />
+    <SectionHeading index="04" label={t.skills.label} title={t.skills.title} />
 
     <ul class="skills-grid" data-aos="fade-up" data-aos-delay="80">
       {
-        skills.map((skill, index) => (
+        t.skills.items.map((skill, index) => (
           <li>
             <span class="mono" aria-hidden="true">
               {String(index + 1).padStart(2, "0")}
