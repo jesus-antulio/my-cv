@@ -23,7 +23,7 @@ export const site = {
   cvPath: "/assets/docs/CV_Jesus_Jimenez.pdf",
   whatsappContactUrl: `https://wa.me/${phone}?text=Hola%2C%20me%20gustar%C3%ADa%20ponerme%20en%20contacto%20contigo`,
   whatsappProjectUrl: `https://wa.me/${phone}?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20conversaci%C3%B3n%20sobre%20un%20proyecto`,
-  themeColor: { dark: "#141414", light: "#f4f0e6" },
+  themeColor: { dark: "#0a100e", light: "#f4f7f5" },
 } as const;
 
 export const navLinks = [

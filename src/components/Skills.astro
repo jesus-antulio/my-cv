@@ -3,28 +3,22 @@ import { skills } from "../data/skills";
 import SectionHeading from "./ui/SectionHeading.astro";
 ---
 
-<section id="habilidades" class="section skills-section">
-  <div class="container section-stack">
+<section id="habilidades" class="section">
+  <div class="container split">
     <SectionHeading
       index="04"
       label="Habilidades"
       title="Herramientas para diseñar, construir y publicar interfaces."
-      color="yellow"
     />
 
-    <ul class="skills-grid">
+    <ul class="skills-grid" data-aos="fade-up" data-aos-delay="80">
       {
         skills.map((skill, index) => (
-          <li data-aos="zoom-in" data-aos-delay={index * 45}>
-            <span class="skill-chip">
-              <span class="skill-bracket" aria-hidden="true">
-                &lt;
-              </span>
-              {skill}
-              <span class="skill-bracket" aria-hidden="true">
-                /&gt;
-              </span>
+          <li>
+            <span class="mono" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
             </span>
+            {skill}
           </li>
         ))
       }
@@ -33,111 +27,58 @@ import SectionHeading from "./ui/SectionHeading.astro";
 </section>
 
 <style>
+  .split {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(28px, 6vw, 80px);
+    align-items: start;
+  }
+
+  /* Rejilla con líneas compartidas, igual que la de Perfil */
   .skills-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    overflow: hidden;
     margin: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
     padding: 0;
+    background: var(--line);
     list-style: none;
   }
 
   .skills-grid li {
-    display: grid;
-  }
-
-  .skill-chip {
-    position: relative;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: baseline;
     gap: 10px;
-    overflow: hidden;
-    min-height: 68px;
-    border: var(--bw) solid var(--ink);
-    border-radius: var(--radius-sm);
-    padding: 12px;
+    padding: 14px 16px;
     background: var(--surface);
-    box-shadow: var(--shadow-sm);
-    font-size: 1.08rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    text-align: center;
-    cursor: default;
-    transition: translate 140ms ease, box-shadow 140ms ease, color 160ms ease;
+    font-size: 0.94rem;
+    font-weight: 600;
+    transition: background 200ms ease, color 200ms ease;
   }
 
-  /* Relleno de color que sube desde abajo al pasar el cursor */
-  .skill-chip::before {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: var(--chip-color, var(--green));
-    content: "";
-    scale: 1 0;
-    transform-origin: bottom;
-    transition: scale 220ms cubic-bezier(0.6, 0, 0.2, 1);
+  .skills-grid li:hover {
+    background: var(--surface-2);
+    color: var(--accent);
   }
 
-  .skill-chip {
-    isolation: isolate;
-  }
-
-  .skill-chip:hover {
-    box-shadow: var(--shadow);
-    color: var(--on-color);
-    translate: -3px -3px;
-  }
-
-  .skill-chip:hover::before {
-    scale: 1 1;
-  }
-
-  li:nth-child(4n + 2) .skill-chip {
-    --chip-color: var(--yellow);
-  }
-
-  li:nth-child(4n + 3) .skill-chip {
-    --chip-color: var(--lilac);
-  }
-
-  li:nth-child(4n + 4) .skill-chip {
-    --chip-color: var(--orange);
-  }
-
-  .skill-bracket {
+  .skills-grid .mono {
     color: var(--muted);
-    font-family: var(--font-mono);
-    font-size: 0.86rem;
-    font-weight: 500;
-    transition: color 160ms ease;
+    font-size: 0.7rem;
+    font-weight: 400;
   }
 
-  .skill-chip:hover .skill-bracket {
-    color: var(--on-color);
-  }
-
-  @media (max-width: 980px) {
-    .skills-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+  @media (max-width: 900px) {
+    .split {
+      grid-template-columns: 1fr;
     }
   }
 
-  @media (max-width: 680px) {
+  @media (max-width: 480px) {
     .skills-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .skill-chip {
-      gap: 6px;
-      min-height: 56px;
-      padding: 10px 6px;
-      font-size: 0.9rem;
-    }
-
-    .skill-bracket {
-      font-size: 0.72rem;
     }
   }
 </style>

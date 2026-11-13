@@ -1,414 +1,361 @@
 ---
 import { site } from "../data/site";
-import { heroPhrases, heroStack, metrics, skills } from "../data/skills";
-import Marquee from "./ui/Marquee.astro";
+import { heroPhrases, heroStack, metrics } from "../data/skills";
 
-const metricColors = ["yellow", "lilac", "orange"];
+const str = (value: string) => `<span class="tk-s">"${value}"</span>`;
+const half = Math.ceil(heroStack.length / 2);
+
+// Resumen del perfil presentado como un archivo TypeScript.
+const codeLines = [
+  `<span class="tk-k">const</span> dev = {`,
+  `  nombre: ${str(site.shortName)},`,
+  `  rol: ${str(site.role)},`,
+  `  ubicacion: ${str(site.location)},`,
+  `  stack: [`,
+  `    ${heroStack.slice(0, half).map(str).join(", ")},`,
+  `    ${heroStack.slice(half).map(str).join(", ")},`,
+  `  ],`,
+  `  disponible: <span class="tk-k">true</span>,`,
+  `};`,
+  ``,
+  `<span class="tk-k">export default</span> dev;`,
+];
 ---
 
 <section id="inicio" class="hero">
-  <div class="container bento">
-    <!-- Titular -->
-    <div class="cell cell-title box" data-aos="fade-up">
-      <p class="label role-line">
-        <span class="role-dot" aria-hidden="true"></span>
+  <div class="container hero-grid">
+    <div class="hero-copy" data-aos="fade-up">
+      <div class="identity">
+        <img src={site.profileImage} alt={`Foto de perfil de ${site.fullName}`} width="96" height="96" />
+        <div>
+          <strong>{site.fullName}</strong>
+          <span class="status">
+            <span class="status-dot" aria-hidden="true"></span>
+            Disponible para proyectos
+          </span>
+        </div>
+      </div>
+
+      <h1>
+        Experto en <span class="accent">desarrollo web</span>
+      </h1>
+
+      <p class="prompt mono">
+        <span class="prompt-sign" aria-hidden="true">$</span>
         <span data-typed data-phrases={JSON.stringify(heroPhrases)}>{heroPhrases[0]}</span><span
           class="caret"
           aria-hidden="true"></span>
       </p>
 
-      <h1>
-        Experto en <br />
-        <span class="marker">Desarrollo Web</span>
-      </h1>
-
       <p class="hero-lead">
-        Soy {site.fullName}, desarrollador Front-End en San Luis Potosí. Construyo aplicaciones dinámicas,
-        responsivas y mantenibles principalmente con Angular, Ionic.
+        Soy desarrollador Front-End en San Luis Potosí. Construyo aplicaciones dinámicas, responsivas y mantenibles,
+        principalmente con Angular e Ionic.
       </p>
 
       <div class="hero-actions">
         <a class="button button-primary" href="#proyectos">
           Ver proyectos
-          <i data-lucide="arrow-down-right"></i>
+          <i data-lucide="arrow-down"></i>
         </a>
-        <a class="button button-secondary" href={site.cvPath} download>
+        <a class="button" href={site.cvPath} download>
           <i data-lucide="download"></i>
           Descargar CV
         </a>
       </div>
     </div>
 
-    <!-- Foto -->
-    <div class="cell cell-photo" data-aos="fade-left" data-aos-delay="100">
-      <div class="photo-frame box" data-tilt>
-        <img src={site.profileImage} alt={`Foto de perfil de ${site.fullName}`} width="2304" height="1536" />
-        <p class="photo-tag">
-          <strong>{site.fullName}</strong>
-          <span>Angular, Ionic y experiencias web.</span>
-        </p>
+    <figure class="editor card" data-aos="fade-up" data-aos-delay="120" aria-label="Resumen del perfil en formato de código">
+      <div class="editor-bar">
+        <span class="editor-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="editor-tab mono">perfil.ts</span>
       </div>
+      <ol class="code">
+        {
+          codeLines.map((line) => (
+            <li>
+              <code set:html={line || "&nbsp;"} />
+            </li>
+          ))
+        }
+      </ol>
+    </figure>
 
-      <div class="badge" aria-label="Disponible para proyectos">
-        <svg viewBox="0 0 120 120" aria-hidden="true">
-          <defs>
-            <path id="badgeCircle" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"></path>
-          </defs>
-          <text>
-            <textPath href="#badgeCircle" textLength="270">DISPONIBLE ✦ PORTFOLIO 2026 ✦</textPath>
-          </text>
-        </svg>
-        <i data-lucide="sparkles"></i>
-      </div>
-    </div>
-
-    <!-- Métricas -->
-    <div class="cell-metrics" aria-label="Resumen profesional">
+    <dl class="metrics" data-aos="fade-up" data-aos-delay="160">
       {
-        metrics.map((metric, index) => (
-          <article
-            class:list={["metric box box-lift", `fill-${metricColors[index % metricColors.length]}`]}
-            data-aos="zoom-in"
-            data-aos-delay={index * 90}
-          >
-            <strong class="counter" data-target={metric.target} data-suffix={metric.suffix}>
-              {metric.target}
-              {metric.suffix}
-            </strong>
-            <span>{metric.label}</span>
-          </article>
+        metrics.map((metric) => (
+          <div class="metric">
+            <dt>{metric.label}</dt>
+            <dd class="counter" data-target={metric.target} data-suffix={metric.suffix ?? ""}>
+              {`${metric.target}${metric.suffix ?? ""}`}
+            </dd>
+          </div>
         ))
       }
-    </div>
-
-    <!-- Stack y contacto rápido -->
-    <div class="cell cell-stack box" data-aos="fade-up" data-aos-delay="150">
-      <p class="label">Stack principal</p>
-      <div class="stack-cloud">
-        {heroStack.map((item) => <span>{item}</span>)}
-      </div>
-      <div class="quick-links">
-        <a href={`mailto:${site.email}`}>
-          <i data-lucide="mail"></i>
-          Correo
-        </a>
-        <a href={site.phoneHref}>
-          <i data-lucide="phone"></i>
-          Teléfono
-        </a>
-        <a href={site.whatsappContactUrl} target="_blank" rel="noreferrer">
-          <i data-lucide="message-circle"></i>
-          WhatsApp
-        </a>
-      </div>
-    </div>
+    </dl>
   </div>
-
-  <Marquee items={skills} color="green" tilt />
 </section>
 
 <script>
   import { initCounters } from "../scripts/counters";
   import { initTyping } from "../scripts/effects";
 
-  initCounters();
   initTyping();
+  initCounters();
 </script>
 
 <style>
   .hero {
-    padding: calc(var(--header-height) + var(--header-offset) + 36px) 0 28px;
-  }
-
-  .bento {
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: 20px;
-    margin-bottom: 44px;
-  }
-
-  .cell {
     position: relative;
+    padding: clamp(48px, 8vw, 96px) 0 clamp(56px, 8vw, 96px);
   }
 
-  /* --- Titular --- */
-  .cell-title {
+  /* Rejilla tenue que se desvanece hacia los bordes */
+  .hero::before {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    content: "";
+    mask-image: radial-gradient(ellipse 70% 70% at 70% 30%, #000 0%, transparent 75%);
+    opacity: 0.7;
+  }
+
+  .hero-grid {
     display: grid;
-    grid-column: span 8;
-    gap: 26px;
-    align-content: center;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: clamp(32px, 5vw, 64px);
+    align-items: center;
+  }
+
+  .hero-copy {
+    display: grid;
+    gap: 22px;
     justify-items: start;
-    padding: clamp(24px, 4.4vw, 52px);
   }
 
-  .role-line {
-    min-height: 1.6em;
-    white-space: nowrap;
+  .identity {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 
-  .role-dot {
-    width: 12px;
-    height: 12px;
-    border: 2px solid var(--ink);
+  .identity img {
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--line-strong);
     border-radius: 50%;
-    background: var(--green);
+    object-fit: cover;
   }
 
-  .caret {
-    width: 0.55em;
-    height: 1.1em;
-    margin-left: -4px;
-    background: var(--ink);
-    animation: blink 1s steps(1) infinite;
+  .identity > div {
+    display: grid;
+    gap: 2px;
+    font-size: 0.9rem;
+    line-height: 1.3;
+  }
+
+  .identity strong {
+    font-weight: 600;
+  }
+
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+
+  .status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s ease-out infinite;
   }
 
   h1 {
-    font-size: clamp(2.3rem, 10.2vw, 5.2rem);
-    line-height: 1.06;
-    letter-spacing: -0.045em;
+    font-size: clamp(2.6rem, 6.4vw, 4.6rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
   }
 
-  /* Subrayado tipo marcador que se "pinta" al cargar */
-  .marker {
-    border-radius: 0.14em;
-    padding: 0 0.12em;
-    margin-left: -0.12em;
-    background: linear-gradient(var(--green), var(--green)) no-repeat left / 100% 100%;
-    box-decoration-break: clone;
-    -webkit-box-decoration-break: clone;
-    color: var(--on-color);
-    animation: marker 900ms cubic-bezier(0.6, 0, 0.2, 1) 500ms backwards;
+  .accent {
+    color: var(--accent);
+  }
+
+  .prompt {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 1.6em;
+    color: var(--text);
+    font-size: 0.9rem;
+  }
+
+  .prompt-sign {
+    color: var(--accent);
+  }
+
+  .caret {
+    width: 8px;
+    height: 1.1em;
+    margin-left: -6px;
+    background: var(--accent);
+    animation: blink 1.1s steps(1) infinite;
   }
 
   .hero-lead {
     max-width: 52ch;
-    font-size: clamp(1.02rem, 1.6vw, 1.2rem);
+    font-size: 1.08rem;
   }
 
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 14px;
+    gap: 10px;
+    margin-top: 6px;
   }
 
-  /* --- Foto --- */
-  .cell-photo {
-    grid-column: span 4;
-    min-height: 380px;
-  }
-
-  .photo-frame {
-    position: relative;
+  /* Ventana de editor */
+  .editor {
     overflow: hidden;
-    height: 100%;
-    background: var(--lilac);
-    transition: transform 200ms ease;
-    will-change: transform;
+    margin: 0;
+    box-shadow: var(--shadow);
   }
 
-  .photo-frame img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 38% center;
-  }
-
-  .photo-tag {
-    position: absolute;
-    right: 14px;
-    bottom: 14px;
-    left: 14px;
-    display: grid;
-    gap: 2px;
-    border: var(--bw) solid var(--ink);
-    border-radius: var(--radius-sm);
+  .editor-bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 1px solid var(--line);
     padding: 10px 14px;
-    background: var(--surface);
-    color: var(--text);
-    line-height: 1.3;
+    background: var(--surface-2);
   }
 
-  .photo-tag span {
-    color: var(--muted);
-    font-size: 0.88rem;
+  .editor-dots {
+    display: inline-flex;
+    gap: 6px;
   }
 
-  /* Sello giratorio */
-  .badge {
-    position: absolute;
-    top: -26px;
-    left: -30px;
-    display: grid;
-    place-items: center;
-    width: 112px;
-    height: 112px;
-    border: var(--bw) solid var(--ink);
+  .editor-dots i {
+    width: 9px;
+    height: 9px;
     border-radius: 50%;
-    background: var(--yellow);
-    box-shadow: var(--shadow-sm);
-    color: var(--on-color);
+    background: var(--line-strong);
   }
 
-  .badge svg:first-child {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    animation: spin 14s linear infinite;
+  .editor-tab {
+    color: var(--muted);
+    font-size: 0.76rem;
   }
 
-  .badge text {
-    fill: currentColor;
+  .code {
+    overflow-x: auto;
+    margin: 0;
+    padding: 16px 0;
+    list-style: none;
+    counter-reset: line;
     font-family: var(--font-mono);
-    font-size: 11.5px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
+    font-size: 0.82rem;
+    line-height: 1.8;
   }
 
-  .badge :global(svg.lucide) {
-    width: 1.7rem;
-    height: 1.7rem;
+  .code li {
+    display: flex;
+    padding-right: 18px;
+    counter-increment: line;
   }
 
-  /* --- Métricas --- */
-  .cell-metrics {
+  .code li::before {
+    width: 44px;
+    flex: 0 0 auto;
+    padding-right: 16px;
+    color: var(--line-strong);
+    content: counter(line);
+    text-align: right;
+    user-select: none;
+  }
+
+  .code code {
+    font: inherit;
+    white-space: pre;
+  }
+
+  .code :global(.tk-k) {
+    color: var(--accent);
+  }
+
+  .code :global(.tk-s) {
+    color: var(--code-string);
+  }
+
+  /* Métricas */
+  .metrics {
     display: grid;
-    grid-column: span 6;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 20px;
+    grid-column: 1 / -1;
+    margin: 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
   }
 
   .metric {
-    display: grid;
-    gap: 8px;
-    align-content: space-between;
-    padding: 20px;
-  }
-
-  .metric:nth-child(odd):hover {
-    rotate: -2deg;
-  }
-
-  .metric:nth-child(even):hover {
-    rotate: 2deg;
-  }
-
-  .metric strong {
-    font-size: clamp(2.6rem, 6vw, 4.2rem);
-    font-weight: 800;
-    line-height: 0.9;
-    letter-spacing: -0.05em;
-  }
-
-  .metric span {
-    font-size: 0.92rem;
-    font-weight: 600;
-    line-height: 1.25;
-  }
-
-  /* --- Stack --- */
-  .cell-stack {
-    display: grid;
-    grid-column: span 6;
-    gap: 16px;
-    align-content: space-between;
-    padding: 22px;
-  }
-
-  .stack-cloud {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    flex-direction: column-reverse;
+    gap: 2px;
+    padding: 20px 24px;
   }
 
-  .stack-cloud span {
-    border: 2px solid var(--ink);
-    border-radius: 999px;
-    padding: 4px 14px;
+  .metric + .metric {
+    border-left: 1px solid var(--line);
+  }
+
+  .metric:first-child {
+    padding-left: 0;
+  }
+
+  .metric dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
     font-weight: 700;
-    transition: background 160ms ease, color 160ms ease, rotate 160ms ease;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
   }
 
-  .stack-cloud span:hover {
-    background: var(--green);
-    color: var(--on-color);
-    rotate: -3deg;
+  .metric dt {
+    color: var(--muted);
+    font-size: 0.86rem;
   }
 
-  .quick-links {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
-  }
-
-  .quick-links a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    min-height: 44px;
-    border: 2px solid var(--ink);
-    border-radius: var(--radius-sm);
-    background: var(--bg);
-    font-size: 0.92rem;
-    font-weight: 700;
-    transition: background 160ms ease, color 160ms ease, translate 120ms ease, box-shadow 120ms ease;
-  }
-
-  .quick-links a:hover {
-    background: var(--ink);
-    color: var(--bg);
-    translate: 0 -2px;
-  }
-
-  @media (max-width: 980px) {
-    .cell-title,
-    .cell-photo,
-    .cell-metrics,
-    .cell-stack {
-      grid-column: 1 / -1;
-    }
-
-    .cell-photo {
-      min-height: 0;
-      aspect-ratio: 3 / 2;
-    }
-
-    .badge {
-      top: -22px;
-      right: -6px;
-      left: auto;
-      width: 96px;
-      height: 96px;
+  @media (max-width: 900px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
     }
   }
 
-  @media (max-width: 680px) {
-    .bento,
-    .cell-metrics {
-      gap: 14px;
+  @media (max-width: 560px) {
+    .code {
+      font-size: 0.74rem;
     }
 
-    .role-line {
-      font-size: 0.68rem;
-    }
-
-    .hero-actions .button {
-      flex: 1 1 100%;
+    .code li::before {
+      width: 34px;
+      padding-right: 12px;
     }
 
     .metric {
-      padding: 14px 12px;
+      padding: 16px 12px;
     }
 
-    .metric span {
-      font-size: 0.78rem;
-    }
-
-    .quick-links {
-      grid-template-columns: 1fr;
+    .metric dt {
+      font-size: 0.76rem;
+      line-height: 1.35;
     }
   }
 </style>

@@ -4,7 +4,7 @@ import { site } from "../data/site";
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p>© 2026 {site.fullName}.</p>
+    <p>© 2026 {site.fullName}</p>
     <a href="#inicio" class="back-top">
       Volver arriba
       <i data-lucide="arrow-up"></i>
@@ -14,10 +14,8 @@ import { site } from "../data/site";
 
 <style>
   .site-footer {
-    border-top: var(--bw) solid var(--ink);
+    border-top: 1px solid var(--line);
     padding: 24px 0;
-    background: var(--ink);
-    color: var(--bg);
   }
 
   .footer-inner {
@@ -25,34 +23,26 @@ import { site } from "../data/site";
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
-  }
-
-  .site-footer p {
-    color: inherit;
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
+    gap: 12px 24px;
+    font-size: 0.86rem;
   }
 
   .back-top {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    font-weight: 700;
+    gap: 6px;
+    color: var(--muted);
+    transition: color 160ms ease;
   }
 
-  .back-top :global(svg) {
-    transition: translate 200ms ease;
+  .back-top:hover {
+    color: var(--accent);
   }
 
-  .back-top:hover :global(svg) {
-    translate: 0 -4px;
-  }
-
+  /* Deja sitio al botón flotante de WhatsApp en móvil */
   @media (max-width: 680px) {
-    /* Deja espacio para el botón flotante de WhatsApp */
     .site-footer {
-      padding-bottom: 92px;
+      padding-bottom: 84px;
     }
   }
 </style>

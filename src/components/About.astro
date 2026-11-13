@@ -1,31 +1,25 @@
 ---
 import { features } from "../data/skills";
 import SectionHeading from "./ui/SectionHeading.astro";
-
-const colors = ["green", "yellow", "lilac", "orange"];
 ---
 
 <section id="perfil" class="section">
   <div class="container section-stack">
-    <SectionHeading index="01" label="Perfil" title="Desarrollo FrontEnd con Angular, Ionic y Astro." color="green" />
+    <SectionHeading index="01" label="Perfil" title="Desarrollo FrontEnd con Angular, Ionic y Astro." />
 
-    <div class="feature-grid">
+    <div class="feature-grid" data-aos="fade-up">
       {
         features.map((feature, index) => (
-          <div data-aos="fade-up" data-aos-delay={index * 90}>
-            <article class="feature-card box box-lift">
-              <div class:list={["feature-top", `fill-${colors[index % colors.length]}`]}>
-                <i data-lucide={feature.icon} />
-                <span class="feature-index" aria-hidden="true">
-                  0{index + 1}
-                </span>
-              </div>
-              <div class="feature-body">
-                <h3>{feature.title}</h3>
-                <p>{feature.text}</p>
-              </div>
-            </article>
-          </div>
+          <article class="feature">
+            <div class="feature-top">
+              <i data-lucide={feature.icon} />
+              <span class="mono" aria-hidden="true">
+                0{index + 1}
+              </span>
+            </div>
+            <h3>{feature.title}</h3>
+            <p>{feature.text}</p>
+          </article>
         ))
       }
     </div>
@@ -33,70 +27,52 @@ const colors = ["green", "yellow", "lilac", "orange"];
 </section>
 
 <style>
+  /* Rejilla con líneas compartidas: el hueco de 1px deja ver el color de línea */
   .feature-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 20px;
-  }
-
-  .feature-grid > div {
-    display: grid;
-  }
-
-  .feature-card {
-    display: grid;
-    grid-template-rows: auto 1fr;
+    gap: 1px;
     overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--line);
   }
 
-  .feature-grid > div:nth-child(odd) .feature-card:hover {
-    rotate: -1.5deg;
+  .feature {
+    display: grid;
+    gap: 10px;
+    align-content: start;
+    padding: 24px;
+    background: var(--surface);
+    transition: background 200ms ease;
   }
 
-  .feature-grid > div:nth-child(even) .feature-card:hover {
-    rotate: 1.5deg;
+  .feature:hover {
+    background: var(--surface-2);
   }
 
   .feature-top {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
-    min-height: 120px;
-    border-bottom: var(--bw) solid var(--ink);
-    padding: 16px 18px;
+    margin-bottom: 18px;
+    color: var(--accent);
   }
 
   .feature-top :global(svg) {
-    width: 2.6rem;
-    height: 2.6rem;
-    stroke-width: 2;
-    transition: rotate 300ms ease, scale 300ms ease;
+    width: 1.35rem;
+    height: 1.35rem;
   }
 
-  .feature-card:hover .feature-top :global(svg) {
-    rotate: -12deg;
-    scale: 1.15;
+  .feature-top .mono {
+    color: var(--muted);
   }
 
-  .feature-index {
-    align-self: flex-start;
-    font-family: var(--font-mono);
-    font-size: 0.86rem;
-    font-weight: 500;
+  .feature p {
+    font-size: 0.94rem;
   }
 
-  .feature-body {
-    display: grid;
-    gap: 10px;
-    align-content: start;
-    padding: 20px 18px 24px;
-  }
-
-  .feature-body p {
-    font-size: 0.98rem;
-  }
-
-  @media (max-width: 1040px) {
+  @media (max-width: 980px) {
     .feature-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -105,10 +81,6 @@ const colors = ["green", "yellow", "lilac", "orange"];
   @media (max-width: 560px) {
     .feature-grid {
       grid-template-columns: 1fr;
-    }
-
-    .feature-top {
-      min-height: 88px;
     }
   }
 </style>

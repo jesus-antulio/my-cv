@@ -51,7 +51,7 @@ const structuredData = {
 ---
 
 <!doctype html>
-<html lang="es" data-theme="light">
+<html lang="es" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -60,7 +60,7 @@ const structuredData = {
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta name="description" content={site.description} />
     <meta name="keywords" content={site.keywords} />
-    <meta name="theme-color" content={themeColor.light} />
+    <meta name="theme-color" content={themeColor.dark} />
     <meta name="color-scheme" content="light dark" />
     <meta property="og:site_name" content={site.siteName} />
     <meta property="og:title" content={site.title} />
@@ -83,15 +83,15 @@ const structuredData = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=DM+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Manrope:wght@400..800&display=swap"
       rel="stylesheet"
     />
-    <!-- Fija el tema antes del primer pintado: el guardado por el usuario o, por defecto, claro. -->
+    <!-- Fija el tema antes del primer pintado: el guardado por el usuario o, por defecto, oscuro. -->
     <script is:inline define:vars={{ themeColor }}>
       (() => {
-        let theme = "light";
+        let theme = "dark";
         try {
-          if (localStorage.getItem("theme") === "dark") theme = "dark";
+          if (localStorage.getItem("theme") === "light") theme = "light";
         } catch {
           /* sin acceso a localStorage */
         }
@@ -109,14 +109,13 @@ const structuredData = {
     <script is:inline src="https://unpkg.com/lucide@latest"></script>
     <script>
       import AOS from "aos";
-      import { initIcons, initTilt } from "../scripts/effects";
+      import { initIcons } from "../scripts/effects";
 
       initIcons();
-      initTilt();
       AOS.init({
-        duration: 600,
-        easing: "ease-out-back",
-        offset: 60,
+        duration: 500,
+        easing: "ease-out-cubic",
+        offset: 40,
         once: true,
         disable: () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
       });

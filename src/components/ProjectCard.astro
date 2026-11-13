@@ -11,86 +11,115 @@ const { id, project, index } = Astro.props;
 const number = String(index + 1).padStart(2, "0");
 const summary = `${project.description.split(", ").slice(0, 2).join(", ")}.`;
 const cover = project.images[0];
-const colors = ["green", "yellow", "lilac", "orange"];
-const color = colors[index % colors.length];
 ---
 
-<div class="project-row" data-aos={index % 2 === 0 ? "fade-right" : "fade-left"}>
-  <article
-    class:list={["project-card box box-lift", { "is-reversed": index % 2 === 1 }]}
-    data-project-card={id}
-    tabindex="0"
-    aria-label={`Abrir detalles de ${project.title}`}
-  >
-    <div class:list={["project-gallery", `fill-${color}`]} aria-label={`Galería de ${project.title}`}>
+<article
+  class="project-card card"
+  data-project-card={id}
+  data-aos="fade-up"
+  data-aos-delay={(index % 2) * 80}
+  tabindex="0"
+  aria-label={`Abrir detalles de ${project.title}`}
+>
+  <div class="project-gallery" aria-label={`Galería de ${project.title}`}>
+    <div class="window-bar">
+      <span class="mono">proyectos/{number}</span>
+      <div class="gallery-dots" aria-hidden="true"></div>
+    </div>
+    <div class="project-shot">
       <button class="project-image-trigger" type="button" aria-label={`Abrir galería de ${project.title}`}>
         <img src={cover.src} alt={cover.alt ?? `${project.title}: captura 1`} loading="lazy" />
       </button>
       <button class="gallery-control gallery-control-prev" type="button" aria-label="Imagen anterior">
-        <i data-lucide="arrow-left"></i>
+        <i data-lucide="chevron-left"></i>
       </button>
       <button class="gallery-control gallery-control-next" type="button" aria-label="Imagen siguiente">
-        <i data-lucide="arrow-right"></i>
+        <i data-lucide="chevron-right"></i>
       </button>
-      <div class="gallery-dots" aria-hidden="true"></div>
     </div>
+  </div>
 
-    <div class="project-copy">
-      <span class="project-number" aria-hidden="true">{number}</span>
-      <h3>{project.title}</h3>
-      <p>{summary}</p>
-      <div class="tag-row">
-        {project.tags.map((tag) => <span>{tag}</span>)}
-      </div>
-      <span class="open-hint" aria-hidden="true">
-        Ver detalles
-        <i data-lucide="arrow-up-right"></i>
-      </span>
+  <div class="project-copy">
+    <h3>{project.title}</h3>
+    <p>{summary}</p>
+    <div class="tag-row">
+      {project.tags.map((tag) => <span>{tag}</span>)}
     </div>
-  </article>
-</div>
+    <span class="open-hint" aria-hidden="true">
+      Ver detalles
+      <i data-lucide="arrow-up-right"></i>
+    </span>
+  </div>
+</article>
 
 <style>
   .project-card {
     display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
     overflow: hidden;
     cursor: pointer;
+    transition: border-color 200ms ease, translate 200ms ease;
   }
 
-  .project-card.is-reversed .project-gallery {
-    order: 2;
-    border-right: 0;
-    border-left: var(--bw) solid var(--ink);
+  .project-card:hover,
+  .project-card:focus-visible {
+    border-color: var(--line-strong);
+    translate: 0 -2px;
   }
 
-  .project-gallery {
+  .window-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border-bottom: 1px solid var(--line);
+    padding: 9px 14px;
+    background: var(--surface-2);
+    color: var(--muted);
+  }
+
+  .window-bar .mono {
+    font-size: 0.74rem;
+  }
+
+  .gallery-dots {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 4px;
+  }
+
+  /* Los puntos los genera project-gallery.ts */
+  .gallery-dots :global(span) {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--line-strong);
+    transition: background 200ms ease;
+  }
+
+  .gallery-dots :global(span.is-active) {
+    background: var(--accent);
+  }
+
+  .project-shot {
     position: relative;
-    border-right: var(--bw) solid var(--ink);
-    padding: clamp(16px, 3vw, 32px);
+    border-bottom: 1px solid var(--line);
   }
 
   .project-image-trigger {
     display: block;
     overflow: hidden;
     width: 100%;
-    border: var(--bw) solid var(--ink);
-    border-radius: var(--radius-sm);
+    border: 0;
     padding: 0;
-    background: var(--surface);
-    box-shadow: var(--shadow-sm);
+    background: var(--surface-2);
     aspect-ratio: 16 / 10;
     cursor: zoom-in;
-    transition: rotate 300ms ease, scale 300ms ease;
   }
 
-  .project-card:hover .project-image-trigger {
-    rotate: -1.2deg;
-    scale: 1.015;
-  }
-
-  .project-card.is-reversed:hover .project-image-trigger {
-    rotate: 1.2deg;
+  .project-image-trigger:focus-visible {
+    outline-offset: -3px;
   }
 
   .project-image-trigger img {
@@ -98,97 +127,74 @@ const color = colors[index % colors.length];
     height: 100%;
     object-fit: cover;
     object-position: top;
+    transition: scale 400ms ease;
+  }
+
+  .project-card:hover .project-image-trigger img {
+    scale: 1.02;
   }
 
   .gallery-control {
     position: absolute;
     top: 50%;
-    z-index: 1;
     display: grid;
     place-items: center;
-    width: 42px;
-    height: 42px;
-    margin-top: -21px;
-    border: var(--bw) solid #111;
-    border-radius: 50%;
-    background: #fffdf7;
-    color: #111;
+    width: 34px;
+    height: 34px;
+    margin-top: -17px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--surface) 88%, transparent);
+    color: var(--text);
     cursor: pointer;
-    transition: translate 120ms ease, box-shadow 120ms ease, background 160ms ease;
+    opacity: 0;
+    backdrop-filter: blur(6px);
+    transition: opacity 160ms ease, border-color 160ms ease, color 160ms ease;
+  }
+
+  .project-card:hover .gallery-control,
+  .project-card:focus-within .gallery-control {
+    opacity: 1;
   }
 
   .gallery-control:hover {
-    box-shadow: var(--shadow-sm);
-    translate: -2px -2px;
+    border-color: var(--accent);
+    color: var(--accent);
   }
 
   .gallery-control-prev {
-    left: clamp(4px, 1vw, 10px);
+    left: 10px;
   }
 
   .gallery-control-next {
-    right: clamp(4px, 1vw, 10px);
-  }
-
-  .gallery-dots {
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-    margin-top: 16px;
-  }
-
-  /* Los puntos los genera project-gallery.ts */
-  .gallery-dots :global(span) {
-    width: 10px;
-    height: 10px;
-    border: 2px solid var(--ink);
-    border-radius: 50%;
-    transition: width 200ms ease, background 200ms ease;
-  }
-
-  .gallery-dots :global(span.is-active) {
-    width: 26px;
-    border-radius: 999px;
-    background: var(--ink);
+    right: 10px;
   }
 
   .project-copy {
-    position: relative;
     display: grid;
-    gap: 16px;
-    align-content: center;
+    gap: 12px;
+    align-content: start;
     justify-items: start;
-    padding: clamp(22px, 3.4vw, 44px);
-  }
-
-  /* Número gigante en contorno */
-  .project-number {
-    color: transparent;
-    font-size: clamp(3.4rem, 8vw, 6rem);
-    font-weight: 800;
-    line-height: 0.8;
-    letter-spacing: -0.05em;
-    -webkit-text-stroke: 2px var(--ink);
-    transition: color 200ms ease;
-  }
-
-  .project-card:hover .project-number {
-    color: var(--ink);
+    padding: 22px 22px 24px;
   }
 
   .project-copy h3 {
-    font-size: clamp(1.6rem, 3.2vw, 2.4rem);
-    letter-spacing: -0.035em;
+    font-size: 1.35rem;
+    letter-spacing: -0.025em;
+  }
+
+  .project-copy p {
+    font-size: 0.94rem;
   }
 
   .open-hint {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     margin-top: 4px;
-    border-bottom: var(--bw) solid var(--ink);
-    padding-bottom: 2px;
-    font-weight: 800;
+    color: var(--accent);
+    font-size: 0.88rem;
+    font-weight: 600;
   }
 
   .open-hint :global(svg) {
@@ -196,31 +202,13 @@ const color = colors[index % colors.length];
   }
 
   .project-card:hover .open-hint :global(svg) {
-    translate: 4px -4px;
+    translate: 2px -2px;
   }
 
-  @media (max-width: 860px) {
-    .project-card {
-      grid-template-columns: 1fr;
-    }
-
-    .project-gallery,
-    .project-card.is-reversed .project-gallery {
-      order: 0;
-      border-right: 0;
-      border-bottom: var(--bw) solid var(--ink);
-      border-left: 0;
-    }
-
-    .project-number {
-      position: absolute;
-      top: 18px;
-      right: 20px;
-      font-size: 3rem;
-    }
-
-    .project-copy h3 {
-      padding-right: 72px;
+  /* Sin hover (táctil) los controles quedan siempre visibles */
+  @media (hover: none) {
+    .gallery-control {
+      opacity: 1;
     }
   }
 </style>

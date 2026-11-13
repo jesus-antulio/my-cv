@@ -42,20 +42,3 @@ export function initTyping() {
 
   window.setTimeout(step, 2400);
 }
-
-/** Inclina ligeramente los elementos [data-tilt] siguiendo al cursor. Solo con puntero fino. */
-export function initTilt() {
-  if (reduceMotion.matches || !window.matchMedia("(pointer: fine)").matches) return;
-
-  document.querySelectorAll<HTMLElement>("[data-tilt]").forEach((element) => {
-    element.addEventListener("pointermove", (event) => {
-      const rect = element.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width - 0.5;
-      const y = (event.clientY - rect.top) / rect.height - 0.5;
-      element.style.transform = `perspective(900px) rotateX(${(-y * 7).toFixed(2)}deg) rotateY(${(x * 7).toFixed(2)}deg)`;
-    });
-    element.addEventListener("pointerleave", () => {
-      element.style.transform = "";
-    });
-  });
-}

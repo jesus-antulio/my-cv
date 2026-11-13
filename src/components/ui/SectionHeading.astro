@@ -3,15 +3,15 @@ interface Props {
   index: string;
   label: string;
   title: string;
-  color?: "green" | "yellow" | "lilac" | "orange";
 }
 
-const { index, label, title, color = "yellow" } = Astro.props;
+const { index, label, title } = Astro.props;
 ---
 
 <div class="section-heading" data-aos="fade-up">
-  <p class:list={["sticker", `fill-${color}`]}>
-    <span>({index})</span>
+  <p class="eyebrow">
+    <span>{index}</span>
+    <span class="eyebrow-sep" aria-hidden="true">/</span>
     <span>{label}</span>
   </p>
   <h2>{title}</h2>
