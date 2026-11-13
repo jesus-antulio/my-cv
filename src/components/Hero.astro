@@ -109,18 +109,17 @@ const codeLines = [
     padding: clamp(48px, 8vw, 96px) 0 clamp(56px, 8vw, 96px);
   }
 
-  /* Rejilla tenue que se desvanece hacia los bordes */
+  /* Ondas concéntricas que nacen tras la ventana de código y se desvanecen */
   .hero::before {
     position: absolute;
     inset: 0;
     z-index: -1;
-    background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size: 48px 48px;
+    background:
+      radial-gradient(circle at 88% 8%, color-mix(in srgb, var(--brand) 22%, transparent), transparent 42%),
+      repeating-radial-gradient(circle at 88% 8%, transparent 0 63px, var(--line) 63px 64px);
     content: "";
-    mask-image: radial-gradient(ellipse 70% 70% at 70% 30%, #000 0%, transparent 75%);
-    opacity: 0.7;
+    mask-image: radial-gradient(circle at 88% 8%, #000 0%, transparent 68%);
+    pointer-events: none;
   }
 
   .hero-grid {
