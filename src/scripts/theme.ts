@@ -32,7 +32,7 @@ function applyTheme(theme: Theme, toggle: HTMLElement | null) {
 /** El tema inicial lo fija el script inline de Layout.astro; aquí solo se conecta el botón. */
 export function initTheme() {
   const toggle = document.querySelector<HTMLElement>("#themeToggle");
-  const current: Theme = getStoredTheme() ?? (root.dataset.theme === "light" ? "light" : "dark");
+  const current: Theme = getStoredTheme() ?? (root.dataset.theme === "dark" ? "dark" : "light");
   applyTheme(current, toggle);
 
   toggle?.addEventListener("click", () => {

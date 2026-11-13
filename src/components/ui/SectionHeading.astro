@@ -3,17 +3,16 @@ interface Props {
   index: string;
   label: string;
   title: string;
-  sticky?: boolean;
-  aos?: string;
+  color?: "green" | "yellow" | "lilac" | "orange";
 }
 
-const { index, label, title, sticky = false, aos = "fade-up" } = Astro.props;
+const { index, label, title, color = "yellow" } = Astro.props;
 ---
 
-<div class:list={["section-heading", { "is-sticky": sticky }]} data-aos={aos}>
-  <p class="eyebrow">
-    <span class="eyebrow-index">{index}</span>
-    <span>// {label}</span>
+<div class="section-heading" data-aos="fade-up">
+  <p class:list={["sticker", `fill-${color}`]}>
+    <span>({index})</span>
+    <span>{label}</span>
   </p>
   <h2>{title}</h2>
   <slot />

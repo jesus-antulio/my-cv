@@ -6,17 +6,17 @@ import ProjectModal from "./ProjectModal.astro";
 import SectionHeading from "./ui/SectionHeading.astro";
 ---
 
-<section id="proyectos" class="section section-alt">
+<section id="proyectos" class="section">
   <div class="container section-stack">
     <div class="work-heading">
-      <SectionHeading index="02" label="proyectos" title="Proyectos en los que he trabajado." />
+      <SectionHeading index="02" label="Proyectos" title="Proyectos en los que he trabajado." color="lilac" />
       <p data-aos="fade-up" data-aos-delay="100">
         Estos proyectos reflejan mi enfoque en el desarrollo frontend, mostrando desde aplicaciones Angular hasta
         sitios con Astro, con atención a la experiencia de usuario, rendimiento y detalles técnicos.
       </p>
     </div>
 
-    <div class="project-grid" aria-label="Proyectos destacados">
+    <div class="project-list" aria-label="Proyectos destacados">
       {Object.entries(projectData).map(([id, project], index) => <ProjectCard id={id} project={project} index={index} />)}
     </div>
   </div>
@@ -34,20 +34,24 @@ import SectionHeading from "./ui/SectionHeading.astro";
 <style>
   .work-heading {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
     gap: clamp(20px, 5vw, 64px);
     align-items: end;
   }
 
-  .project-grid {
+  .work-heading > p {
+    border-left: var(--bw) solid var(--ink);
+    padding-left: 18px;
+    font-size: 1.05rem;
+  }
+
+  .project-list {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
+    gap: clamp(24px, 4vw, 40px);
   }
 
   @media (max-width: 860px) {
-    .work-heading,
-    .project-grid {
+    .work-heading {
       grid-template-columns: 1fr;
     }
   }

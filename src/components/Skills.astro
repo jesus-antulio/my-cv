@@ -3,27 +3,20 @@ import { skills } from "../data/skills";
 import SectionHeading from "./ui/SectionHeading.astro";
 ---
 
-<section id="habilidades" class="section section-alt">
+<section id="habilidades" class="section skills-section">
   <div class="container section-stack">
     <SectionHeading
       index="04"
-      label="habilidades"
+      label="Habilidades"
       title="Herramientas para diseñar, construir y publicar interfaces."
+      color="yellow"
     />
 
-    <ul class="skills-grid">
+    <ul class="skills-wall">
       {
         skills.map((skill, index) => (
-          <li data-aos="zoom-in" data-aos-delay={index * 45}>
-            <span class="skill-chip">
-              <span class="skill-prefix" aria-hidden="true">
-                &lt;
-              </span>
-              {skill}
-              <span class="skill-prefix" aria-hidden="true">
-                /&gt;
-              </span>
-            </span>
+          <li data-aos="zoom-in" data-aos-delay={index * 40}>
+            <span class="skill-chip">{skill}</span>
           </li>
         ))
       }
@@ -32,84 +25,65 @@ import SectionHeading from "./ui/SectionHeading.astro";
 </section>
 
 <style>
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 12px;
+  .skills-wall {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
   .skill-chip {
-    position: relative;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
-    overflow: hidden;
-    min-height: 64px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-sm);
-    padding: 12px;
+    border: var(--bw) solid var(--ink);
+    border-radius: 999px;
+    padding: 10px 26px;
     background: var(--surface);
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-align: center;
-    transition: border-color 200ms ease, color 200ms ease, box-shadow 200ms ease, translate 200ms ease;
+    box-shadow: var(--shadow-sm);
+    font-size: clamp(1.15rem, 2.6vw, 1.9rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    cursor: default;
+    transition: translate 140ms ease, box-shadow 140ms ease, rotate 200ms ease, background 160ms ease,
+      color 160ms ease;
   }
 
-  /* Barra inferior que crece al pasar el cursor */
-  .skill-chip::after {
-    position: absolute;
-    inset: auto 0 0;
-    height: 2px;
-    background: var(--accent);
-    box-shadow: 0 0 12px var(--accent);
-    content: "";
-    scale: 0 1;
-    transform-origin: left;
-    transition: scale 300ms ease;
-  }
-
+  /* Cada chip se inclina y toma un color distinto al pasar el cursor */
   .skill-chip:hover {
-    border-color: var(--line-strong);
-    box-shadow: var(--glow);
-    color: var(--accent);
-    translate: 0 -3px;
+    box-shadow: var(--shadow);
+    color: var(--on-color);
+    translate: -3px -3px;
   }
 
-  .skill-chip:hover::after {
-    scale: 1 1;
+  li:nth-child(4n + 1) .skill-chip:hover {
+    background: var(--green);
+    rotate: -4deg;
   }
 
-  .skill-prefix {
-    color: var(--subtle);
-    font-weight: 400;
-    transition: color 200ms ease;
+  li:nth-child(4n + 2) .skill-chip:hover {
+    background: var(--yellow);
+    rotate: 3deg;
   }
 
-  .skill-chip:hover .skill-prefix {
-    color: var(--accent);
+  li:nth-child(4n + 3) .skill-chip:hover {
+    background: var(--lilac);
+    rotate: -3deg;
   }
 
-  @media (max-width: 980px) {
-    .skills-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+  li:nth-child(4n + 4) .skill-chip:hover {
+    background: var(--orange);
+    rotate: 4deg;
   }
 
   @media (max-width: 680px) {
-    .skills-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
+    .skills-wall {
+      gap: 10px;
     }
 
     .skill-chip {
-      min-height: 54px;
-      padding: 10px 6px;
-      font-size: 0.76rem;
+      padding: 7px 18px;
     }
   }
 </style>

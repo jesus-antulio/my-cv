@@ -1,31 +1,31 @@
 ---
 import { features } from "../data/skills";
 import SectionHeading from "./ui/SectionHeading.astro";
+
+const colors = ["green", "yellow", "lilac", "orange"];
 ---
 
 <section id="perfil" class="section">
-  <div class="container section-grid">
-    <SectionHeading
-      index="01"
-      label="perfil"
-      title="Desarrollo FrontEnd con Angular, Ionic y Astro."
-      aos="fade-right"
-      sticky
-    />
+  <div class="container section-stack">
+    <SectionHeading index="01" label="Perfil" title="Desarrollo FrontEnd con Angular, Ionic y Astro." color="green" />
 
     <div class="feature-grid">
       {
         features.map((feature, index) => (
-          <article class="feature-card card" data-aos="fade-up" data-aos-delay={index * 100}>
-            <span class="feature-icon">
-              <i data-lucide={feature.icon} />
-            </span>
-            <h3>{feature.title}</h3>
-            <p>{feature.text}</p>
-            <span class="feature-index" aria-hidden="true">
-              0{index + 1}
-            </span>
-          </article>
+          <div data-aos="fade-up" data-aos-delay={index * 90}>
+            <article class="feature-card box box-lift">
+              <div class:list={["feature-top", `fill-${colors[index % colors.length]}`]}>
+                <i data-lucide={feature.icon} />
+                <span class="feature-index" aria-hidden="true">
+                  0{index + 1}
+                </span>
+              </div>
+              <div class="feature-body">
+                <h3>{feature.title}</h3>
+                <p>{feature.text}</p>
+              </div>
+            </article>
+          </div>
         ))
       }
     </div>
@@ -35,64 +35,80 @@ import SectionHeading from "./ui/SectionHeading.astro";
 <style>
   .feature-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .feature-grid > div {
+    display: grid;
   }
 
   .feature-card {
     display: grid;
-    gap: 12px;
-    align-content: start;
+    grid-template-rows: auto 1fr;
     overflow: hidden;
-    padding: 24px;
   }
 
-  .feature-icon {
-    display: grid;
-    place-items: center;
-    width: 46px;
-    height: 46px;
-    border: 1px solid var(--line-strong);
-    border-radius: var(--radius-sm);
-    background: color-mix(in srgb, var(--accent) 10%, transparent);
-    color: var(--accent);
-    transition: background 220ms ease, color 220ms ease, rotate 220ms ease, box-shadow 220ms ease;
+  .feature-grid > div:nth-child(odd) .feature-card:hover {
+    rotate: -1.5deg;
   }
 
-  .feature-icon :global(svg) {
-    width: 1.35rem;
-    height: 1.35rem;
+  .feature-grid > div:nth-child(even) .feature-card:hover {
+    rotate: 1.5deg;
   }
 
-  .feature-card:hover .feature-icon {
-    background: var(--accent);
-    box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 50%, transparent);
-    color: var(--accent-ink);
-    rotate: -8deg;
+  .feature-top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    min-height: 120px;
+    border-bottom: var(--bw) solid var(--ink);
+    padding: 16px 18px;
   }
 
-  .feature-card p {
-    font-size: 0.94rem;
+  .feature-top :global(svg) {
+    width: 2.6rem;
+    height: 2.6rem;
+    stroke-width: 2;
+    transition: rotate 300ms ease, scale 300ms ease;
+  }
+
+  .feature-card:hover .feature-top :global(svg) {
+    rotate: -12deg;
+    scale: 1.15;
   }
 
   .feature-index {
-    position: absolute;
-    top: 14px;
-    right: 18px;
-    color: var(--line-strong);
+    align-self: flex-start;
     font-family: var(--font-mono);
-    font-size: 1.6rem;
-    font-weight: 800;
-    transition: color 220ms ease;
+    font-size: 0.86rem;
+    font-weight: 500;
   }
 
-  .feature-card:hover .feature-index {
-    color: var(--accent);
+  .feature-body {
+    display: grid;
+    gap: 10px;
+    align-content: start;
+    padding: 20px 18px 24px;
   }
 
-  @media (max-width: 680px) {
+  .feature-body p {
+    font-size: 0.98rem;
+  }
+
+  @media (max-width: 1040px) {
+    .feature-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 560px) {
     .feature-grid {
       grid-template-columns: 1fr;
+    }
+
+    .feature-top {
+      min-height: 88px;
     }
   }
 </style>

@@ -3,29 +3,50 @@ import { site } from "../data/site";
 ---
 
 <footer class="site-footer">
-  <p class="container">
-    <span class="footer-prompt" aria-hidden="true">&gt;_</span>
-    © 2026 {site.fullName}.
-  </p>
+  <div class="container footer-inner">
+    <p>© 2026 {site.fullName}.</p>
+    <a href="#inicio" class="back-top">
+      Volver arriba
+      <i data-lucide="arrow-up"></i>
+    </a>
+  </div>
 </footer>
 
 <style>
   .site-footer {
-    border-top: 1px solid var(--line);
-    padding: 28px 0;
+    border-top: var(--bw) solid var(--ink);
+    padding: 24px 0;
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
   }
 
   .site-footer p {
-    color: var(--subtle);
+    color: inherit;
     font-family: var(--font-mono);
-    font-size: 0.8rem;
-    text-align: center;
+    font-size: 0.82rem;
   }
 
-  .footer-prompt {
-    margin-right: 8px;
-    color: var(--accent);
-    font-weight: 800;
+  .back-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+  }
+
+  .back-top :global(svg) {
+    transition: translate 200ms ease;
+  }
+
+  .back-top:hover :global(svg) {
+    translate: 0 -4px;
   }
 
   @media (max-width: 680px) {

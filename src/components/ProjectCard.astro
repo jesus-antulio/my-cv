@@ -11,108 +11,86 @@ const { id, project, index } = Astro.props;
 const number = String(index + 1).padStart(2, "0");
 const summary = `${project.description.split(", ").slice(0, 2).join(", ")}.`;
 const cover = project.images[0];
+const colors = ["green", "yellow", "lilac", "orange"];
+const color = colors[index % colors.length];
 ---
 
-<article
-  class="project-card card"
-  data-project-card={id}
-  tabindex="0"
-  aria-label={`Abrir detalles de ${project.title}`}
-  data-aos="fade-up"
-  data-aos-delay={(index % 2) * 120}
->
-  <div class="window-bar">
-    <span class="window-dots" aria-hidden="true"><span></span><span></span><span></span></span>
-    <span class="window-title">proyecto-{number}</span>
-    <span class="open-hint" aria-hidden="true">
-      ver detalles <i data-lucide="arrow-up-right"></i>
-    </span>
-  </div>
-
-  <div class="project-gallery" aria-label={`Galería de ${project.title}`}>
-    <button class="project-image-trigger" type="button" aria-label={`Abrir galería de ${project.title}`}>
-      <img src={cover.src} alt={cover.alt ?? `${project.title}: captura 1`} loading="lazy" />
-    </button>
-    <button class="gallery-control gallery-control-prev" type="button" aria-label="Imagen anterior">
-      <i data-lucide="chevron-left"></i>
-    </button>
-    <button class="gallery-control gallery-control-next" type="button" aria-label="Imagen siguiente">
-      <i data-lucide="chevron-right"></i>
-    </button>
-    <div class="gallery-dots" aria-hidden="true"></div>
-  </div>
-
-  <div class="project-copy">
-    <h3>{project.title}</h3>
-    <p>{summary}</p>
-    <div class="tag-row">
-      {project.tags.map((tag) => <span>{tag}</span>)}
+<div class="project-row" data-aos={index % 2 === 0 ? "fade-right" : "fade-left"}>
+  <article
+    class:list={["project-card box box-lift", { "is-reversed": index % 2 === 1 }]}
+    data-project-card={id}
+    tabindex="0"
+    aria-label={`Abrir detalles de ${project.title}`}
+  >
+    <div class:list={["project-gallery", `fill-${color}`]} aria-label={`Galería de ${project.title}`}>
+      <button class="project-image-trigger" type="button" aria-label={`Abrir galería de ${project.title}`}>
+        <img src={cover.src} alt={cover.alt ?? `${project.title}: captura 1`} loading="lazy" />
+      </button>
+      <button class="gallery-control gallery-control-prev" type="button" aria-label="Imagen anterior">
+        <i data-lucide="arrow-left"></i>
+      </button>
+      <button class="gallery-control gallery-control-next" type="button" aria-label="Imagen siguiente">
+        <i data-lucide="arrow-right"></i>
+      </button>
+      <div class="gallery-dots" aria-hidden="true"></div>
     </div>
-  </div>
-</article>
+
+    <div class="project-copy">
+      <span class="project-number" aria-hidden="true">{number}</span>
+      <h3>{project.title}</h3>
+      <p>{summary}</p>
+      <div class="tag-row">
+        {project.tags.map((tag) => <span>{tag}</span>)}
+      </div>
+      <span class="open-hint" aria-hidden="true">
+        Ver detalles
+        <i data-lucide="arrow-up-right"></i>
+      </span>
+    </div>
+  </article>
+</div>
 
 <style>
   .project-card {
     display: grid;
-    grid-template-rows: auto auto 1fr;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
     overflow: hidden;
     cursor: pointer;
   }
 
-  .open-hint {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-left: auto;
-    color: var(--accent);
-    opacity: 0;
-    translate: -6px 0;
-    transition: opacity 200ms ease, translate 200ms ease;
-  }
-
-  .open-hint :global(svg) {
-    width: 0.9rem;
-    height: 0.9rem;
-  }
-
-  .project-card:hover .open-hint,
-  .project-card:focus-visible .open-hint {
-    opacity: 1;
-    translate: 0 0;
+  .project-card.is-reversed .project-gallery {
+    order: 2;
+    border-right: 0;
+    border-left: var(--bw) solid var(--ink);
   }
 
   .project-gallery {
     position: relative;
-    overflow: hidden;
-    border-bottom: 1px solid var(--line);
-    background: var(--bg);
-    aspect-ratio: 16 / 10;
-  }
-
-  /* Línea de escaneo al pasar el cursor */
-  .project-gallery::after {
-    position: absolute;
-    inset: 0 0 auto;
-    height: 12%;
-    background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--accent) 28%, transparent), transparent);
-    content: "";
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .project-card:hover .project-gallery::after {
-    opacity: 1;
-    animation: scan 2.2s linear infinite;
+    border-right: var(--bw) solid var(--ink);
+    padding: clamp(16px, 3vw, 32px);
   }
 
   .project-image-trigger {
     display: block;
+    overflow: hidden;
     width: 100%;
-    height: 100%;
-    border: 0;
+    border: var(--bw) solid var(--ink);
+    border-radius: var(--radius-sm);
     padding: 0;
-    background: none;
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+    aspect-ratio: 16 / 10;
     cursor: zoom-in;
+    transition: rotate 300ms ease, scale 300ms ease;
+  }
+
+  .project-card:hover .project-image-trigger {
+    rotate: -1.2deg;
+    scale: 1.015;
+  }
+
+  .project-card.is-reversed:hover .project-image-trigger {
+    rotate: 1.2deg;
   }
 
   .project-image-trigger img {
@@ -120,11 +98,6 @@ const cover = project.images[0];
     height: 100%;
     object-fit: cover;
     object-position: top;
-    transition: scale 500ms ease;
-  }
-
-  .project-card:hover .project-image-trigger img {
-    scale: 1.04;
   }
 
   .gallery-control {
@@ -133,84 +106,121 @@ const cover = project.images[0];
     z-index: 1;
     display: grid;
     place-items: center;
-    width: 36px;
-    height: 36px;
-    margin-top: -18px;
-    border: 1px solid var(--line-strong);
+    width: 42px;
+    height: 42px;
+    margin-top: -21px;
+    border: var(--bw) solid #111;
     border-radius: 50%;
-    background: color-mix(in srgb, var(--bg) 82%, transparent);
-    color: var(--accent);
+    background: #fffdf7;
+    color: #111;
     cursor: pointer;
-    opacity: 0;
-    backdrop-filter: blur(6px);
-    transition: opacity 180ms ease, background 180ms ease, color 180ms ease;
+    transition: translate 120ms ease, box-shadow 120ms ease, background 160ms ease;
   }
 
   .gallery-control:hover {
-    background: var(--accent);
-    color: var(--accent-ink);
-  }
-
-  .project-card:hover .gallery-control,
-  .project-card:focus-within .gallery-control {
-    opacity: 1;
+    box-shadow: var(--shadow-sm);
+    translate: -2px -2px;
   }
 
   .gallery-control-prev {
-    left: 10px;
+    left: clamp(4px, 1vw, 10px);
   }
 
   .gallery-control-next {
-    right: 10px;
+    right: clamp(4px, 1vw, 10px);
   }
 
   .gallery-dots {
-    position: absolute;
-    right: 0;
-    bottom: 10px;
-    left: 0;
-    z-index: 1;
     display: flex;
     justify-content: center;
-    gap: 5px;
-    pointer-events: none;
+    gap: 6px;
+    margin-top: 16px;
   }
 
   /* Los puntos los genera project-gallery.ts */
   .gallery-dots :global(span) {
-    width: 6px;
-    height: 6px;
-    border-radius: 3px;
-    background: color-mix(in srgb, var(--text) 40%, transparent);
+    width: 10px;
+    height: 10px;
+    border: 2px solid var(--ink);
+    border-radius: 50%;
     transition: width 200ms ease, background 200ms ease;
   }
 
   .gallery-dots :global(span.is-active) {
-    width: 18px;
-    background: var(--accent);
-    box-shadow: 0 0 8px var(--accent);
+    width: 26px;
+    border-radius: 999px;
+    background: var(--ink);
   }
 
   .project-copy {
+    position: relative;
     display: grid;
-    gap: 12px;
-    align-content: start;
-    padding: 22px;
+    gap: 16px;
+    align-content: center;
+    justify-items: start;
+    padding: clamp(22px, 3.4vw, 44px);
+  }
+
+  /* Número gigante en contorno */
+  .project-number {
+    color: transparent;
+    font-size: clamp(3.4rem, 8vw, 6rem);
+    font-weight: 800;
+    line-height: 0.8;
+    letter-spacing: -0.05em;
+    -webkit-text-stroke: 2px var(--ink);
+    transition: color 200ms ease;
+  }
+
+  .project-card:hover .project-number {
+    color: var(--ink);
   }
 
   .project-copy h3 {
-    font-size: 1.2rem;
+    font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+    letter-spacing: -0.035em;
   }
 
-  .project-copy p {
-    font-size: 0.94rem;
+  .open-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    border-bottom: var(--bw) solid var(--ink);
+    padding-bottom: 2px;
+    font-weight: 800;
   }
 
-  @media (hover: none) {
-    .gallery-control,
-    .open-hint {
-      opacity: 1;
-      translate: 0 0;
+  .open-hint :global(svg) {
+    transition: translate 200ms ease;
+  }
+
+  .project-card:hover .open-hint :global(svg) {
+    translate: 4px -4px;
+  }
+
+  @media (max-width: 860px) {
+    .project-card {
+      grid-template-columns: 1fr;
+    }
+
+    .project-gallery,
+    .project-card.is-reversed .project-gallery {
+      order: 0;
+      border-right: 0;
+      border-bottom: var(--bw) solid var(--ink);
+      border-left: 0;
+    }
+
+    .project-number {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      font-size: 3rem;
+    }
+
+    .project-copy h3 {
+      padding-right: 72px;
     }
   }
 </style>

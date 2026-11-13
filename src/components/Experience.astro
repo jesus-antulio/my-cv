@@ -5,47 +5,40 @@ import SectionHeading from "./ui/SectionHeading.astro";
 ---
 
 <section id="experiencia" class="section">
-  <div class="container section-grid">
-    <SectionHeading
-      index="03"
-      label="cv"
-      title="Experiencia, educación y evolución técnica."
-      aos="fade-right"
-      sticky
-    >
+  <div class="container section-stack">
+    <SectionHeading index="03" label="CV" title="Experiencia, educación y evolución técnica." color="orange">
       <a class="button button-secondary" href="#contacto">
         <i data-lucide="mail"></i>
         Contactar
       </a>
     </SectionHeading>
 
-    <div class="experience-column">
-      <div class="timeline">
-        {
-          timeline.map((item, index) => (
-            <article
-              class:list={["timeline-item", { "is-current": item.current }]}
-              data-aos="fade-left"
-              data-aos-delay={index * 80}
-            >
-              <div class="timeline-card card">
-                <span class="timeline-period">{item.period}</span>
-                <h3>{item.title}</h3>
-                {item.current && <span class="role-badge">Rol actual</span>}
-                <p>{item.description}</p>
-              </div>
-            </article>
-          ))
-        }
-      </div>
+    <ol class="xp-list box">
+      {
+        timeline.map((item, index) => (
+          <li class="xp-row" data-aos="fade-up" data-aos-delay={index * 70}>
+            <span class="xp-index" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <span class="xp-period label">{item.period}</span>
+            <div class="xp-body">
+              <h3>
+                {item.title}
+                {item.current && <span class="sticker fill-green role-badge">Rol actual</span>}
+              </h3>
+              <p>{item.description}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
 
-      <div class="secondary-experience-cta" data-aos="fade-up">
-        <p>{secondaryExperienceIntro}</p>
-        <button class="button button-secondary" type="button" id="secondaryExperienceOpen">
-          <i data-lucide="layers-3"></i>
-          Ver experiencia complementaria
-        </button>
-      </div>
+    <div class="secondary-cta box fill-yellow" data-aos="fade-up">
+      <p>{secondaryExperienceIntro}</p>
+      <button class="button" type="button" id="secondaryExperienceOpen">
+        <i data-lucide="layers-3"></i>
+        Ver experiencia complementaria
+      </button>
     </div>
   </div>
 </section>
@@ -53,7 +46,6 @@ import SectionHeading from "./ui/SectionHeading.astro";
 <SecondaryExperienceModal />
 
 <script>
-  import { initTimelineProgress } from "../scripts/effects";
   import { closeDialog, showDialog, wireDialog } from "../scripts/modals";
 
   const modal = document.querySelector<HTMLDialogElement>("#secondaryExperienceModal");
@@ -63,118 +55,134 @@ import SectionHeading from "./ui/SectionHeading.astro";
   wireDialog(modal, document.querySelector("#secondaryExperienceClose"), () =>
     closeDialog(modal, () => openButton?.focus()),
   );
-
-  initTimelineProgress();
 </script>
 
 <style>
-  .experience-column {
+  .xp-list {
     display: grid;
-    gap: 28px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
-  .timeline {
-    --progress: 1;
+  .xp-row {
     position: relative;
     display: grid;
-    gap: 18px;
-    padding-left: 34px;
+    grid-template-columns: 64px minmax(0, 220px) minmax(0, 1fr);
+    gap: clamp(14px, 3vw, 36px);
+    align-items: start;
+    padding: clamp(20px, 3vw, 32px);
+    transition: padding-left 220ms ease;
   }
 
-  /* Riel y línea que se "dibuja" con el scroll (--progress la actualiza effects.ts) */
-  .timeline::before,
-  .timeline::after {
+  .xp-row + .xp-row {
+    border-top: var(--bw) solid var(--ink);
+  }
+
+  /* Barrido de color al pasar el cursor */
+  .xp-row::before {
     position: absolute;
-    top: 6px;
-    bottom: 6px;
-    left: 7px;
-    width: 2px;
-    border-radius: 2px;
+    inset: 0;
+    z-index: 0;
+    background: var(--green);
     content: "";
+    scale: 0 1;
+    transform-origin: left;
+    transition: scale 320ms cubic-bezier(0.6, 0, 0.2, 1);
   }
 
-  .timeline::before {
-    background: var(--line);
+  .xp-row:hover::before {
+    scale: 1 1;
   }
 
-  .timeline::after {
-    background: linear-gradient(180deg, var(--accent), var(--accent-3));
-    box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 70%, transparent);
-    scale: 1 var(--progress);
-    transform-origin: top;
+  .xp-row:hover {
+    --text: var(--on-color);
+    --muted: #2b2a26;
+    color: var(--on-color);
+    padding-left: calc(clamp(20px, 3vw, 32px) + 10px);
   }
 
-  .timeline-item {
+  .xp-row > * {
     position: relative;
-  }
-
-  /* Nodo */
-  .timeline-item::before {
-    position: absolute;
-    top: 26px;
-    left: -34px;
     z-index: 1;
-    width: 16px;
-    height: 16px;
-    border: 2px solid var(--accent);
-    border-radius: 50%;
-    background: var(--bg);
-    content: "";
   }
 
-  .timeline-item.is-current::before {
-    background: var(--accent);
-    animation: pulse-ring 1.8s ease-out infinite;
+  .xp-index {
+    font-size: 2.4rem;
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.05em;
   }
 
-  .timeline-card {
+  .xp-period {
+    padding-top: 6px;
+  }
+
+  .xp-body {
     display: grid;
     gap: 10px;
-    justify-items: start;
-    padding: 22px 24px;
   }
 
-  .timeline-period {
-    color: var(--accent);
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+  .xp-body h3 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    font-size: clamp(1.25rem, 2.4vw, 1.7rem);
   }
 
   .role-badge {
-    border: 1px solid var(--accent);
-    border-radius: 999px;
-    padding: 2px 10px;
-    background: color-mix(in srgb, var(--accent) 14%, transparent);
-    color: var(--accent);
-    font-family: var(--font-mono);
+    padding: 2px 12px;
+    box-shadow: none;
     font-size: 0.7rem;
-    font-weight: 700;
+    letter-spacing: 0.06em;
+    animation: wobble 3s ease-in-out infinite;
   }
 
-  .timeline-card p {
-    font-size: 0.94rem;
+  .xp-row:hover .role-badge {
+    background: var(--yellow);
   }
 
-  .secondary-experience-cta {
+  .secondary-cta {
     display: grid;
-    gap: 16px;
-    justify-items: start;
-    border: 1px dashed var(--line-strong);
-    border-radius: var(--radius);
-    padding: 22px 24px;
-    background: color-mix(in srgb, var(--accent) 4%, transparent);
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 20px 32px;
+    align-items: center;
+    padding: clamp(20px, 3vw, 32px);
   }
 
-  .secondary-experience-cta p {
-    font-size: 0.94rem;
+  .secondary-cta p {
+    font-size: 1.05rem;
+    font-weight: 500;
   }
 
-  @media (max-width: 680px) {
-    .secondary-experience-cta .button {
-      width: 100%;
+  .secondary-cta .button {
+    background: var(--surface);
+    color: var(--text);
+  }
+
+  :global(:root[data-theme="dark"]) .secondary-cta .button {
+    background: #141414;
+    color: #f4f0e6;
+  }
+
+  @media (max-width: 860px) {
+    .xp-row {
+      grid-template-columns: 48px minmax(0, 1fr);
+    }
+
+    .xp-index {
+      grid-row: span 2;
+      font-size: 1.8rem;
+    }
+
+    .xp-period {
+      padding-top: 2px;
+    }
+
+    .secondary-cta {
+      grid-template-columns: 1fr;
     }
   }
 </style>
