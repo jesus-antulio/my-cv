@@ -13,7 +13,8 @@ export const en: Dictionary = {
     personDescription:
       "Frontend developer specialized in Angular, Ionic and Astro, based in San Luis Potosí, Mexico.",
     websiteDescription: "Professional portfolio and personal résumé of Jesús Antulio Jiménez Delgado.",
-    photoAlt: (name) => `Photo of ${name}`,
+    socialImageAlt:
+      "Jesús Antulio Jiménez Delgado, Frontend Developer: web and mobile applications with Angular, Ionic and Astro.",
     role: "Frontend Developer",
     location: "San Luis Potosí, Mexico",
     ogLocale: "en_US",

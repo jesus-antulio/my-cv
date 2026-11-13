@@ -13,6 +13,11 @@ export const site = {
   phoneHref: "tel:+524448288334",
   mapsUrl: "https://maps.google.com/?q=San%20Luis%20Potos%C3%AD%2C%20M%C3%A9xico",
   profileImage: "/assets/img/me.jpg",
+  /** Imagen de 1200×630 que se muestra al compartir el sitio en redes y mensajería. */
+  socialImage: {
+    es: "/assets/og/og-es.png",
+    en: "/assets/og/og-en.png",
+  } satisfies Record<Lang, string>,
   /** CV por idioma. Cuál se ofrece lo decide la región del visitante (src/scripts/cv-region.ts). */
   cv: {
     es: "/assets/docs/CV_Jesus_Jimenez.pdf",

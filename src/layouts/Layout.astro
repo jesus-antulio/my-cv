@@ -11,6 +11,8 @@ const { meta } = useTranslations(lang);
 const pageUrl = (code: typeof lang) => (code === defaultLang ? site.url : `${site.url}${langPath[code]}`);
 const canonical = pageUrl(lang);
 const profileImage = `${site.url}${site.profileImage}`;
+// Imagen para vistas previas al compartir (Open Graph / X), una por idioma.
+const socialImage = `${site.url}${site.socialImage[lang]}`;
 const themeColor = site.themeColor;
 
 const structuredData = {
@@ -73,12 +75,16 @@ const structuredData = {
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={meta.ogLocale} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={profileImage} />
-    <meta property="og:image:alt" content={meta.photoAlt(site.fullName)} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={meta.socialImageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={meta.title} />
     <meta name="twitter:description" content={meta.socialDescription} />
-    <meta name="twitter:image" content={profileImage} />
+    <meta name="twitter:image" content={socialImage} />
+    <meta name="twitter:image:alt" content={meta.socialImageAlt} />
     <title>{meta.title}</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/assets/favicon/icon-32.png" type="image/png" sizes="32x32" />

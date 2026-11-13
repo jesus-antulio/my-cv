@@ -199,7 +199,8 @@ export const es = {
     personDescription:
       "Desarrollador frontend especializado en Angular, Ionic y Astro, con base en San Luis Potosí, México.",
     websiteDescription: "Portafolio profesional y CV personal de Jesús Antulio Jiménez Delgado.",
-    photoAlt: (name: string) => `Fotografía de ${name}`,
+    socialImageAlt:
+      "Jesús Antulio Jiménez Delgado, Frontend Developer: aplicaciones web y móviles con Angular, Ionic y Astro.",
     role: "Frontend Developer",
     location: "San Luis Potosí, México",
     ogLocale: "es_MX",
